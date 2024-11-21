@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\TopologySorter">
+      <UniqueIdentifier>{e1bf635a-0a4e-4fbe-992a-0467a727e899}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\TopologySorter">
+      <UniqueIdentifier>{cd277292-9147-41bd-b922-c4bcd1a8474f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Asset">
+      <UniqueIdentifier>{f86d1017-213d-4bd6-a0db-ea32165dc332}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Asset">
+      <UniqueIdentifier>{cc3d55f4-9397-4c6c-b2c0-40d700f26839}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Serialize">
+      <UniqueIdentifier>{7321083d-f378-40bc-8155-167add45b052}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Serialize">
+      <UniqueIdentifier>{fbc6d7c1-6303-4638-adcf-a5b155b48c11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Asset\Texture">
+      <UniqueIdentifier>{d626e8bb-d91f-4750-bbf8-55e236f8f805}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Asset\Texture">
+      <UniqueIdentifier>{00c279e5-9f50-47f3-ab48-d68501b92e4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Exception">
+      <UniqueIdentifier>{7feda50a-e753-4f49-a99c-b0e09a4f5700}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Exception">
+      <UniqueIdentifier>{496388b1-238e-4d98-8b05-4ed853c454a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Asset\Material">
+      <UniqueIdentifier>{0da6f796-fa5a-4b0a-816f-43fbe24ca7a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Asset\Material">
+      <UniqueIdentifier>{1336891a-5f0a-483b-bbcc-9a1c2ef87236}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Asset\Mesh">
+      <UniqueIdentifier>{b021e1c0-e162-4651-8a73-f1ea4632b97d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Asset\Mesh">
+      <UniqueIdentifier>{1a7198bd-3c47-47c7-b505-462493342c58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Asset\Bone">
+      <UniqueIdentifier>{ad668650-ee25-4386-81d2-459a6b3dd39f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Asset\Bone">
+      <UniqueIdentifier>{c63a8d97-5f0e-4599-b602-41687284c73f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TopologySorter.h">
+      <Filter>헤더 파일\TopologySorter</Filter>
+    </ClInclude>
+    <ClInclude Include="SerializeHelper.h">
+      <Filter>헤더 파일\Serialize</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Asset.h">
+      <Filter>헤더 파일\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="ATextureAsset.h">
+      <Filter>헤더 파일\Asset\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseTextureAsset.h">
+      <Filter>헤더 파일\Asset\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="ScratchTextureAsset.h">
+      <Filter>헤더 파일\Asset\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialAsset.h">
+      <Filter>헤더 파일\Asset\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetException.h">
+      <Filter>헤더 파일\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshAsset.h">
+      <Filter>헤더 파일\Asset\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticMeshAsset.h">
+      <Filter>헤더 파일\Asset\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletalMeshAsset.h">
+      <Filter>헤더 파일\Asset\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneAsset.h">
+      <Filter>헤더 파일\Asset\Bone</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TopologySorter.cpp">
+      <Filter>소스 파일\TopologySorter</Filter>
+    </ClCompile>
+    <ClCompile Include="SerializeHelper.cpp">
+      <Filter>소스 파일\Serialize</Filter>
+    </ClCompile>
+    <ClCompile Include="Asset.cpp">
+      <Filter>소스 파일\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="ATextureAsset.cpp">
+      <Filter>소스 파일\Asset\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseTextureAsset.cpp">
+      <Filter>소스 파일\Asset\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="ScratchTextureAsset.cpp">
+      <Filter>소스 파일\Asset\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialAsset.cpp">
+      <Filter>소스 파일\Asset\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshAsset.cpp">
+      <Filter>소스 파일\Asset\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetException.cpp">
+      <Filter>소스 파일\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticMeshAsset.cpp">
+      <Filter>소스 파일\Asset\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeletalMeshAsset.cpp">
+      <Filter>소스 파일\Asset\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="BoneAsset.cpp">
+      <Filter>소스 파일\Asset\Bone</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
