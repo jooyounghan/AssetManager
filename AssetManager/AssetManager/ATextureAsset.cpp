@@ -20,7 +20,7 @@ ATextureAsset::~ATextureAsset()
 
 }
 
-void ATextureAsset::Serialize(FILE* fileIn)
+void ATextureAsset::Serialize(FILE* fileIn) const
 {
 	AAsset::Serialize(fileIn);
 
@@ -28,13 +28,13 @@ void ATextureAsset::Serialize(FILE* fileIn)
 	SerializeHelper::SerializeElement(m_height, fileIn);
 	SerializeHelper::SerializeElement(m_arraySize, fileIn);
 
-	SerializeHelper::SerializeVectorHelper(m_originalSizePerArray, fileIn);
-	SerializeHelper::SerializeVectorHelper(m_compressedSizePerArray, fileIn);
+	SerializeHelper::SerializeSequenceContainer(m_originalSizePerArray, fileIn);
+	SerializeHelper::SerializeSequenceContainer(m_compressedSizePerArray, fileIn);
 
 	for (unsigned int arrayIdx = 0; arrayIdx < m_arraySize; ++arrayIdx)
 	{
 		const vector<uint8_t> compressedBuffer = m_compressedBufferPerArray[arrayIdx];
-		SerializeHelper::SerializeVectorHelper(compressedBuffer, fileIn);
+		SerializeHelper::SerializeSequenceContainer(compressedBuffer, fileIn);
 	}
 }
 
@@ -44,15 +44,15 @@ void ATextureAsset::Deserialize(FILE* fileIn)
 {
 	AAsset::Deserialize(fileIn);
 
-	SerializeHelper::DeserializeElement(m_width, fileIn);
-	SerializeHelper::DeserializeElement(m_height, fileIn);
-	SerializeHelper::DeserializeElement(m_arraySize, fileIn);
+	m_width = DeserializeHelper::DeserializeElement<decltype(m_width)>(fileIn);
+	m_height = DeserializeHelper::DeserializeElement<decltype(m_height)>(fileIn);
+	m_arraySize = DeserializeHelper::DeserializeElement<decltype(m_arraySize)>(fileIn);
 
-	m_originalSizePerArray = SerializeHelper::DeserializeVectorHelper<size_t>(fileIn);
-	m_compressedSizePerArray = SerializeHelper::DeserializeVectorHelper<size_t>(fileIn);
+	m_originalSizePerArray = DeserializeHelper::DeserializeSequenceContainer<vector<size_t>>(fileIn);
+	m_compressedSizePerArray = DeserializeHelper::DeserializeSequenceContainer<vector<size_t>>(fileIn);
 
 	for (unsigned int arrayIdx = 0; arrayIdx < m_arraySize; ++arrayIdx)
 	{
-		m_compressedBufferPerArray.push_back(SerializeHelper::DeserializeVectorHelper<uint8_t>(fileIn));
+		m_compressedBufferPerArray.push_back(DeserializeHelper::DeserializeSequenceContainer<vector<uint8_t>>(fileIn));
 	}
 }

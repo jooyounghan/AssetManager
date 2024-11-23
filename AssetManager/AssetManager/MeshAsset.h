@@ -30,7 +30,7 @@ public:
 	void UpdateDefaultMaterialAsset(IMaterialProvider& provider);
 
 public:
-	virtual void Serialize(FILE* fileIn) override;
+	virtual void Serialize(FILE* fileIn) const override;
 	virtual void Deserialize(FILE* fileIn) override;
 };
 

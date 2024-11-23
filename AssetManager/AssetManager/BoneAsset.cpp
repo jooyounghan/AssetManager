@@ -27,7 +27,7 @@ inline void Bone::AddChildBone(const shared_ptr<Bone>& childBone)
 	m_boneChildren.push_back(childBone);
 }
 
-void Bone::Serialize(FILE* fileIn)
+void Bone::Serialize(FILE* fileIn) const
 {
 	SerializeHelper::SerializeElement(m_boneIdx, fileIn);
 	SerializeHelper::SerializeElement(m_offsetMatrix, fileIn);
@@ -36,8 +36,8 @@ void Bone::Serialize(FILE* fileIn)
 
 void Bone::Deserialize(FILE* fileIn)
 {
-	SerializeHelper::DeserializeElement(m_boneIdx, fileIn);
-	SerializeHelper::DeserializeElement(m_offsetMatrix, fileIn);
+	m_boneIdx = DeserializeHelper::DeserializeElement<size_t>(fileIn);
+	m_offsetMatrix = DeserializeHelper::DeserializeElement<XMMATRIX>(fileIn);
 }
 
 BoneAsset::BoneAsset(
@@ -51,14 +51,24 @@ BoneAsset::BoneAsset(
 BoneAsset::~BoneAsset() {}
 
 
-void BoneAsset::Serialize(FILE* fileIn)
+void BoneAsset::AttachBone(
+	const shared_ptr<Bone>& parentBone,
+	const std::string& childBoneName,
+	const shared_ptr<Bone>& childBone
+)
+{
+	m_boneToNames.emplace(childBone, childBoneName);
+	parentBone->AddChildBone(childBone);
+}
+
+void BoneAsset::Serialize(FILE* fileIn) const
 {
 	AAsset::Serialize(fileIn);
 
 	function<void(const shared_ptr<Bone>&)> dfs = [&](const shared_ptr<Bone>& currentBone)
 	{
 		SerializeHelper::SerializeString(
-			m_boneToNames.find(currentBone) != m_boneToNames.end() ? m_boneToNames[currentBone] : "",
+			m_boneToNames.find(currentBone) != m_boneToNames.end() ? m_boneToNames.at(currentBone) : "",
 			fileIn
 		);
 
@@ -66,7 +76,7 @@ void BoneAsset::Serialize(FILE* fileIn)
 
 		const list<shared_ptr<Bone>>& boneChildren = currentBone->GetBoneChildren();
 
-		SerializeHelper::SerializeContainerSizeHelper(boneChildren, fileIn);
+		SerializeHelper::SerializeContainerSize(boneChildren, fileIn);
 		for (const auto& bone : boneChildren)
 		{
 			dfs(bone);
@@ -79,4 +89,24 @@ void BoneAsset::Serialize(FILE* fileIn)
 void BoneAsset::Deserialize(FILE* fileIn) 
 {
 	AAsset::Deserialize(fileIn);
+
+	function<shared_ptr<Bone>()> dfs = [&]()
+	{
+		shared_ptr<Bone> currentBone = make_shared<Bone>();
+
+		string currentBoneName = DeserializeHelper::DeserializeString(fileIn);
+		currentBone->Deserialize(fileIn);
+
+		m_boneToNames.emplace(currentBone, currentBoneName);
+
+		size_t currentBoneChildrenCount = DeserializeHelper::DeserializeElement<size_t>(fileIn);
+		for (size_t childIdx = 0; childIdx < currentBoneChildrenCount; ++childIdx)
+		{
+			currentBone->AddChildBone(dfs());
+		}
+
+		return currentBone;
+	};
+
+	m_rootBone = dfs();
 }

@@ -4,11 +4,29 @@
 #include "MaterialAsset.h"
 #include "MeshAsset.h"
 #include "BoneAsset.h"
+#include "StaticMeshAsset.h"
+#include "SkeletalMeshAsset.h"
+#include "AnimationAsset.h"
+
 
 using namespace std;
 
 int main()
 {
+	AnimationAsset test9("./Test", "Test");
+	test9.Serialize(nullptr);
+	test9.Deserialize(nullptr);
+
+	SAnimationKey test8{ 4.f, DirectX::XMVectorSet(1.f, 2.f, 3.f, 4.f) };
+
+	SkeletalMeshAsset test7("./Test", "Test");
+	test7.Serialize(nullptr);
+	test7.Deserialize(nullptr);
+
+	StaticMeshAsset test6("./Test", "Test");
+	test6.Serialize(nullptr);
+	test6.Deserialize(nullptr);
+
 	BoneAsset test5("./Test", "Test");
 	test5.Serialize(nullptr);
 	test5.Deserialize(nullptr);

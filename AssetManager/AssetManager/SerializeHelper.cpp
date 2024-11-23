@@ -8,7 +8,7 @@ void SerializeHelper::SerializeString(const std::string& textIn, FILE* fileIn)
 	fwrite(textIn.c_str(), sizeof(char), NameCount, fileIn);
 }
 
-std::string SerializeHelper::DeserializeString(FILE* fileIn)
+std::string DeserializeHelper::DeserializeString(FILE* fileIn)
 {
 	size_t NameCount;
 	fread(&NameCount, sizeof(size_t), 1, fileIn);

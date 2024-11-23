@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationAsset.h" />
     <ClInclude Include="AssetException.h" />
     <ClInclude Include="BoneAsset.h" />
     <ClInclude Include="MaterialAsset.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="TopologySorter.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationAsset.cpp" />
     <ClCompile Include="AssetException.cpp" />
     <ClCompile Include="BoneAsset.cpp" />
     <ClCompile Include="MaterialAsset.cpp" />

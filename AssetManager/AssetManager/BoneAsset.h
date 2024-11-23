@@ -6,7 +6,6 @@
 #include <list>
 #include <memory>
 
-
 class Bone : public std::enable_shared_from_this<Bone>, public ISerializable
 {
 public:
@@ -28,7 +27,7 @@ public:
 	void AddChildBone(const std::shared_ptr<Bone>& childBone);
 
 public:
-	virtual void Serialize(FILE* fileIn) override;
+	virtual void Serialize(FILE* fileIn) const override;
 	virtual void Deserialize(FILE* fileIn) override;
 };
 
@@ -40,21 +39,20 @@ public:
 
 protected:
 	std::shared_ptr<Bone> m_rootBone = nullptr;
-	std::shared_ptr<Bone> m_currentBone = nullptr;
 
 protected:
 	std::map<std::shared_ptr<Bone>, std::string> m_boneToNames;
 
 public:
-	void AttachBoneToCurrentBone(
-		const std::string& boneName,
-		const size_t& boneIdxIn,
-		const DirectX::XMMATRIX& boneOffsetMatrix
+	void AttachBone(
+		const std::shared_ptr<Bone>& parentBone,
+		const std::string& childBoneName,
+		const std::shared_ptr<Bone>& childBone
 	);
 
 public:
-	virtual void Serialize(FILE* fileIn) override;
-	virtual void Deserialize(FILE* fileIn) override;;
+	virtual void Serialize(FILE* fileIn) const override;
+	virtual void Deserialize(FILE* fileIn) override;
 };
 
 class IBoneProvider

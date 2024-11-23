@@ -50,7 +50,7 @@ public:
 	void SetHeightScale(const float& heightScale);
 
 public:
-	virtual void Serialize(FILE* fileIn) override;
+	virtual void Serialize(FILE* fileIn) const override;
 	virtual void Deserialize(FILE* fileIn) override;
 
 
@@ -58,7 +58,7 @@ private:
 	void SerializeHelper(
 		const std::shared_ptr<BaseTextureAsset>& materialTexture,
 		FILE* fileIn
-	);
+	) const;
 };
 
 class IMaterialProvider

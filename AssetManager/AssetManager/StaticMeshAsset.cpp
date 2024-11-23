@@ -18,15 +18,15 @@ StaticMeshAsset::~StaticMeshAsset()
 
 }
 
-void StaticMeshAsset::Serialize(FILE* fileIn)
+void StaticMeshAsset::Serialize(FILE* fileIn) const
 {
 	MeshAsset::Serialize(fileIn);
-	SerializeHelper::SerializeVectorHelper(m_tangents, fileIn);
+	SerializeHelper::SerializeSequenceContainer(m_tangents, fileIn);
 }
 
 void StaticMeshAsset::Deserialize(FILE* fileIn)
 {
 	MeshAsset::Deserialize(fileIn);
-	m_tangents = SerializeHelper::DeserializeVectorHelper<XMFLOAT3>(fileIn);
+	m_tangents = DeserializeHelper::DeserializeSequenceContainer<vector<XMFLOAT3>>(fileIn);
 }
 

@@ -18,7 +18,7 @@ public:
 	const bool& IsModified() { return m_isModified; }
 
 public:
-	virtual void Serialize(FILE* fileIn) override;
+	virtual void Serialize(FILE* fileIn) const override;
 	virtual void Deserialize(FILE* fileIn) override;
 };
 

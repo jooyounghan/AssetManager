@@ -10,7 +10,7 @@ AAsset::~AAsset()
 {
 }
 
-void AAsset::Serialize(FILE* fileIn)
+void AAsset::Serialize(FILE* fileIn) const
 {
 	SerializeHelper::SerializeString(m_assetPath, fileIn);
 	SerializeHelper::SerializeString(m_assetName, fileIn);
@@ -18,6 +18,6 @@ void AAsset::Serialize(FILE* fileIn)
 
 void AAsset::Deserialize(FILE* fileIn)
 {
-	m_assetPath = SerializeHelper::DeserializeString(fileIn);
-	m_assetName = SerializeHelper::DeserializeString(fileIn);
+	m_assetPath = DeserializeHelper::DeserializeString(fileIn);
+	m_assetName = DeserializeHelper::DeserializeString(fileIn);
 }

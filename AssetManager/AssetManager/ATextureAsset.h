@@ -1,8 +1,6 @@
 #pragma once
 #include "Asset.h"
 
-constexpr const char* TextureAssetOutPath = ".\\Assets\\Texture\\";
-
 class ATextureAsset : public AAsset
 {
 public:
@@ -32,7 +30,7 @@ public:
 	virtual std::vector<std::vector<uint8_t>> DecompressDataArray() = 0;
 
 public:
-	virtual void Serialize(FILE* fileIn) override;
+	virtual void Serialize(FILE* fileIn) const override;
 	virtual void Deserialize(FILE* fileIn) override;
 };
 

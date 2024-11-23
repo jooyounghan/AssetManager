@@ -57,6 +57,12 @@
     <Filter Include="소스 파일\Asset\Bone">
       <UniqueIdentifier>{c63a8d97-5f0e-4599-b602-41687284c73f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Asset\Animation">
+      <UniqueIdentifier>{f3eb56a8-d081-4894-a1c3-cf4249b07806}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Asset\Animation">
+      <UniqueIdentifier>{2f01ef7e-9ef5-4871-a374-70a36ba15867}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -104,6 +110,9 @@
     <ClInclude Include="BoneAsset.h">
       <Filter>헤더 파일\Asset\Bone</Filter>
     </ClInclude>
+    <ClInclude Include="AnimationAsset.h">
+      <Filter>헤더 파일\Asset\Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -144,6 +153,9 @@
     </ClCompile>
     <ClCompile Include="BoneAsset.cpp">
       <Filter>소스 파일\Asset\Bone</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationAsset.cpp">
+      <Filter>소스 파일\Asset\Animation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
