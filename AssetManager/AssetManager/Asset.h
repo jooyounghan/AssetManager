@@ -1,5 +1,6 @@
 #pragma once
 #include "SerializeHelper.h"
+#include "HeaderHelper.h"
 
 class AAsset : public ISerializable
 {
@@ -11,11 +12,11 @@ protected:
 	std::string m_assetPath;
 	std::string m_assetName;
 	bool m_isModified = false;
+	MakeGetter(m_isModified, IsModified);
 
 public:
 	const std::string& GetAssetPath() { return m_assetPath; }
 	const std::string& GetAssetName() { return m_assetName; }
-	const bool& IsModified() { return m_isModified; }
 
 public:
 	virtual void Serialize(FILE* fileIn) const override;

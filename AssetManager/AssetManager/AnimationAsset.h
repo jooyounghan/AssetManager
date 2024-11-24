@@ -61,6 +61,11 @@ protected:
 	std::unordered_map<std::string, AnimChannel> boneNameToAnimChannels;
 
 public:
+	MakeGetter(m_duration, Duration);
+	MakeGetter(m_ticksPerSecond, TicksPerSecond);
+	MakeGetter(boneNameToAnimChannels, BoneNameToAnimChannels);
+
+public:
 	virtual void Serialize(FILE* fileIn) const override;
 	virtual void Deserialize(FILE* fileIn) override;
 };

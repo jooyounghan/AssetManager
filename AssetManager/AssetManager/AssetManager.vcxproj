@@ -160,8 +160,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AnimationAsset.h" />
+    <ClInclude Include="AnimationRetargeter.h" />
     <ClInclude Include="AssetException.h" />
     <ClInclude Include="BoneAsset.h" />
+    <ClInclude Include="HeaderHelper.h" />
     <ClInclude Include="MaterialAsset.h" />
     <ClInclude Include="MeshAsset.h" />
     <ClInclude Include="ScratchTextureAsset.h" />
@@ -178,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimationAsset.cpp" />
+    <ClCompile Include="AnimationRetargeter.cpp" />
     <ClCompile Include="AssetException.cpp" />
     <ClCompile Include="BoneAsset.cpp" />
     <ClCompile Include="MaterialAsset.cpp" />

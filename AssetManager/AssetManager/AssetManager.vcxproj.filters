@@ -63,6 +63,15 @@
     <Filter Include="헤더 파일\Asset\Animation">
       <UniqueIdentifier>{2f01ef7e-9ef5-4871-a374-70a36ba15867}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Asset\AssetHandler">
+      <UniqueIdentifier>{47a49787-4552-42e1-9f61-b6d58811c56a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Asset\AssetHandler">
+      <UniqueIdentifier>{660dc369-aa6b-4e82-9358-95b22956f35d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Utilities">
+      <UniqueIdentifier>{9476b860-d982-4c6f-a0a7-dd9c6a099525}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -113,6 +122,12 @@
     <ClInclude Include="AnimationAsset.h">
       <Filter>헤더 파일\Asset\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="AnimationRetargeter.h">
+      <Filter>헤더 파일\Asset\AssetHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderHelper.h">
+      <Filter>헤더 파일\Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -156,6 +171,9 @@
     </ClCompile>
     <ClCompile Include="AnimationAsset.cpp">
       <Filter>소스 파일\Asset\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationRetargeter.cpp">
+      <Filter>소스 파일\Asset\AssetHandler</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

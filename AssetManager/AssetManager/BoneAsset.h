@@ -19,7 +19,9 @@ private:
 	std::list<std::shared_ptr<Bone>> m_boneChildren;
 
 public:
-	const std::list<std::shared_ptr<Bone>>& GetBoneChildren() { return m_boneChildren; }
+	MakeGetter(m_parentBone, ParentBone);
+	MakeGetter(m_offsetMatrix, OffsetMatrix);
+	MakeGetter(m_boneChildren, BoneChildren);
 
 public:
 	void SetBoneProperties(const size_t boneIdxIn, const DirectX::XMMATRIX offsetMatrix);
@@ -39,9 +41,11 @@ public:
 
 protected:
 	std::shared_ptr<Bone> m_rootBone = nullptr;
-
-protected:
 	std::map<std::shared_ptr<Bone>, std::string> m_boneToNames;
+
+public:
+	MakeGetter(m_rootBone, RootBone);
+	MakeGetter(m_boneToNames, BoneToNames);
 
 public:
 	void AttachBone(
