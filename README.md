@@ -48,9 +48,9 @@ Bone 0's bind-pose matrix is: $A_{0_{bind}} = M_{0_{offset}}^{-1}$ where $A_{0_{
 $A_{2_{bind}} =  M_{2_{offset}}^{-1}A_{0_{bind}}^{-1} = M_{2_{offset}}^{-1}M_{0_{offset}}$
 
 - For Bone 4: 
-$$A_{4_{bind}}A_{2_{bind}}A_{0_{bind}} = M_{4_{offset}}^{-1}
-\\[8pt]A_{4_{bind}} = M_{4_{offset}}^{-1}A_{0_{bind}}^{-1}A_{2_{bind}}^{-1}\\\\
-\\[8pt]A_{4_{bind}} = M_{4_{offset}}^{-1}M_{0_{offset}}(M_{2_{offset}}^{-1}M_{0_{offset}})^{-1}=M_{4_{offset}}^{-1}M_{2_{offset}}$$
+$$A_{4_{bind}}A_{2_{bind}}A_{0_{bind}} = M_{4_{offset}}^{-1}$$
+$$A_{4_{bind}} = M_{4_{offset}}^{-1}A_{0_{bind}}^{-1}A_{2_{bind}}^{-1}$$
+$$A_{4_{bind}} = M_{4_{offset}}^{-1}M_{0_{offset}}(M_{2_{offset}}^{-1}M_{0_{offset}})^{-1}=M_{4_{offset}}^{-1}M_{2_{offset}}$$
 
 Thus, the general rule for Bone's bind-pose matrix could be 
 $A_{N_{bind}} = M_{N_{offset}}^{-1}M_{L_{offset}}$ (See Figure 1 for the relationship between Bone N and Bone L).
@@ -58,11 +58,11 @@ $A_{N_{bind}} = M_{N_{offset}}^{-1}M_{L_{offset}}$ (See Figure 1 for the relatio
 Now Let's use **Mathematical Induction** for finding the algorithm of the retargeting.
 The fomula $A_{M_{bind}} = M_{M_{offset}}^{-1}M_{N_{offset}}$ holds when $A_{N_{bind}} = M_{N_{offset}}^{-1}M_{L_{offset}}$. 
 
-$$when \quad A_{N_{bind}} = M_{N_{offset}}^{-1}M_{L_{offset}}
-\\[8pt]A_{N_{bind}} = A_{N_{bind}}...A_{N_{bind}}M_{L_{offset}}
-\\[8pt]A_{M_{bind}}A_{N_{bind}} = A_{M_{bind}}A_{N_{bind}}...A_{N_{bind}}M_{L_{offset}}
-\\[8pt]A_{M_{bind}} = M_{M_{offset}}^{-1}M_{L_{offset}}A_{N_{bind}}^{-1}
-\\[8pt]A_{M_{bind}} = M_{M_{offset}}^{-1}M_{L_{offset}}M_{L_{offset}}^{-1}M_{N_{offset}}$$
+$$when \quad A_{N_{bind}} = M_{N_{offset}}^{-1}M_{L_{offset}}$$
+$$A_{N_{bind}} = A_{N_{bind}}...A_{N_{bind}}M_{L_{offset}}$$
+$$A_{M_{bind}}A_{N_{bind}} = A_{M_{bind}}A_{N_{bind}}...A_{N_{bind}}M_{L_{offset}}$$
+$$A_{M_{bind}} = M_{M_{offset}}^{-1}M_{L_{offset}}A_{N_{bind}}^{-1}$$
+$$A_{M_{bind}} = M_{M_{offset}}^{-1}M_{L_{offset}}M_{L_{offset}}^{-1}M_{N_{offset}}$$
 $$\therefore A_{M_{bind}} = M_{M_{offset}}^{-1}M_{N_{offset}}$$
 
 By Using the recurrence relation proven above, we can express the local transformation for the bind-pose of a specific bone. If Given an Animation Asset **A** matched to Bone Asset **A**, a new Animation Asset **B** matched to Bone Asset **B** can be derived by compensating the keyframe transformation data of Animation Asset **A** for each channel(bone). This is achieved by multiplying the *inverse of the local transformation for the bind-pose of Bone of Bone Asset **A** with the local transformation for the bind-pose of Bone of Bone Asset **B***.
