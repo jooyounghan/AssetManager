@@ -4,11 +4,8 @@
 using namespace std;
 using namespace DirectX;
 
-StaticMeshAsset::StaticMeshAsset(
-	const string& assetPathIn, 
-	const string& assetNameIn
-)
-	: MeshAsset(assetPathIn, assetNameIn)
+StaticMeshAsset::StaticMeshAsset(const string& assetNameIn)
+	: MeshAsset(assetNameIn)
 {
 
 }

@@ -1,20 +1,17 @@
 #include "pch.h"
-#include "MaterialAsset.h"
+#include "ModelMaterialAsset.h"
 
 using namespace std;
 using namespace DirectX;
 
-MaterialAsset::MaterialAsset(
-	const string& assetPathIn, 
-	const string& assetNameIn
-)
-	: AAsset(assetPathIn, assetNameIn), m_f0(), m_heightScale(0.f)
+ModelMaterialAsset::ModelMaterialAsset(const string& assetNameIn)
+	: AAsset(assetNameIn), m_f0(), m_heightScale(0.f)
 {
 }
 
-MaterialAsset::~MaterialAsset() {}
+ModelMaterialAsset::~ModelMaterialAsset() {}
 
-void MaterialAsset::SetMaterialTexture(
+void ModelMaterialAsset::SetMaterialTexture(
 	EMaterialTexture materialTextureType,
 	const string& materialTextureIn,
 	IBaseTextureProvider& provider
@@ -26,13 +23,13 @@ void MaterialAsset::SetMaterialTexture(
 	m_isModified = true;
 }
 
-void MaterialAsset::UpdateBaseTextureAsset(EMaterialTexture materialTextureType, IBaseTextureProvider& provider)
+void ModelMaterialAsset::UpdateBaseTextureAsset(EMaterialTexture materialTextureType, IBaseTextureProvider& provider)
 {
 	const size_t& materialTextureIdx = static_cast<size_t>(materialTextureType);
 	m_materialTexture[materialTextureIdx] = provider.GetBaseTextureAsset(m_materialTextureName[materialTextureIdx]);
 }
 
-void MaterialAsset::SetF0(const float& x, const float& y, const float& z)
+void ModelMaterialAsset::SetF0(const float& x, const float& y, const float& z)
 {
 	m_f0.x = x;
 	m_f0.y = y;
@@ -40,13 +37,13 @@ void MaterialAsset::SetF0(const float& x, const float& y, const float& z)
 	m_isModified = true;
 }
 
-void MaterialAsset::SetHeightScale(const float& heightScale)
+void ModelMaterialAsset::SetHeightScale(const float& heightScale)
 {
 	m_heightScale = heightScale;
 	m_isModified = true;
 }
 
-void MaterialAsset::Serialize(FILE* fileIn) const
+void ModelMaterialAsset::Serialize(FILE* fileIn) const
 {
 	AAsset::Serialize(fileIn);
 	for (size_t materialIdx = 0; materialIdx < MaterialTextureCount; ++materialIdx)
@@ -57,7 +54,7 @@ void MaterialAsset::Serialize(FILE* fileIn) const
 	fwrite(&m_heightScale, sizeof(float), 1, fileIn);
 }
 
-void MaterialAsset::Deserialize(FILE* fileIn)
+void ModelMaterialAsset::Deserialize(FILE* fileIn)
 {
 	AAsset::Deserialize(fileIn);
 	for (size_t materialIdx = 0; materialIdx < MaterialTextureCount; ++materialIdx)
@@ -69,7 +66,7 @@ void MaterialAsset::Deserialize(FILE* fileIn)
 	fread(&m_heightScale, sizeof(float), 1, fileIn);
 }
 
-void MaterialAsset::SerializeHelper(
+void ModelMaterialAsset::SerializeHelper(
 	const shared_ptr<BaseTextureAsset>& materialTexture,
 	FILE* fileIn 
 ) const

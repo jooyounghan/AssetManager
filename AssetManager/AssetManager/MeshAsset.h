@@ -1,6 +1,6 @@
 #pragma once
 #include "Asset.h"
-#include "MaterialAsset.h"
+#include "ModelMaterialAsset.h"
 
 namespace DirectX
 {
@@ -11,7 +11,7 @@ namespace DirectX
 class MeshAsset : public AAsset
 {
 public:
-	MeshAsset(const std::string& assetPathIn, const std::string& assetNameIn);
+	MeshAsset(const std::string& assetNameIn);
 	virtual ~MeshAsset();
 
 protected:
@@ -24,7 +24,7 @@ protected:
 
 protected:
 	std::string m_defaultMaterialName;
-	std::shared_ptr<MaterialAsset> m_defaultMaterial;
+	std::shared_ptr<ModelMaterialAsset> m_defaultMaterial;
 
 public:
 	void UpdateDefaultMaterialAsset(IMaterialProvider& provider);

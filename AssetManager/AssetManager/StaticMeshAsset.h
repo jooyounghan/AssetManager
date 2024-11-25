@@ -4,7 +4,7 @@
 class StaticMeshAsset : public MeshAsset
 {
 public:
-	StaticMeshAsset(const std::string& assetPathIn, const std::string& assetNameIn);
+	StaticMeshAsset(const std::string& assetNameIn);
 	virtual ~StaticMeshAsset();
 
 protected:

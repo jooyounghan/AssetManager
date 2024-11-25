@@ -36,7 +36,7 @@ public:
 class BoneAsset : public AAsset
 {
 public:
-	BoneAsset(const std::string& assetPathIn, const std::string& assetNameIn);
+	BoneAsset(const std::string& assetNameIn);
 	virtual ~BoneAsset();
 
 protected:

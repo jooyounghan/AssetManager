@@ -5,7 +5,6 @@ class ATextureAsset : public AAsset
 {
 public:
 	ATextureAsset(
-		const std::string& assetPathIn, 
 		const std::string& assetNameIn,
 		const unsigned int& widthIn,
 		const unsigned int& heightIn,

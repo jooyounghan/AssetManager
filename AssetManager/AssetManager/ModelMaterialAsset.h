@@ -17,14 +17,11 @@ enum class EMaterialTexture
 
 constexpr size_t MaterialTextureCount = static_cast<size_t>(EMaterialTexture::MATERIAL_TEXTURE_COUNT);
 
-class MaterialAsset : public AAsset
+class ModelMaterialAsset : public AAsset
 {
 public:
-	MaterialAsset(
-		const std::string& assetPathIn,
-		const std::string& assetNameIn
-	);
-	virtual ~MaterialAsset();
+	ModelMaterialAsset(const std::string& assetNameIn);
+	virtual ~ModelMaterialAsset();
 
 protected:
 	std::string m_materialTextureName[MaterialTextureCount];
@@ -64,7 +61,7 @@ private:
 class IMaterialProvider
 {
 public:
-	virtual std::shared_ptr<MaterialAsset> GetMaterialAsset(
+	virtual std::shared_ptr<ModelMaterialAsset> GetMaterialAsset(
 		const std::string& textureName
 	) = 0;
 };

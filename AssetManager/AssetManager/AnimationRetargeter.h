@@ -29,7 +29,7 @@ public:
 
 public:
 	void GenerateBoneTargetings();
-	void ReplaceTargetedSourceBone(const std::string& destBoneName, const std::string sourceBoneName);
+	void ReplaceTargetedSourceBone(const std::shared_ptr<Bone>& destBone, const std::shared_ptr<Bone>& sourceBone);
 
 private:
 	bool IsSameProfile(

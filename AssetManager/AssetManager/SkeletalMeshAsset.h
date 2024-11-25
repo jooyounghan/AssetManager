@@ -5,7 +5,7 @@
 class SkeletalMeshAsset : public StaticMeshAsset
 {
 public:
-	SkeletalMeshAsset(const std::string& assetPathIn, const std::string& assetNameIn);
+	SkeletalMeshAsset(const std::string& assetNameIn);
 	virtual ~SkeletalMeshAsset();
 
 protected:

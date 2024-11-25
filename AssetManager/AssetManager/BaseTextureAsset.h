@@ -4,9 +4,8 @@
 class BaseTextureAsset : public ATextureAsset
 {
 public:
-	BaseTextureAsset(const std::string& assetPathIn, const std::string& assetNameIn);
+	BaseTextureAsset(const std::string& assetNameIn);
 	BaseTextureAsset(
-		const std::string& assetPathIn, 
 		const std::string& assetNameIn,
 		const unsigned int& widthIn,
 		const unsigned int& heightIn,

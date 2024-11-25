@@ -11,11 +11,9 @@ class ScratchTextureAsset : public ATextureAsset
 {
 public:
 	ScratchTextureAsset(
-		const std::string& assetPathIn,
 		const std::string& assetNameIn
 	);
 	ScratchTextureAsset(
-		const std::string& assetPathIn,
 		const std::string& assetNameIn,
 		const DirectX::ScratchImage& scratch,
 		const DirectX::TexMetadata& metaData
@@ -30,3 +28,10 @@ public:
 
 };
 
+class IScratchTextureProvider
+{
+public:
+	virtual std::shared_ptr<ScratchTextureAsset> GetScratchTextureAsset(
+		const std::string& textureName
+	) = 0;
+};

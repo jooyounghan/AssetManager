@@ -40,11 +40,8 @@ void Bone::Deserialize(FILE* fileIn)
 	m_offsetMatrix = DeserializeHelper::DeserializeElement<XMMATRIX>(fileIn);
 }
 
-BoneAsset::BoneAsset(
-	const string& assetPathIn, 
-	const string& assetNameIn
-)
-	: AAsset(assetPathIn, assetNameIn)
+BoneAsset::BoneAsset(const string& assetNameIn)
+	: AAsset(assetNameIn)
 {
 }
 

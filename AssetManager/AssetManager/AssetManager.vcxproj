@@ -164,7 +164,9 @@
     <ClInclude Include="AssetException.h" />
     <ClInclude Include="BoneAsset.h" />
     <ClInclude Include="HeaderHelper.h" />
-    <ClInclude Include="MaterialAsset.h" />
+    <ClInclude Include="IBLMaterialAsset.h" />
+    <ClInclude Include="MapAsset.h" />
+    <ClInclude Include="ModelMaterialAsset.h" />
     <ClInclude Include="MeshAsset.h" />
     <ClInclude Include="ScratchTextureAsset.h" />
     <ClInclude Include="Asset.h" />
@@ -172,7 +174,6 @@
     <ClInclude Include="BaseTextureAsset.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="SerializeHelper.h" />
     <ClInclude Include="SkeletalMeshAsset.h" />
     <ClInclude Include="StaticMeshAsset.h" />
@@ -183,7 +184,9 @@
     <ClCompile Include="AnimationRetargeter.cpp" />
     <ClCompile Include="AssetException.cpp" />
     <ClCompile Include="BoneAsset.cpp" />
-    <ClCompile Include="MaterialAsset.cpp" />
+    <ClCompile Include="IBLMaterialAsset.cpp" />
+    <ClCompile Include="MapAsset.cpp" />
+    <ClCompile Include="ModelMaterialAsset.cpp" />
     <ClCompile Include="MeshAsset.cpp" />
     <ClCompile Include="ScratchTextureAsset.cpp" />
     <ClCompile Include="Asset.cpp" />

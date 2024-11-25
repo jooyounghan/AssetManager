@@ -4,6 +4,7 @@
 
 #include <functional>
 #include <unordered_map>
+#include <set>
 
 struct SAnimationKey
 {
@@ -17,6 +18,10 @@ protected:
 	std::vector<SAnimationKey> m_positionKeys;
 	std::vector<SAnimationKey> m_quaternionKeys;
 	std::vector<SAnimationKey> m_scaleKeys;
+	std::set<float> m_timeTable;
+
+public:
+	MakeGetter(m_timeTable, TimeTable);
 
 public:
 	void AddPositionKey(const float& timeIn, const DirectX::XMVECTOR& positionIn);
@@ -40,7 +45,7 @@ private:
 	static std::function<DirectX::XMVECTOR(const DirectX::XMVECTOR&, const DirectX::XMVECTOR&, const float&)> slerpFunction;
 
 public:
-	DirectX::XMMATRIX GetLocalTransformation(const float& timeIn);
+	DirectX::XMMATRIX GetLocalTransformation(const float& timeIn) const;
 
 public:
 	virtual void Serialize(FILE* fileIn) const override;
@@ -50,13 +55,20 @@ public:
 class AnimationAsset : public AAsset
 {
 public:
-	AnimationAsset(const std::string& assetPathIn, const std::string& assetNameIn);
+	AnimationAsset(const std::string& assetNameIn);
 	virtual ~AnimationAsset();
 
 protected:
 	float m_duration = 0.f;
 	float m_ticksPerSecond = 0.f;
 
+public:
+	void SetAnimationDuration(const float& durationIn, const float& ticksPerSecond)
+	{
+		m_duration = durationIn;
+		m_ticksPerSecond = ticksPerSecond;
+	}
+	
 protected:
 	std::unordered_map<std::string, AnimChannel> boneNameToAnimChannels;
 
@@ -64,6 +76,10 @@ public:
 	MakeGetter(m_duration, Duration);
 	MakeGetter(m_ticksPerSecond, TicksPerSecond);
 	MakeGetter(boneNameToAnimChannels, BoneNameToAnimChannels);
+
+public:
+	void AddAnimChaannel(const std::string& boneName, const AnimChannel& animChannel);
+	void AddAnimChannel(const std::string& boneName, AnimChannel&& animChannel);
 
 public:
 	virtual void Serialize(FILE* fileIn) const override;

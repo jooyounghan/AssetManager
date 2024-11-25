@@ -72,6 +72,12 @@
     <Filter Include="헤더 파일\Utilities">
       <UniqueIdentifier>{9476b860-d982-4c6f-a0a7-dd9c6a099525}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Asset\Map">
+      <UniqueIdentifier>{286d9ddc-3f1d-4ccf-90db-7e8eddbd49af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Asset\Map">
+      <UniqueIdentifier>{5702f4d8-ea03-48cb-a5b3-f28a2630619b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -86,9 +92,6 @@
     <ClInclude Include="SerializeHelper.h">
       <Filter>헤더 파일\Serialize</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Asset.h">
       <Filter>헤더 파일\Asset</Filter>
     </ClInclude>
@@ -101,7 +104,7 @@
     <ClInclude Include="ScratchTextureAsset.h">
       <Filter>헤더 파일\Asset\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="MaterialAsset.h">
+    <ClInclude Include="ModelMaterialAsset.h">
       <Filter>헤더 파일\Asset\Material</Filter>
     </ClInclude>
     <ClInclude Include="AssetException.h">
@@ -128,6 +131,12 @@
     <ClInclude Include="HeaderHelper.h">
       <Filter>헤더 파일\Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="MapAsset.h">
+      <Filter>헤더 파일\Asset\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="IBLMaterialAsset.h">
+      <Filter>헤더 파일\Asset\Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -151,7 +160,7 @@
     <ClCompile Include="ScratchTextureAsset.cpp">
       <Filter>소스 파일\Asset\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="MaterialAsset.cpp">
+    <ClCompile Include="ModelMaterialAsset.cpp">
       <Filter>소스 파일\Asset\Material</Filter>
     </ClCompile>
     <ClCompile Include="MeshAsset.cpp">
@@ -174,6 +183,12 @@
     </ClCompile>
     <ClCompile Include="AnimationRetargeter.cpp">
       <Filter>소스 파일\Asset\AssetHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="MapAsset.cpp">
+      <Filter>소스 파일\Asset\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="IBLMaterialAsset.cpp">
+      <Filter>소스 파일\Asset\Material</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

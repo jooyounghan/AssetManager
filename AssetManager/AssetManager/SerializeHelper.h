@@ -121,7 +121,7 @@ inline Container DeserializeHelper::DeserializeSequenceContainer(FILE* fileIn)
 	for (size_t containerIdx = 0; containerIdx < containerSize; ++containerIdx)
 	{
 		ValueType value = DeserializeElement<ValueType>(fileIn);
-		result.push_back(value);
+		result.insert(result.end(), value);
 	}
 
 	return result;

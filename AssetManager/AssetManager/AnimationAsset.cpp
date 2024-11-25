@@ -6,33 +6,36 @@ using namespace DirectX;
 
 constexpr float AnimationTimeErr = 1E-3f;
 
-std::function<XMVECTOR(const XMVECTOR&, const XMVECTOR&, const float&)> AnimChannel::lerpFunction 
+function<XMVECTOR(const XMVECTOR&, const XMVECTOR&, const float&)> AnimChannel::lerpFunction 
 	= [](const XMVECTOR& A, const XMVECTOR& B, const float& C) -> XMVECTOR {
 		return XMVectorLerp(A, B, C);
 	};
 
-std::function<XMVECTOR(const XMVECTOR&, const XMVECTOR&, const float&)> AnimChannel::slerpFunction
+function<XMVECTOR(const XMVECTOR&, const XMVECTOR&, const float&)> AnimChannel::slerpFunction
 	= [](const XMVECTOR& A, const XMVECTOR& B, const float& C) -> XMVECTOR {
 			return XMQuaternionSlerp(A, B, C);
 	};
 
 void AnimChannel::AddPositionKey(const float& timeIn, const XMVECTOR& positionIn)
 {
+	m_timeTable.insert(timeIn);
 	AddKey(m_positionKeys, timeIn, positionIn);
 }
 
 void AnimChannel::AddQuaternionKey(const float& timeIn, const XMVECTOR& quaternionIn)
 {
+	m_timeTable.insert(timeIn);
 	AddKey(m_quaternionKeys, timeIn, quaternionIn);
 }
 
 void AnimChannel::AddScaleKey(const float& timeIn, const XMVECTOR& scaleIn)
 {
+	m_timeTable.insert(timeIn);
 	AddKey(m_scaleKeys, timeIn, scaleIn);
 }
 
 void AnimChannel::AddKey(
-	std::vector<SAnimationKey>& keys, 
+	vector<SAnimationKey>& keys, 
 	const float& timeIn, 
 	const DirectX::XMVECTOR& keyData
 )
@@ -42,9 +45,9 @@ void AnimChannel::AddKey(
 }
 
 DirectX::XMVECTOR AnimChannel::GetLerpedVectorKey(
-	const std::vector<SAnimationKey>& keys,
+	const vector<SAnimationKey>& keys,
 	const float& timeIn,
-	const std::function<XMVECTOR(const XMVECTOR&, const XMVECTOR&, const float&)>& interpolationMethod
+	const function<XMVECTOR(const XMVECTOR&, const XMVECTOR&, const float&)>& interpolationMethod
 )
 {
 	if (keys.empty())
@@ -66,7 +69,7 @@ DirectX::XMVECTOR AnimChannel::GetLerpedVectorKey(
 	return keys[0].animationData;
 }
 
-DirectX::XMMATRIX AnimChannel::GetLocalTransformation(const float& timeIn)
+DirectX::XMMATRIX AnimChannel::GetLocalTransformation(const float& timeIn) const
 {
 	return XMMatrixAffineTransformation(
 		GetLerpedVectorKey(m_scaleKeys, timeIn, lerpFunction),
@@ -82,6 +85,7 @@ void AnimChannel::Serialize(FILE* fileIn) const
 	SerializeHelper::SerializeSequenceContainer(m_positionKeys, fileIn);
 	SerializeHelper::SerializeSequenceContainer(m_quaternionKeys, fileIn);
 	SerializeHelper::SerializeSequenceContainer(m_scaleKeys, fileIn);
+	SerializeHelper::SerializeSequenceContainer(m_timeTable, fileIn);
 }
 
 void AnimChannel::Deserialize(FILE* fileIn)
@@ -89,15 +93,26 @@ void AnimChannel::Deserialize(FILE* fileIn)
 	m_positionKeys = DeserializeHelper::DeserializeSequenceContainer<vector<SAnimationKey>>(fileIn);
 	m_quaternionKeys = DeserializeHelper::DeserializeSequenceContainer<vector<SAnimationKey>>(fileIn);
 	m_scaleKeys = DeserializeHelper::DeserializeSequenceContainer<vector<SAnimationKey>>(fileIn);
+	m_timeTable = DeserializeHelper::DeserializeSequenceContainer<set<float>>(fileIn);
 }
 
-AnimationAsset::AnimationAsset(const std::string& assetPathIn, const std::string& assetNameIn)
-	: AAsset(assetPathIn, assetNameIn)
+AnimationAsset::AnimationAsset(const string& assetNameIn)
+	: AAsset(assetNameIn)
 {
 }
 
 AnimationAsset::~AnimationAsset()
 {
+}
+
+void AnimationAsset::AddAnimChaannel(const string& boneName, const AnimChannel& animChannel)
+{
+	boneNameToAnimChannels.emplace(boneName, animChannel);
+}
+
+void AnimationAsset::AddAnimChannel(const string& boneName, AnimChannel&& animChannel)
+{
+	boneNameToAnimChannels.emplace(boneName, move(animChannel));
 }
 
 void AnimationAsset::Serialize(FILE* fileIn) const

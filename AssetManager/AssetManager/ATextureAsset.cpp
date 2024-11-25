@@ -4,13 +4,12 @@
 using namespace std;
 
 ATextureAsset::ATextureAsset(
-	const string& assetPathIn, 
 	const string& assetNameIn,
 	const unsigned int& widthIn,
 	const unsigned int& heightIn,
 	const unsigned int& arraysizeIn
 ) 
-	: AAsset(assetPathIn, assetNameIn), m_width(widthIn), m_height(heightIn), m_arraySize(arraysizeIn)
+	: AAsset(assetNameIn), m_width(widthIn), m_height(heightIn), m_arraySize(arraysizeIn)
 {
 
 }
