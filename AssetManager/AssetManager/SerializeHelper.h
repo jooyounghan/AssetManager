@@ -80,6 +80,8 @@ public:
 	template <KeyValueContainer Container>
 	static Container DeserializeKeyValueContainer(FILE* fileIn);
 
+public:
+	static size_t DeserializeContainerSize(FILE* fileIn);
 };
 
 template <SerializablePrimitive T>

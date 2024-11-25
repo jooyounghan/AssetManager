@@ -1,18 +1,27 @@
 ﻿#include <iostream>
 #include "BaseTextureAsset.h"
 #include "ScratchTextureAsset.h"
-#include "MaterialAsset.h"
+#include "ModelMaterialAsset.h"
 #include "MeshAsset.h"
 #include "BoneAsset.h"
 #include "StaticMeshAsset.h"
 #include "SkeletalMeshAsset.h"
 #include "AnimationAsset.h"
-
+#include "IBLMaterialAsset.h"
+#include "MapAsset.h"
 
 using namespace std;
 
 int main()
 {
+	MapAsset test11("Test");
+	test11.Serialize(nullptr);
+	test11.Deserialize(nullptr);
+
+	IBLMaterialAsset test10("Test");
+	test10.Serialize(nullptr);
+	test10.Deserialize(nullptr);
+
 	AnimationAsset test9("Test");
 	test9.Serialize(nullptr);
 	test9.Deserialize(nullptr);
@@ -35,7 +44,7 @@ int main()
 	test4.Serialize(nullptr);
 	test4.Deserialize(nullptr);
 
-	MaterialAsset test3("Test");
+	ModelMaterialAsset test3("Test");
 
 	test3.Serialize(nullptr);
 	test3.Deserialize(nullptr);

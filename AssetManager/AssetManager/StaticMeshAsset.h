@@ -15,3 +15,11 @@ public:
 	virtual void Deserialize(FILE* fileIn) override;;
 };
 
+class IStaticMeshProvider
+{
+public:
+	virtual std::shared_ptr<StaticMeshAsset> GetStaticMeshAsset(
+		const std::string& textureName
+	) = 0;
+};
+

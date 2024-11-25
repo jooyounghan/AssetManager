@@ -23,6 +23,6 @@ public:
 
 public:
 	virtual void Serialize(FILE* fileIn) const override;
-	virtual void Deserialize(FILE* fileIn) override;;
+	virtual void Deserialize(FILE* fileIn) override;
 };
 

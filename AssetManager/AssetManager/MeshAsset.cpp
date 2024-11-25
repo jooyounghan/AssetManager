@@ -13,9 +13,9 @@ MeshAsset::~MeshAsset()
 {
 }
 
-void MeshAsset::UpdateDefaultMaterialAsset(IMaterialProvider& provider)
+void MeshAsset::UpdateDefaultMaterialAsset(IModelMaterialProvider& provider)
 {
-	m_defaultMaterial = provider.GetMaterialAsset(m_defaultMaterialName);
+	m_defaultMaterial = provider.GetModelMaterialAsset(m_defaultMaterialName);
 }
 
 void MeshAsset::Serialize(FILE* fileIn) const

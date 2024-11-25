@@ -11,44 +11,44 @@ ModelMaterialAsset::ModelMaterialAsset(const string& assetNameIn)
 
 ModelMaterialAsset::~ModelMaterialAsset() {}
 
-void ModelMaterialAsset::SetMaterialTexture(
-	EMaterialTexture materialTextureType,
-	const string& materialTextureIn,
+void ModelMaterialAsset::UpdateModelBaseTextureAsset(
+	EModelMaterialTexture modelMaterialTextureType,
 	IBaseTextureProvider& provider
 )
 {
-	const size_t& materialTextureIdx = static_cast<size_t>(materialTextureType);
-	m_materialTextureName[materialTextureIdx] = materialTextureIn;
-	m_materialTexture[materialTextureIdx] = provider.GetBaseTextureAsset(materialTextureIn);
-	m_isModified = true;
-}
-
-void ModelMaterialAsset::UpdateBaseTextureAsset(EMaterialTexture materialTextureType, IBaseTextureProvider& provider)
-{
-	const size_t& materialTextureIdx = static_cast<size_t>(materialTextureType);
+	const size_t& materialTextureIdx = static_cast<size_t>(modelMaterialTextureType);
 	m_materialTexture[materialTextureIdx] = provider.GetBaseTextureAsset(m_materialTextureName[materialTextureIdx]);
 }
 
-void ModelMaterialAsset::SetF0(const float& x, const float& y, const float& z)
+void ModelMaterialAsset::SetModelMaterialTexture(
+	EModelMaterialTexture modelMaterialTextureType,
+	const string& modelMaterialTextureIn,
+	IBaseTextureProvider& provider
+)
 {
-	m_f0.x = x;
-	m_f0.y = y;
-	m_f0.z = z;
+	const size_t& materialTextureIdx = static_cast<size_t>(modelMaterialTextureType);
+	m_materialTextureName[materialTextureIdx] = modelMaterialTextureIn;
+	UpdateModelBaseTextureAsset(modelMaterialTextureType, provider);
 	m_isModified = true;
 }
 
-void ModelMaterialAsset::SetHeightScale(const float& heightScale)
+void ModelMaterialAsset::SetModelMaterialProperties(
+	const DirectX::XMFLOAT3& f0, 
+	const float& heightScale
+)
 {
+	m_f0 = f0;
 	m_heightScale = heightScale;
 	m_isModified = true;
 }
 
+
 void ModelMaterialAsset::Serialize(FILE* fileIn) const
 {
 	AAsset::Serialize(fileIn);
-	for (size_t materialIdx = 0; materialIdx < MaterialTextureCount; ++materialIdx)
+	for (size_t materialIdx = 0; materialIdx < ModelMaterialTextureCount; ++materialIdx)
 	{
-		SerializeHelper(m_materialTexture[materialIdx], fileIn);
+		SerializeAssetName(m_materialTexture[materialIdx], fileIn);
 	}
 	fwrite(&m_f0, sizeof(XMFLOAT3), 1, fileIn);
 	fwrite(&m_heightScale, sizeof(float), 1, fileIn);
@@ -57,7 +57,7 @@ void ModelMaterialAsset::Serialize(FILE* fileIn) const
 void ModelMaterialAsset::Deserialize(FILE* fileIn)
 {
 	AAsset::Deserialize(fileIn);
-	for (size_t materialIdx = 0; materialIdx < MaterialTextureCount; ++materialIdx)
+	for (size_t materialIdx = 0; materialIdx < ModelMaterialTextureCount; ++materialIdx)
 	{
 		string materialAssetName = DeserializeHelper::DeserializeString(fileIn);
 		m_materialTextureName[materialIdx] = materialAssetName;
@@ -66,13 +66,3 @@ void ModelMaterialAsset::Deserialize(FILE* fileIn)
 	fread(&m_heightScale, sizeof(float), 1, fileIn);
 }
 
-void ModelMaterialAsset::SerializeHelper(
-	const shared_ptr<BaseTextureAsset>& materialTexture,
-	FILE* fileIn 
-) const
-{
-	SerializeHelper::SerializeString(
-		materialTexture != nullptr ? materialTexture->GetAssetName() : "", 
-		fileIn
-	);
-}

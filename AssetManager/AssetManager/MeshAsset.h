@@ -27,7 +27,7 @@ protected:
 	std::shared_ptr<ModelMaterialAsset> m_defaultMaterial;
 
 public:
-	void UpdateDefaultMaterialAsset(IMaterialProvider& provider);
+	void UpdateDefaultMaterialAsset(IModelMaterialProvider& provider);
 
 public:
 	virtual void Serialize(FILE* fileIn) const override;

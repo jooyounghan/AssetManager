@@ -19,3 +19,8 @@ std::string DeserializeHelper::DeserializeString(FILE* fileIn)
 
 	return result;
 }
+
+size_t DeserializeHelper::DeserializeContainerSize(FILE* fileIn)
+{
+	return DeserializeElement<size_t>(fileIn);
+}

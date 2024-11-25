@@ -20,5 +20,11 @@ public:
 public:
 	virtual void Serialize(FILE* fileIn) const override;
 	virtual void Deserialize(FILE* fileIn) override;
+
+public:
+	void SerializeAssetName(
+		const std::shared_ptr<AAsset>& asset,
+		FILE* fileIn
+	) const;
 };
 

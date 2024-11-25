@@ -19,3 +19,11 @@ void AAsset::Deserialize(FILE* fileIn)
 {
 	m_assetName = DeserializeHelper::DeserializeString(fileIn);
 }
+
+void AAsset::SerializeAssetName(const std::shared_ptr<AAsset>& asset, FILE* fileIn) const
+{
+	SerializeHelper::SerializeString(
+		asset != nullptr ? asset->GetAssetName() : "",
+		fileIn
+	);
+}

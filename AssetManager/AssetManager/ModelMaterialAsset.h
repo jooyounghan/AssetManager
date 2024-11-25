@@ -2,20 +2,20 @@
 #include "BaseTextureAsset.h"
 #include "DirectXMath/DirectXMath.h"
 
-enum class EMaterialTexture
+enum class EModelMaterialTexture
 {
-	MATERIAL_TEXTURE_AMBIENTOCCULUSION,
-	MATERIAL_TEXTURE_SPECULAR,
-	MATERIAL_TEXTURE_DIFFUSE,
-	MATERIAL_TEXTURE_ROUGHNESS,
-	MATERIAL_TEXTURE_METALIC,
-	MATERIAL_TEXTURE_NORMAL,
-	MATERIAL_TEXTURE_HEIGHT,
-	MATERIAL_TEXTURE_EMISSIVE,
-	MATERIAL_TEXTURE_COUNT
+	MODEL_MATERIAL_TEXTURE_AMBIENTOCCULUSION,
+	MODEL_MATERIAL_TEXTURE_SPECULAR,
+	MODEL_MATERIAL_TEXTURE_DIFFUSE,
+	MODEL_MATERIAL_TEXTURE_ROUGHNESS,
+	MODEL_MATERIAL_TEXTURE_METALIC,
+	MODEL_MATERIAL_TEXTURE_NORMAL,
+	MODEL_MATERIAL_TEXTURE_HEIGHT,
+	MODEL_MATERIAL_TEXTURE_EMISSIVE,
+	MODEL_MATERIAL_TEXTURE_COUNT
 };
 
-constexpr size_t MaterialTextureCount = static_cast<size_t>(EMaterialTexture::MATERIAL_TEXTURE_COUNT);
+constexpr size_t ModelMaterialTextureCount = static_cast<size_t>(EModelMaterialTexture::MODEL_MATERIAL_TEXTURE_COUNT);
 
 class ModelMaterialAsset : public AAsset
 {
@@ -24,44 +24,40 @@ public:
 	virtual ~ModelMaterialAsset();
 
 protected:
-	std::string m_materialTextureName[MaterialTextureCount];
-	std::shared_ptr<BaseTextureAsset> m_materialTexture[MaterialTextureCount];
+	std::string m_materialTextureName[ModelMaterialTextureCount];
+	std::shared_ptr<BaseTextureAsset> m_materialTexture[ModelMaterialTextureCount];
 
 protected:
 	 DirectX::XMFLOAT3 m_f0;
 	float m_heightScale;
 
 public:
-	void SetMaterialTexture(
-		EMaterialTexture materialTextureType, 
-		const std::string& materialTextureIn, 
+	MakeGetter(m_f0, FresnelConstant);
+	MakeGetter(m_heightScale, HeightScale);
+
+public:
+	void UpdateModelBaseTextureAsset(
+		EModelMaterialTexture modelMaterialTextureType,
 		IBaseTextureProvider& provider
 	);
-	void UpdateBaseTextureAsset(
-		EMaterialTexture materialTextureType, 
+	void SetModelMaterialTexture(
+		EModelMaterialTexture modelMaterialTextureType, 
+		const std::string& modelMaterialTextureIn, 
 		IBaseTextureProvider& provider
 	);
 
 public:
-	void SetF0(const float& x, const float& y, const float& z);
-	void SetHeightScale(const float& heightScale);
+	void SetModelMaterialProperties(const DirectX::XMFLOAT3& f0, const float& heightScale);
 
 public:
 	virtual void Serialize(FILE* fileIn) const override;
 	virtual void Deserialize(FILE* fileIn) override;
-
-
-private:
-	void SerializeHelper(
-		const std::shared_ptr<BaseTextureAsset>& materialTexture,
-		FILE* fileIn
-	) const;
 };
 
-class IMaterialProvider
+class IModelMaterialProvider
 {
 public:
-	virtual std::shared_ptr<ModelMaterialAsset> GetMaterialAsset(
+	virtual std::shared_ptr<ModelMaterialAsset> GetModelMaterialAsset(
 		const std::string& textureName
 	) = 0;
 };
