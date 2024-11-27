@@ -1,8 +1,12 @@
 #include "pch.h"
 #include "Asset.h"
 
-AAsset::AAsset(const std::string& assetNameIn)
-	: m_assetName(assetNameIn)
+using namespace std;
+
+string AAsset::AssetExtension = ".Asset";
+
+AAsset::AAsset(const string& assetName)
+	: m_assetName(assetName)
 {
 }
 
@@ -20,7 +24,7 @@ void AAsset::Deserialize(FILE* fileIn)
 	m_assetName = DeserializeHelper::DeserializeString(fileIn);
 }
 
-void AAsset::SerializeAssetName(const std::shared_ptr<AAsset>& asset, FILE* fileIn) const
+void AAsset::SerializeAssetName(const shared_ptr<AAsset>& asset, FILE* fileIn) const
 {
 	SerializeHelper::SerializeString(
 		asset != nullptr ? asset->GetAssetName() : "",

@@ -6,7 +6,8 @@
 class MapAsset : public AAsset
 {
 public:
-	MapAsset(const std::string& assetNameIn);
+	MapAsset() = default;
+	MapAsset(const std::string& assetName);
 	virtual ~MapAsset();
 
 protected:
@@ -27,7 +28,7 @@ public:
 
 public:
 	void SetIBLMaterialAsset(
-		const std::string& iblmaterialAssetNameIn,
+		const std::string& iblmaterialAssetName,
 		IIBLMaterialProvider& provider
 	);
 

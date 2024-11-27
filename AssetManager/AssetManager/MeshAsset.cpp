@@ -4,8 +4,8 @@
 using namespace std;
 using namespace DirectX;
 
-MeshAsset::MeshAsset(const string& assetNameIn)
-	: AAsset(assetNameIn)
+MeshAsset::MeshAsset(const string& assetName)
+	: AAsset(assetName)
 {
 }
 

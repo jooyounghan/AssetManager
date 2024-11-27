@@ -4,9 +4,9 @@
 class BaseTextureAsset : public ATextureAsset
 {
 public:
-	BaseTextureAsset(const std::string& assetNameIn);
+	BaseTextureAsset() = default;
 	BaseTextureAsset(
-		const std::string& assetNameIn,
+		const std::string& assetName,
 		const unsigned int& widthIn,
 		const unsigned int& heightIn,
 		uint8_t* imageBufferIn

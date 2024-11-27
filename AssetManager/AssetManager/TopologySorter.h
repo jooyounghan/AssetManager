@@ -6,7 +6,7 @@
 #include <stdexcept>
 
 template<typename T>
-class CTopologySorter
+class TopologySorter
 {
 private:
 	std::unordered_map<T, std::vector<T>> m_topologyNodes;
@@ -20,7 +20,7 @@ public:
 };
 
 template<typename T>
-void CTopologySorter<T>::AddTopologyNode(T&& nodeIn)
+void TopologySorter<T>::AddTopologyNode(T&& nodeIn)
 {
     if (m_topologyNodes.find(std::forward<T>(nodeIn)) == m_topologyNodes.end())
     {
@@ -30,7 +30,7 @@ void CTopologySorter<T>::AddTopologyNode(T&& nodeIn)
 }
 
 template<typename T>
-void CTopologySorter<T>::AddPrequisite(T&& nodeIn, T&& prequisiteIn)
+void TopologySorter<T>::AddPrequisite(T&& nodeIn, T&& prequisiteIn)
 {
     m_topologyNodes[std::forward<T>(nodeIn)].emplace_back(std::forward<T>(prequisiteIn));
 }
@@ -38,7 +38,7 @@ void CTopologySorter<T>::AddPrequisite(T&& nodeIn, T&& prequisiteIn)
 
 
 template<typename T>
-inline std::vector<T> CTopologySorter<T>::GetTopologySort() const
+inline std::vector<T> TopologySorter<T>::GetTopologySort() const
 {
     std::vector<T> result;
     std::unordered_map<T, bool> isVisited;

@@ -162,10 +162,17 @@
     <ClInclude Include="AnimationAsset.h" />
     <ClInclude Include="AnimationRetargeter.h" />
     <ClInclude Include="AssetException.h" />
+    <ClInclude Include="AssetReader.h" />
+    <ClInclude Include="AssetWrapper.h" />
+    <ClInclude Include="AssetWriter.h" />
     <ClInclude Include="BoneAsset.h" />
     <ClInclude Include="HeaderHelper.h" />
     <ClInclude Include="IBLMaterialAsset.h" />
     <ClInclude Include="MapAsset.h" />
+    <ClInclude Include="MeshSetAsset.h" />
+    <ClInclude Include="SkeletalMeshSetAsset.h" />
+    <ClInclude Include="StaticMeshSetAsset.h" />
+    <ClInclude Include="ModelFileToAssetWriter.h" />
     <ClInclude Include="ModelMaterialAsset.h" />
     <ClInclude Include="MeshAsset.h" />
     <ClInclude Include="ScratchTextureAsset.h" />
@@ -177,15 +184,23 @@
     <ClInclude Include="SerializeHelper.h" />
     <ClInclude Include="SkeletalMeshAsset.h" />
     <ClInclude Include="StaticMeshAsset.h" />
+    <ClInclude Include="StringHelper.h" />
     <ClInclude Include="TopologySorter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimationAsset.cpp" />
     <ClCompile Include="AnimationRetargeter.cpp" />
     <ClCompile Include="AssetException.cpp" />
+    <ClCompile Include="AssetReader.cpp" />
+    <ClCompile Include="AssetWrapper.cpp" />
+    <ClCompile Include="AssetWriter.cpp" />
     <ClCompile Include="BoneAsset.cpp" />
     <ClCompile Include="IBLMaterialAsset.cpp" />
     <ClCompile Include="MapAsset.cpp" />
+    <ClCompile Include="MeshSetAsset.cpp" />
+    <ClCompile Include="SkeletalMeshSetAsset.cpp" />
+    <ClCompile Include="StaticMeshSetAsset.cpp" />
+    <ClCompile Include="ModelFileToAssetWriter.cpp" />
     <ClCompile Include="ModelMaterialAsset.cpp" />
     <ClCompile Include="MeshAsset.cpp" />
     <ClCompile Include="ScratchTextureAsset.cpp" />
@@ -201,6 +216,7 @@
     <ClCompile Include="SerializeHelper.cpp" />
     <ClCompile Include="SkeletalMeshAsset.cpp" />
     <ClCompile Include="StaticMeshAsset.cpp" />
+    <ClCompile Include="StringHelper.cpp" />
     <ClCompile Include="TopologySorter.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

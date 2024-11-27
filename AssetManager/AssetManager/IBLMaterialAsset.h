@@ -8,15 +8,15 @@ enum class EIBLMaterialTexture
 	IBL_MATERIAL_TEXTURE_SPECULAR,
 	IBL_MATERIAL_TEXTURE_DIFFUSE,
 	IBL_MATERIAL_TEXTURE_BRDF,
-	IBL_MATERIAL_TEXTURE_COUNT
 };
 
-constexpr size_t IBLMaterialTextureCount = static_cast<size_t>(EIBLMaterialTexture::IBL_MATERIAL_TEXTURE_COUNT);
+constexpr size_t IBLMaterialTextureCount = static_cast<size_t>(EIBLMaterialTexture::IBL_MATERIAL_TEXTURE_BRDF) + 1;
 
 class IBLMaterialAsset : public AAsset
 {
 public:
-	IBLMaterialAsset(const std::string& assetNameIn);
+	IBLMaterialAsset() = default;
+	IBLMaterialAsset(const std::string& assetName);
 	virtual ~IBLMaterialAsset();
 
 protected:

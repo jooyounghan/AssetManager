@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include <iostream>
 #include <string>
-#include <vector>
 #include <type_traits>
 
 class ISerializable
@@ -13,7 +12,9 @@ public:
 
 #pragma region Concept
 template <typename T>
-concept SerializablePrimitive = std::is_arithmetic_v<T> ||
+concept SerializablePrimitive =
+std::is_arithmetic_v<T> ||
+std::is_enum_v<T> ||
 (std::is_class_v<T> && std::is_trivial_v<T> && std::is_standard_layout_v<T>);
 
 template <typename T>

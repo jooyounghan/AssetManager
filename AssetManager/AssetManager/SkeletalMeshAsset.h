@@ -5,7 +5,8 @@
 class SkeletalMeshAsset : public StaticMeshAsset
 {
 public:
-	SkeletalMeshAsset(const std::string& assetNameIn);
+	SkeletalMeshAsset() = default;
+	SkeletalMeshAsset(const std::string& assetName);
 	virtual ~SkeletalMeshAsset();
 
 protected:
@@ -26,3 +27,10 @@ public:
 	virtual void Deserialize(FILE* fileIn) override;
 };
 
+class ISkeletalMeshProvider
+{
+public:
+	virtual std::shared_ptr<SkeletalMeshAsset> GetSkeletalMeshAsset(
+		const std::string& textureName
+	) = 0;
+};

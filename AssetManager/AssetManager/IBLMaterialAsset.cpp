@@ -4,8 +4,8 @@
 using namespace std;
 using namespace DirectX;
 
-IBLMaterialAsset::IBLMaterialAsset(const string& assetNameIn)
-	: AAsset(assetNameIn), m_exposure(1.f), m_gamma(1.f)
+IBLMaterialAsset::IBLMaterialAsset(const string& assetName)
+	: AAsset(assetName), m_exposure(1.f), m_gamma(1.f)
 {
 }
 

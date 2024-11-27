@@ -4,8 +4,8 @@
 using namespace std;
 using namespace DirectX;
 
-MapAsset::MapAsset(const std::string& assetNameIn)
-	: AAsset(assetNameIn)
+MapAsset::MapAsset(const std::string& assetName)
+	: AAsset(assetName)
 {
 }
 
@@ -28,9 +28,9 @@ void MapAsset::UpdateStaticMeshAssets(IStaticMeshProvider& provider)
 	}
 }
 
-void MapAsset::SetIBLMaterialAsset(const std::string& iblmaterialAssetNameIn, IIBLMaterialProvider& provider)
+void MapAsset::SetIBLMaterialAsset(const std::string& iblmaterialAssetName, IIBLMaterialProvider& provider)
 {
-	m_iblMaterialName = iblmaterialAssetNameIn;
+	m_iblMaterialName = iblmaterialAssetName;
 	UpdateIBLMaterialAsset(provider);
 	m_isModified = true;
 }

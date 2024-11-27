@@ -15,7 +15,7 @@ AnimationRetargeter::~AnimationRetargeter()
 {
 }
 
-std::shared_ptr<AnimationAsset> AnimationRetargeter::GetRetargetedAnimation(const std::string& assetNameIn)
+std::shared_ptr<AnimationAsset> AnimationRetargeter::GetRetargetedAnimation(const std::string& assetName)
 {
 	if (m_boneTargetings.empty())
 	{
@@ -35,7 +35,7 @@ std::shared_ptr<AnimationAsset> AnimationRetargeter::GetRetargetedAnimation(cons
 		const float& TicksPerSecond = m_sourceAnimationAsset->GetTicksPerSecond();
 
 		const unordered_map<string, AnimChannel>& SourceBoneNameToAnimChannels = m_sourceAnimationAsset->GetBoneNameToAnimChannels();
-		shared_ptr<AnimationAsset> RetargetedAnimation = make_shared<AnimationAsset>(assetNameIn);
+		shared_ptr<AnimationAsset> RetargetedAnimation = make_shared<AnimationAsset>(assetName);
 
 		const map<string, XMMATRIX> TPoseLocalSourceTransformations = GetTPoseLocalTransformations(m_sourceBoneAsset);
 		const map<string, XMMATRIX> TPoseLocalDestTransformations = GetTPoseLocalTransformations(m_destBoneAsset);

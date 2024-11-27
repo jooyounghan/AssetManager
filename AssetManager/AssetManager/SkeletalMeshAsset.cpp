@@ -4,8 +4,8 @@
 using namespace std;
 using namespace DirectX;
 
-SkeletalMeshAsset::SkeletalMeshAsset(const string& assetNameIn)
-	: StaticMeshAsset(assetNameIn)
+SkeletalMeshAsset::SkeletalMeshAsset(const string& assetName)
+	: StaticMeshAsset(assetName)
 {
 }
 

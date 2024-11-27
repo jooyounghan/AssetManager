@@ -5,8 +5,12 @@
 class AAsset : public ISerializable
 {
 public:
-	AAsset(const std::string& assetNameIn);
+	AAsset() = default;
+	AAsset(const std::string& assetName);
 	virtual ~AAsset();
+
+public:
+	static std::string AssetExtension;
 
 protected:
 	std::string m_assetName;

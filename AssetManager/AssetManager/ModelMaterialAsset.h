@@ -11,16 +11,16 @@ enum class EModelMaterialTexture
 	MODEL_MATERIAL_TEXTURE_METALIC,
 	MODEL_MATERIAL_TEXTURE_NORMAL,
 	MODEL_MATERIAL_TEXTURE_HEIGHT,
-	MODEL_MATERIAL_TEXTURE_EMISSIVE,
-	MODEL_MATERIAL_TEXTURE_COUNT
+	MODEL_MATERIAL_TEXTURE_EMISSIVE
 };
 
-constexpr size_t ModelMaterialTextureCount = static_cast<size_t>(EModelMaterialTexture::MODEL_MATERIAL_TEXTURE_COUNT);
+constexpr size_t ModelMaterialTextureCount = static_cast<size_t>(EModelMaterialTexture::MODEL_MATERIAL_TEXTURE_EMISSIVE) + 1;
 
 class ModelMaterialAsset : public AAsset
 {
 public:
-	ModelMaterialAsset(const std::string& assetNameIn);
+	ModelMaterialAsset() = default;
+	ModelMaterialAsset(const std::string& assetName);
 	virtual ~ModelMaterialAsset();
 
 protected:

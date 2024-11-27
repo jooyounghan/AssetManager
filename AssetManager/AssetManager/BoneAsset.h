@@ -9,12 +9,12 @@
 class Bone : public std::enable_shared_from_this<Bone>, public ISerializable
 {
 public:
-	Bone();
+	Bone() = default;
 	~Bone();
 
 private:
 	size_t m_boneIdx = NULL;
-	DirectX::XMMATRIX m_offsetMatrix;
+	DirectX::XMMATRIX m_offsetMatrix = DirectX::XMMatrixIdentity();
 	std::shared_ptr<Bone> m_parentBone = nullptr;
 	std::list<std::shared_ptr<Bone>> m_boneChildren;
 
@@ -36,7 +36,8 @@ public:
 class BoneAsset : public AAsset
 {
 public:
-	BoneAsset(const std::string& assetNameIn);
+	BoneAsset() = default;
+	BoneAsset(const std::string& assetName);
 	virtual ~BoneAsset();
 
 protected:

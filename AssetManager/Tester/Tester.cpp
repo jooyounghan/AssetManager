@@ -9,11 +9,23 @@
 #include "AnimationAsset.h"
 #include "IBLMaterialAsset.h"
 #include "MapAsset.h"
+#include "AssetReader.h"
+#include "ModelFileToAssetWriter.h"
 
 using namespace std;
 
 int main()
 {
+	ModelFileToAssetWriter assetWriter("./Assets/");
+	auto test101 = assetWriter.WriteToAssets("test");
+
+
+	AssetReader assetReader("./Assets/");
+	assetReader.UpdatePreloadArgs();
+	auto test100 =assetReader.GetLoadedAsset();
+
+
+
 	MapAsset test11("Test");
 	test11.Serialize(nullptr);
 	test11.Deserialize(nullptr);
@@ -49,7 +61,7 @@ int main()
 	test3.Serialize(nullptr);
 	test3.Deserialize(nullptr);
 
-	ScratchTextureAsset test2("Test");
+	ScratchTextureAsset test2;
 	test2.CompressDataArray(vector<vector<uint8_t>>());
 	test2.DecompressDataArray();
 	test2.Serialize(nullptr);

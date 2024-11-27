@@ -25,7 +25,7 @@ protected:
 	std::unordered_map<std::shared_ptr<Bone>, std::shared_ptr<Bone>> m_boneTargetings;
 
 public:
-	std::shared_ptr<AnimationAsset> GetRetargetedAnimation(const std::string& assetNameIn);
+	std::shared_ptr<AnimationAsset> GetRetargetedAnimation(const std::string& assetName);
 
 public:
 	void GenerateBoneTargetings();

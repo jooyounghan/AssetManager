@@ -4,8 +4,8 @@
 using namespace std;
 using namespace DirectX;
 
-ModelMaterialAsset::ModelMaterialAsset(const string& assetNameIn)
-	: AAsset(assetNameIn), m_f0(), m_heightScale(0.f)
+ModelMaterialAsset::ModelMaterialAsset(const string& assetName)
+	: AAsset(assetName), m_f0(), m_heightScale(0.f)
 {
 }
 

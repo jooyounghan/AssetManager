@@ -10,11 +10,9 @@ namespace DirectX
 class ScratchTextureAsset : public ATextureAsset
 {
 public:
+	ScratchTextureAsset() = default;
 	ScratchTextureAsset(
-		const std::string& assetNameIn
-	);
-	ScratchTextureAsset(
-		const std::string& assetNameIn,
+		const std::string& assetName,
 		const DirectX::ScratchImage& scratch,
 		const DirectX::TexMetadata& metaData
 	);

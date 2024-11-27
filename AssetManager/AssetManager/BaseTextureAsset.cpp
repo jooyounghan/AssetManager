@@ -8,18 +8,13 @@
 
 using namespace std;
 
-BaseTextureAsset::BaseTextureAsset(const string& assetNameIn)
-	: ATextureAsset(assetNameIn, 0, 0, 0)
-{
-}
-
 BaseTextureAsset::BaseTextureAsset(
-	const string& assetNameIn,
+	const string& assetName,
 	const unsigned int& widthIn,
 	const unsigned int& heightIn,
 	uint8_t* imageBufferIn
 )
-	: ATextureAsset(assetNameIn, widthIn, heightIn, 1)
+	: ATextureAsset(assetName, widthIn, heightIn, 1)
 {
 	m_originalSizePerArray.push_back(m_width * m_height * 4);
 

@@ -96,8 +96,8 @@ void AnimChannel::Deserialize(FILE* fileIn)
 	m_timeTable = DeserializeHelper::DeserializeSequenceContainer<set<float>>(fileIn);
 }
 
-AnimationAsset::AnimationAsset(const string& assetNameIn)
-	: AAsset(assetNameIn)
+AnimationAsset::AnimationAsset(const string& assetName)
+	: AAsset(assetName)
 {
 }
 

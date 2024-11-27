@@ -4,7 +4,8 @@
 class StaticMeshAsset : public MeshAsset
 {
 public:
-	StaticMeshAsset(const std::string& assetNameIn);
+	StaticMeshAsset() = default;
+	StaticMeshAsset(const std::string& assetName);
 	virtual ~StaticMeshAsset();
 
 protected:
@@ -22,4 +23,3 @@ public:
 		const std::string& textureName
 	) = 0;
 };
-

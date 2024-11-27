@@ -78,6 +78,21 @@
     <Filter Include="헤더 파일\Asset\Map">
       <UniqueIdentifier>{5702f4d8-ea03-48cb-a5b3-f28a2630619b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\AssetManager">
+      <UniqueIdentifier>{60eb2509-e07a-4d42-8de9-843e1ad1346e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\AssetManager">
+      <UniqueIdentifier>{4368a164-e1cc-4498-ad5a-959d7014314e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\AssetManager\AssetWriter">
+      <UniqueIdentifier>{2558bfda-eae2-4057-80ea-ba6d99075f81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\AssetManager\AssetWriter">
+      <UniqueIdentifier>{3c6f1f88-72c9-49f6-9f27-b2a536ed5ee5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Utilities">
+      <UniqueIdentifier>{a2b47f26-bfd8-490f-8921-241dbeb5744c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -137,6 +152,30 @@
     <ClInclude Include="IBLMaterialAsset.h">
       <Filter>헤더 파일\Asset\Material</Filter>
     </ClInclude>
+    <ClInclude Include="AssetReader.h">
+      <Filter>헤더 파일\AssetManager</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetWriter.h">
+      <Filter>헤더 파일\AssetManager\AssetWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelFileToAssetWriter.h">
+      <Filter>헤더 파일\AssetManager\AssetWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="StringHelper.h">
+      <Filter>헤더 파일\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticMeshSetAsset.h">
+      <Filter>헤더 파일\Asset\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletalMeshSetAsset.h">
+      <Filter>헤더 파일\Asset\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshSetAsset.h">
+      <Filter>헤더 파일\Asset\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetWrapper.h">
+      <Filter>헤더 파일\AssetManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -189,6 +228,30 @@
     </ClCompile>
     <ClCompile Include="IBLMaterialAsset.cpp">
       <Filter>소스 파일\Asset\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetReader.cpp">
+      <Filter>소스 파일\AssetManager</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetWrapper.cpp">
+      <Filter>소스 파일\AssetManager</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetWriter.cpp">
+      <Filter>소스 파일\AssetManager\AssetWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelFileToAssetWriter.cpp">
+      <Filter>소스 파일\AssetManager\AssetWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="StringHelper.cpp">
+      <Filter>소스 파일\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticMeshSetAsset.cpp">
+      <Filter>소스 파일\Asset\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeletalMeshSetAsset.cpp">
+      <Filter>소스 파일\Asset\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshSetAsset.cpp">
+      <Filter>소스 파일\Asset\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

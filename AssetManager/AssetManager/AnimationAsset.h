@@ -55,7 +55,8 @@ public:
 class AnimationAsset : public AAsset
 {
 public:
-	AnimationAsset(const std::string& assetNameIn);
+	AnimationAsset() = default;
+	AnimationAsset(const std::string& assetName);
 	virtual ~AnimationAsset();
 
 protected:

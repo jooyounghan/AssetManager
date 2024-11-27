@@ -11,7 +11,8 @@ namespace DirectX
 class MeshAsset : public AAsset
 {
 public:
-	MeshAsset(const std::string& assetNameIn);
+	MeshAsset() = default;
+	MeshAsset(const std::string& assetName);
 	virtual ~MeshAsset();
 
 protected:

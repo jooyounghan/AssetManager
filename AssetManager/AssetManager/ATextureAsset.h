@@ -1,11 +1,13 @@
 #pragma once
 #include "Asset.h"
+#include <vector>
 
 class ATextureAsset : public AAsset
 {
 public:
+	ATextureAsset() = default;
 	ATextureAsset(
-		const std::string& assetNameIn,
+		const std::string& assetName,
 		const unsigned int& widthIn,
 		const unsigned int& heightIn,
 		const unsigned int& arraysizeIn

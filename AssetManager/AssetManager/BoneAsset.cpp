@@ -4,10 +4,6 @@
 using namespace std;
 using namespace DirectX;
 
-Bone::Bone() 
-	: m_offsetMatrix(XMMatrixIdentity())
-{}
-
 Bone::~Bone() {}
 
 void Bone::SetBoneProperties(const size_t boneIdxIn, const XMMATRIX offsetMatrix)
@@ -40,8 +36,8 @@ void Bone::Deserialize(FILE* fileIn)
 	m_offsetMatrix = DeserializeHelper::DeserializeElement<XMMATRIX>(fileIn);
 }
 
-BoneAsset::BoneAsset(const string& assetNameIn)
-	: AAsset(assetNameIn)
+BoneAsset::BoneAsset(const string& assetName)
+	: AAsset(assetName)
 {
 }
 

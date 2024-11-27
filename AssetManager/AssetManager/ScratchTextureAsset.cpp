@@ -5,19 +5,13 @@
 using namespace std;
 using namespace DirectX;
 
-ScratchTextureAsset::ScratchTextureAsset(const string& assetNameIn)
-	: ATextureAsset(assetNameIn, 0, 0, 0)
-{
-
-}
-
 ScratchTextureAsset::ScratchTextureAsset(
-	const string& assetNameIn, 
+	const string& assetName, 
 	const ScratchImage& scratch,
 	const TexMetadata& metaData
 )
 	: ATextureAsset(
-		assetNameIn, 
+		assetName, 
 		static_cast<unsigned int>(metaData.width), 
 		static_cast<unsigned int>(metaData.height),
 		static_cast<unsigned int>(metaData.arraySize)
