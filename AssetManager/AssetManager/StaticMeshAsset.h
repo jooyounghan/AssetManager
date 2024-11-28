@@ -1,7 +1,17 @@
 #pragma once
 #include "MeshAsset.h"
 
-class StaticMeshAsset : public MeshAsset
+class StaticMeshPartData : public MeshPartsData
+{
+protected:
+	std::vector<DirectX::XMFLOAT3> m_tangents;
+
+public:
+	virtual void Serialize(FILE* fileIn) const override;
+	virtual void Deserialize(FILE* fileIn) override;
+};
+
+class StaticMeshAsset : public AMeshAsset
 {
 public:
 	StaticMeshAsset() = default;
@@ -9,7 +19,10 @@ public:
 	virtual ~StaticMeshAsset();
 
 protected:
-	std::vector<DirectX::XMFLOAT3> m_tangents;
+	std::vector<StaticMeshPartData> m_staticMeshPartsPerLOD;
+
+public:
+	virtual size_t GetLODCount() override;
 
 public:
 	virtual void Serialize(FILE* fileIn) const override;

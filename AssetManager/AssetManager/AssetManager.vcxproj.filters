@@ -110,7 +110,7 @@
     <ClInclude Include="Asset.h">
       <Filter>헤더 파일\Asset</Filter>
     </ClInclude>
-    <ClInclude Include="ATextureAsset.h">
+    <ClInclude Include="TextureAsset.h">
       <Filter>헤더 파일\Asset\Texture</Filter>
     </ClInclude>
     <ClInclude Include="BaseTextureAsset.h">
@@ -164,15 +164,6 @@
     <ClInclude Include="StringHelper.h">
       <Filter>헤더 파일\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="StaticMeshSetAsset.h">
-      <Filter>헤더 파일\Asset\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="SkeletalMeshSetAsset.h">
-      <Filter>헤더 파일\Asset\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshSetAsset.h">
-      <Filter>헤더 파일\Asset\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="AssetWrapper.h">
       <Filter>헤더 파일\AssetManager</Filter>
     </ClInclude>
@@ -190,7 +181,7 @@
     <ClCompile Include="Asset.cpp">
       <Filter>소스 파일\Asset</Filter>
     </ClCompile>
-    <ClCompile Include="ATextureAsset.cpp">
+    <ClCompile Include="TextureAsset.cpp">
       <Filter>소스 파일\Asset\Texture</Filter>
     </ClCompile>
     <ClCompile Include="BaseTextureAsset.cpp">
@@ -243,15 +234,6 @@
     </ClCompile>
     <ClCompile Include="StringHelper.cpp">
       <Filter>소스 파일\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticMeshSetAsset.cpp">
-      <Filter>소스 파일\Asset\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="SkeletalMeshSetAsset.cpp">
-      <Filter>소스 파일\Asset\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshSetAsset.cpp">
-      <Filter>소스 파일\Asset\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

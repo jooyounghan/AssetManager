@@ -1,5 +1,5 @@
 #pragma once
-#include "ATextureAsset.h"
+#include "TextureAsset.h"
 
 namespace DirectX 
 {
@@ -7,7 +7,7 @@ namespace DirectX
 	struct TexMetadata;
 }
 
-class ScratchTextureAsset : public ATextureAsset
+class ScratchTextureAsset : public TextureAsset
 {
 public:
 	ScratchTextureAsset() = default;
@@ -17,13 +17,6 @@ public:
 		const DirectX::TexMetadata& metaData
 	);
 	virtual ~ScratchTextureAsset();
-
-public:
-	virtual std::vector<std::vector<uint8_t>> CompressDataArray(
-		const std::vector<std::vector<uint8_t>>& originalBufferPerArray
-	) override;
-	virtual std::vector<std::vector<uint8_t>> DecompressDataArray() override;
-
 };
 
 class IScratchTextureProvider

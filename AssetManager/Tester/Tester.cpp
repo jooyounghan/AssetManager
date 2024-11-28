@@ -17,7 +17,7 @@ using namespace std;
 int main()
 {
 	ModelFileToAssetWriter assetWriter("./Assets/");
-	auto test101 = assetWriter.WriteToAssets("test");
+	auto test101 = assetWriter.WriteToAssets("Vanguard_LOD.fbx");
 
 
 	AssetReader assetReader("./Assets/");
@@ -51,10 +51,6 @@ int main()
 	BoneAsset test5("Test");
 	test5.Serialize(nullptr);
 	test5.Deserialize(nullptr);
-
-	MeshAsset test4("Test");
-	test4.Serialize(nullptr);
-	test4.Deserialize(nullptr);
 
 	ModelMaterialAsset test3("Test");
 

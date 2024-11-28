@@ -1,7 +1,7 @@
 #pragma once
-#include "ATextureAsset.h"
+#include "TextureAsset.h"
 
-class BaseTextureAsset : public ATextureAsset
+class BaseTextureAsset : public TextureAsset
 {
 public:
 	BaseTextureAsset() = default;
@@ -13,10 +13,6 @@ public:
 	);
 
 	virtual ~BaseTextureAsset();
-
-public:
-	virtual std::vector<std::vector<uint8_t>> CompressDataArray(const std::vector<std::vector<uint8_t>>& originalBufferPerArray) override;
-	virtual std::vector<std::vector<uint8_t>> DecompressDataArray() override;
 };
 
 class IBaseTextureProvider

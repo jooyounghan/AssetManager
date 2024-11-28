@@ -46,6 +46,11 @@ public:
 		IBaseTextureProvider& provider
 	);
 
+	void SetModelMaterialTexture(
+		EModelMaterialTexture modelMaterialTextureType,
+		std::shared_ptr<BaseTextureAsset> baseTextureAsset
+	);
+
 public:
 	void SetModelMaterialProperties(const DirectX::XMFLOAT3& f0, const float& heightScale);
 

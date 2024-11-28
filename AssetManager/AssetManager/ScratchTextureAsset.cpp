@@ -10,7 +10,7 @@ ScratchTextureAsset::ScratchTextureAsset(
 	const ScratchImage& scratch,
 	const TexMetadata& metaData
 )
-	: ATextureAsset(
+	: TextureAsset(
 		assetName, 
 		static_cast<unsigned int>(metaData.width), 
 		static_cast<unsigned int>(metaData.height),
@@ -45,51 +45,4 @@ ScratchTextureAsset::ScratchTextureAsset(
 
 ScratchTextureAsset::~ScratchTextureAsset()
 {
-}
-
-vector<vector<uint8_t>> ScratchTextureAsset::CompressDataArray(
-	const vector<vector<uint8_t>>& originalBufferPerArray
-)
-{
-	vector<vector<uint8_t>> result;
-	m_compressedSizePerArray.resize(m_arraySize);
-	for (unsigned int arrayIdx = 0; arrayIdx < m_arraySize; ++arrayIdx)
-	{
-
-		uLong compressedSize = compressBound(static_cast<uLong>(m_originalSizePerArray[arrayIdx]));
-		vector<uint8_t> compressedData(compressedSize);
-
-		int compressResult = compress2(
-			compressedData.data(), &compressedSize,
-			originalBufferPerArray[arrayIdx].data(),
-			compressedSize, Z_BEST_COMPRESSION
-		);
-
-		m_compressedSizePerArray[arrayIdx] = compressedSize;
-		compressedData.resize(compressedSize);
-
-		result.push_back(move(compressedData));
-	}
-
-	return result;
-}
-
-vector<vector<uint8_t>> ScratchTextureAsset::DecompressDataArray()
-{
-	vector<vector<uint8_t>> result;
-	for (unsigned int arrayIdx = 0; arrayIdx < m_arraySize; ++arrayIdx)
-	{
-		uLongf originalSize = static_cast<uLong>(m_originalSizePerArray[arrayIdx]);
-		uLongf compressSize = static_cast<uLong>(m_compressedSizePerArray[arrayIdx]);
-		vector<uint8_t> originalData(originalSize);
-
-		int compressResult = uncompress(
-			originalData.data(),
-			&originalSize,
-			m_compressedBufferPerArray[arrayIdx].data(),
-			compressSize
-		);
-		result.push_back(move(originalData));
-	}
-	return result;
 }

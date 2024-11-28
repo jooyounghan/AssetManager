@@ -2,7 +2,18 @@
 #include "StaticMeshAsset.h"
 #include "BoneAsset.h"
 
-class SkeletalMeshAsset : public StaticMeshAsset
+class SkeletalMeshPartData : public StaticMeshPartData
+{
+protected:
+	std::vector<DirectX::XMFLOAT4> m_blendWeight;
+	std::vector<DirectX::XMINT4> m_blendIndex;
+
+public:
+	virtual void Serialize(FILE* fileIn) const override;
+	virtual void Deserialize(FILE* fileIn) override;
+};
+
+class SkeletalMeshAsset : public AMeshAsset
 {
 public:
 	SkeletalMeshAsset() = default;
@@ -10,17 +21,24 @@ public:
 	virtual ~SkeletalMeshAsset();
 
 protected:
-	std::vector<DirectX::XMFLOAT4> m_blendWeight;
-	std::vector<DirectX::XMFLOAT4> m_blendIndex;
+	std::vector<SkeletalMeshPartData> m_skeletalMeshPartsPerLOD;
 
 protected:
-	std::string m_boneName;
-	std::shared_ptr<BoneAsset> m_bone;
+	std::string m_boneAssetName;
+	std::shared_ptr<BoneAsset> m_boneAsset;
+
+public:
+	void SetBoneAsset(
+		const std::shared_ptr<BoneAsset>& boneAsset
+	);
 
 public:
 	void UpdateBoneAsset(
 		IBoneProvider& provider
 	);
+
+public:
+	virtual size_t GetLODCount() override;
 
 public:
 	virtual void Serialize(FILE* fileIn) const override;

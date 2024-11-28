@@ -2,7 +2,9 @@
 #include "Asset.h"
 #include "IBLMaterialAsset.h"
 #include "StaticMeshAsset.h"
-#include <map>
+
+#include <unordered_map>
+
 class MapAsset : public AAsset
 {
 public:

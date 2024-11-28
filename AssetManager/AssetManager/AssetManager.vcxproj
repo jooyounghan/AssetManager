@@ -169,15 +169,12 @@
     <ClInclude Include="HeaderHelper.h" />
     <ClInclude Include="IBLMaterialAsset.h" />
     <ClInclude Include="MapAsset.h" />
-    <ClInclude Include="MeshSetAsset.h" />
-    <ClInclude Include="SkeletalMeshSetAsset.h" />
-    <ClInclude Include="StaticMeshSetAsset.h" />
     <ClInclude Include="ModelFileToAssetWriter.h" />
     <ClInclude Include="ModelMaterialAsset.h" />
     <ClInclude Include="MeshAsset.h" />
     <ClInclude Include="ScratchTextureAsset.h" />
     <ClInclude Include="Asset.h" />
-    <ClInclude Include="ATextureAsset.h" />
+    <ClInclude Include="TextureAsset.h" />
     <ClInclude Include="BaseTextureAsset.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
@@ -197,15 +194,12 @@
     <ClCompile Include="BoneAsset.cpp" />
     <ClCompile Include="IBLMaterialAsset.cpp" />
     <ClCompile Include="MapAsset.cpp" />
-    <ClCompile Include="MeshSetAsset.cpp" />
-    <ClCompile Include="SkeletalMeshSetAsset.cpp" />
-    <ClCompile Include="StaticMeshSetAsset.cpp" />
     <ClCompile Include="ModelFileToAssetWriter.cpp" />
     <ClCompile Include="ModelMaterialAsset.cpp" />
     <ClCompile Include="MeshAsset.cpp" />
     <ClCompile Include="ScratchTextureAsset.cpp" />
     <ClCompile Include="Asset.cpp" />
-    <ClCompile Include="ATextureAsset.cpp" />
+    <ClCompile Include="TextureAsset.cpp" />
     <ClCompile Include="BaseTextureAsset.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -32,6 +32,16 @@ void ModelMaterialAsset::SetModelMaterialTexture(
 	m_isModified = true;
 }
 
+void ModelMaterialAsset::SetModelMaterialTexture(
+	EModelMaterialTexture modelMaterialTextureType, 
+	shared_ptr<BaseTextureAsset> baseTextureAsset
+)
+{
+	const size_t& materialTextureIdx = static_cast<size_t>(modelMaterialTextureType);
+	m_materialTextureName[materialTextureIdx] = baseTextureAsset->GetAssetName();
+	m_materialTexture[materialTextureIdx] = baseTextureAsset;
+}
+
 void ModelMaterialAsset::SetModelMaterialProperties(
 	const DirectX::XMFLOAT3& f0, 
 	const float& heightScale

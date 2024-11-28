@@ -6,7 +6,7 @@ using namespace DirectX;
 
 Bone::~Bone() {}
 
-void Bone::SetBoneProperties(const size_t boneIdxIn, const XMMATRIX offsetMatrix)
+void Bone::SetBoneProperties(const uint32_t& boneIdxIn, const XMMATRIX offsetMatrix)
 {
 	m_boneIdx = boneIdxIn;
 	m_offsetMatrix = offsetMatrix;
@@ -32,7 +32,7 @@ void Bone::Serialize(FILE* fileIn) const
 
 void Bone::Deserialize(FILE* fileIn)
 {
-	m_boneIdx = DeserializeHelper::DeserializeElement<size_t>(fileIn);
+	m_boneIdx = DeserializeHelper::DeserializeElement<uint32_t>(fileIn);
 	m_offsetMatrix = DeserializeHelper::DeserializeElement<XMMATRIX>(fileIn);
 }
 
@@ -44,14 +44,14 @@ BoneAsset::BoneAsset(const string& assetName)
 BoneAsset::~BoneAsset() {}
 
 
-void BoneAsset::AttachBone(
-	const shared_ptr<Bone>& parentBone,
-	const std::string& childBoneName,
-	const shared_ptr<Bone>& childBone
-)
+void BoneAsset::SetRootBone(const std::shared_ptr<Bone> bone)
 {
-	m_boneToNames.emplace(childBone, childBoneName);
-	parentBone->AddChildBone(childBone);
+	m_rootBone = bone;
+}
+
+void BoneAsset::AddBone(const std::shared_ptr<Bone>& bone, const std::string& boneName)
+{
+	m_boneToNames.emplace(bone, boneName);
 }
 
 void BoneAsset::Serialize(FILE* fileIn) const
