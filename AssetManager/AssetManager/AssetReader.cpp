@@ -60,8 +60,6 @@ void AssetReader::UpdatePreloadArgs()
 {
 	m_assetTypeToPreloadArgs.clear();
 
-
-
 	for (const auto& entry : recursive_directory_iterator(m_assetBasePath))
 	{
 		if (entry.is_regular_file())
@@ -92,68 +90,71 @@ void AssetReader::UpdatePreloadArgs()
 	}
 }
 
-std::unordered_map<EAssetType, std::vector<std::shared_ptr<AAsset>>> AssetReader::GetLoadedAsset()
+unordered_map<EAssetType, vector<shared_ptr<AAsset>>> AssetReader::GetLoadedAsset() const
 {
-	std::function<shared_ptr<AAsset>()> assetMaker;
-	std::unordered_map<EAssetType, std::vector<std::shared_ptr<AAsset>>> loadedAssets;
+	function<shared_ptr<AAsset>()> assetMaker;
+	unordered_map<EAssetType, vector<shared_ptr<AAsset>>> loadedAssets;
 
 	vector<EAssetType> loadPriorities = m_topologySorter.GetTopologySort();
 	for (const EAssetType& loadPriority : loadPriorities)
 	{
-		vector<shared_ptr<AAsset>> loadedAssetsPerType;
-
-		const vector<SAssetPreloadArgs>& preloadArgs = m_assetTypeToPreloadArgs[loadPriority];
-
-		switch (loadPriority)
+		if (m_assetTypeToPreloadArgs.find(loadPriority) != m_assetTypeToPreloadArgs.end())
 		{
-		case EAssetType::ASSET_TYPE_STATIC:
-			assetMaker = [&] { return make_shared<StaticMeshAsset>(); };
-			break;
-		case EAssetType::ASSET_TYPE_SKELETAL:
-			assetMaker = [&] { return make_shared<SkeletalMeshAsset>(); };
-			break;
-		case EAssetType::ASSET_TYPE_BONE:
-			assetMaker = [&] { return make_shared<BoneAsset>(); };
-			break;
-		case EAssetType::ASSET_TYPE_ANIMATION:
-			assetMaker = [&] { return make_shared<AnimationAsset>(); };
-			break;
-		case EAssetType::ASSET_TYPE_BASE_TEXTURE:
-			assetMaker = [&] { return make_shared<BaseTextureAsset>(); };
-			break;
-		case EAssetType::ASSET_TYPE_SCRATCH_TEXTURE:
-			assetMaker = [&] { return make_shared<ScratchTextureAsset>(); };
-			break;
-		case EAssetType::ASSET_TYPE_MODEL_MATERIAL:
-			assetMaker = [&] { return make_shared<ModelMaterialAsset>(); };
-			break;
-		case EAssetType::ASSET_TYPE_IBL_MATERIAL:
-			assetMaker = [&] { return make_shared<IBLMaterialAsset>(); };
-			break;
-		case EAssetType::ASSET_TYPE_MAP:
-			assetMaker = [&] { return make_shared<MapAsset>(); };
-			break;
-		}
+			vector<shared_ptr<AAsset>> loadedAssetsPerType;
 
-		for (const SAssetPreloadArgs& preloadArg : preloadArgs)
-		{
-			FILE* fileIn = nullptr;
-			const string& assetPath = preloadArg.assetPath.c_str();
-			const long& lastReadPoint = preloadArg.lastReadPoint;
+			const vector<SAssetPreloadArgs>& preloadArgs = m_assetTypeToPreloadArgs.at(loadPriority);
 
-			fopen_s(&fileIn, assetPath.c_str(), "rb");
-			if (fileIn != nullptr)
+			switch (loadPriority)
 			{
-				shared_ptr<AAsset> asset = assetMaker();
-				loadedAssetsPerType.push_back(asset);
-
-				fseek(fileIn, lastReadPoint, SEEK_SET);
-				asset->Deserialize(fileIn);
-				fclose(fileIn);
+			case EAssetType::ASSET_TYPE_STATIC:
+				assetMaker = [&] { return make_shared<StaticMeshAsset>(); };
+				break;
+			case EAssetType::ASSET_TYPE_SKELETAL:
+				assetMaker = [&] { return make_shared<SkeletalMeshAsset>(); };
+				break;
+			case EAssetType::ASSET_TYPE_BONE:
+				assetMaker = [&] { return make_shared<BoneAsset>(); };
+				break;
+			case EAssetType::ASSET_TYPE_ANIMATION:
+				assetMaker = [&] { return make_shared<AnimationAsset>(); };
+				break;
+			case EAssetType::ASSET_TYPE_BASE_TEXTURE:
+				assetMaker = [&] { return make_shared<BaseTextureAsset>(); };
+				break;
+			case EAssetType::ASSET_TYPE_SCRATCH_TEXTURE:
+				assetMaker = [&] { return make_shared<ScratchTextureAsset>(); };
+				break;
+			case EAssetType::ASSET_TYPE_MODEL_MATERIAL:
+				assetMaker = [&] { return make_shared<ModelMaterialAsset>(); };
+				break;
+			case EAssetType::ASSET_TYPE_IBL_MATERIAL:
+				assetMaker = [&] { return make_shared<IBLMaterialAsset>(); };
+				break;
+			case EAssetType::ASSET_TYPE_MAP:
+				assetMaker = [&] { return make_shared<MapAsset>(); };
+				break;
 			}
-		}
 
-		loadedAssets.emplace(loadPriority, loadedAssetsPerType);
+			for (const SAssetPreloadArgs& preloadArg : preloadArgs)
+			{
+				FILE* fileIn = nullptr;
+				const string& assetPath = preloadArg.assetPath.c_str();
+				const long& lastReadPoint = preloadArg.lastReadPoint;
+
+				fopen_s(&fileIn, assetPath.c_str(), "rb");
+				if (fileIn != nullptr)
+				{
+					shared_ptr<AAsset> asset = assetMaker();
+					loadedAssetsPerType.push_back(asset);
+
+					fseek(fileIn, lastReadPoint, SEEK_SET);
+					asset->Deserialize(fileIn);
+					fclose(fileIn);
+				}
+			}
+
+			loadedAssets.emplace(loadPriority, loadedAssetsPerType);
+		}
 	}
 	return loadedAssets;
 }

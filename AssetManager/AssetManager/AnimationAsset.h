@@ -64,11 +64,7 @@ protected:
 	float m_ticksPerSecond = 0.f;
 
 public:
-	void SetAnimationDuration(const float& durationIn, const float& ticksPerSecond)
-	{
-		m_duration = durationIn;
-		m_ticksPerSecond = ticksPerSecond;
-	}
+	void SetAnimationDuration(const float& durationIn, const float& ticksPerSecond);
 	
 protected:
 	std::unordered_map<std::string, AnimChannel> boneNameToAnimChannels;

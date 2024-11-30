@@ -105,6 +105,12 @@ AnimationAsset::~AnimationAsset()
 {
 }
 
+void AnimationAsset::SetAnimationDuration(const float& durationIn, const float& ticksPerSecond)
+{
+	m_duration = durationIn;
+	m_ticksPerSecond = ticksPerSecond;
+}
+
 void AnimationAsset::AddAnimChaannel(const string& boneName, const AnimChannel& animChannel)
 {
 	boneNameToAnimChannels.emplace(boneName, animChannel);

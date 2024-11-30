@@ -3,11 +3,11 @@
 
 using namespace std;
 
-string StringHelper::ConvertACPToUTF8(const string& ACPString)
+string StringHelper::ConvertACPToUTF8(const string& acpString)
 {
-    int wideSize = MultiByteToWideChar(CP_ACP, 0, ACPString.c_str(), -1, NULL, 0);
+    int wideSize = MultiByteToWideChar(CP_ACP, 0, acpString.c_str(), -1, NULL, 0);
     wstring wideStr(wideSize, 0);
-    MultiByteToWideChar(CP_ACP, 0, ACPString.c_str(), -1, &wideStr[0], wideSize);
+    MultiByteToWideChar(CP_ACP, 0, acpString.c_str(), -1, &wideStr[0], wideSize);
 
     int utf8Size = WideCharToMultiByte(CP_UTF8, 0, wideStr.c_str(), -1, NULL, 0, NULL, NULL);
     string utf8Str(utf8Size, 0);
@@ -16,10 +16,18 @@ string StringHelper::ConvertACPToUTF8(const string& ACPString)
     return utf8Str;
 }
 
-wstring StringHelper::ConvertACPToWString(const string ACPString)
+std::string StringHelper::ConvertWStringToACP(const std::wstring wString)
 {
-    int wideSize = MultiByteToWideChar(CP_ACP, 0, ACPString.c_str(), -1, NULL, 0);
+    int acpSize = WideCharToMultiByte(CP_UTF8, 0, wString.c_str(), -1, nullptr, 0, nullptr, nullptr);
+    std::string acpString(acpSize - 1, 0);
+    WideCharToMultiByte(CP_ACP, 0, wString.c_str(), -1, &acpString[0], acpSize, nullptr, nullptr);
+    return acpString;
+}
+
+wstring StringHelper::ConvertACPToWString(const string acpString)
+{
+    int wideSize = MultiByteToWideChar(CP_ACP, 0, acpString.c_str(), -1, NULL, 0);
     wstring wideStr(wideSize, 0);
-    MultiByteToWideChar(CP_ACP, 0, ACPString.c_str(), -1, &wideStr[0], wideSize);
+    MultiByteToWideChar(CP_ACP, 0, acpString.c_str(), -1, &wideStr[0], wideSize);
     return wideStr;
 }

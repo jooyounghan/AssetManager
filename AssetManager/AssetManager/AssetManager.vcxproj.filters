@@ -93,6 +93,24 @@
     <Filter Include="소스 파일\Utilities">
       <UniqueIdentifier>{a2b47f26-bfd8-490f-8921-241dbeb5744c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\AssetManager\AssetWriter\ModelFile">
+      <UniqueIdentifier>{437a61f9-4fde-4193-b731-e623b72b940c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\AssetManager\AssetWriter\ModelFile">
+      <UniqueIdentifier>{9fa59813-0e00-4a47-aa58-552415afc405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\AssetManager\AssetWriter\ImageFile">
+      <UniqueIdentifier>{5300fe2b-51c3-4cf5-86a2-45d72f046f3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\AssetManager\AssetWriter\ImageFile">
+      <UniqueIdentifier>{1e6afa85-b062-446e-b336-8353f11f242f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Resource">
+      <UniqueIdentifier>{eda11d7a-f013-4eff-9a92-e52f6b6410c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Resource">
+      <UniqueIdentifier>{77d2e66d-6d0c-4408-a06b-fb5b232e0f01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -158,14 +176,35 @@
     <ClInclude Include="AssetWriter.h">
       <Filter>헤더 파일\AssetManager\AssetWriter</Filter>
     </ClInclude>
-    <ClInclude Include="ModelFileToAssetWriter.h">
-      <Filter>헤더 파일\AssetManager\AssetWriter</Filter>
-    </ClInclude>
     <ClInclude Include="StringHelper.h">
       <Filter>헤더 파일\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="AssetWrapper.h">
       <Filter>헤더 파일\AssetManager</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticMeshAssetWriter.h">
+      <Filter>헤더 파일\AssetManager\AssetWriter\ModelFile</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshAssetWriter.h">
+      <Filter>헤더 파일\AssetManager\AssetWriter\ModelFile</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelFileToAssetWriter.h">
+      <Filter>헤더 파일\AssetManager\AssetWriter\ModelFile</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletalMeshAssetWriter.h">
+      <Filter>헤더 파일\AssetManager\AssetWriter\ModelFile</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageFileToAssetWriter.h">
+      <Filter>헤더 파일\AssetManager\AssetWriter\ImageFile</Filter>
+    </ClInclude>
+    <ClInclude Include="MathematicalHelper.h">
+      <Filter>헤더 파일\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetManager.h">
+      <Filter>헤더 파일\AssetManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>헤더 파일\Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -229,11 +268,32 @@
     <ClCompile Include="AssetWriter.cpp">
       <Filter>소스 파일\AssetManager\AssetWriter</Filter>
     </ClCompile>
-    <ClCompile Include="ModelFileToAssetWriter.cpp">
-      <Filter>소스 파일\AssetManager\AssetWriter</Filter>
-    </ClCompile>
     <ClCompile Include="StringHelper.cpp">
       <Filter>소스 파일\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshAssetWriter.cpp">
+      <Filter>소스 파일\AssetManager\AssetWriter\ModelFile</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelFileToAssetWriter.cpp">
+      <Filter>소스 파일\AssetManager\AssetWriter\ModelFile</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeletalMeshAssetWriter.cpp">
+      <Filter>소스 파일\AssetManager\AssetWriter\ModelFile</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticMeshAssetWriter.cpp">
+      <Filter>소스 파일\AssetManager\AssetWriter\ModelFile</Filter>
+    </ClCompile>
+    <ClCompile Include="MathematicalHelper.cpp">
+      <Filter>소스 파일\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageFileToAssetWriter.cpp">
+      <Filter>소스 파일\AssetManager\AssetWriter\ImageFile</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetManager.cpp">
+      <Filter>소스 파일\AssetManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>소스 파일\Resource</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

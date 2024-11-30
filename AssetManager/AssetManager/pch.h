@@ -17,4 +17,7 @@
 #include "assimp/Importer.hpp"
 #include "assimp/postprocess.h"
 #include "assimp/scene.h"
+
+#include "stb/stb_image.h"
+#include "stb/stb_image_write.h"
 #endif //PCH_H

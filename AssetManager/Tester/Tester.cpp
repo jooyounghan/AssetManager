@@ -10,14 +10,14 @@
 #include "IBLMaterialAsset.h"
 #include "MapAsset.h"
 #include "AssetReader.h"
-#include "ModelFileToAssetWriter.h"
+#include "AssetManager.h"
 
 using namespace std;
 
 int main()
 {
-	ModelFileToAssetWriter assetWriter("./Assets/");
-	auto test101 = assetWriter.WriteToAssets("Vanguard_LOD.fbx");
+	AssetManager a;
+	a.PreloadAsset();
 
 
 	AssetReader assetReader("./Assets/");

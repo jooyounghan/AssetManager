@@ -9,6 +9,13 @@ protected:
 	std::vector<DirectX::XMINT4> m_blendIndex;
 
 public:
+	void AppendBlendProperties(const size_t& appendCount);
+	void SetBlendProperties(
+		const size_t& vertexIndex,
+		const int& boneIndex,
+		const float& blendWeight
+	);
+public:
 	virtual void Serialize(FILE* fileIn) const override;
 	virtual void Deserialize(FILE* fileIn) override;
 };
@@ -21,7 +28,7 @@ public:
 	virtual ~SkeletalMeshAsset();
 
 protected:
-	std::vector<SkeletalMeshPartData> m_skeletalMeshPartsPerLOD;
+	std::map<uint32_t, std::shared_ptr<SkeletalMeshPartData>> m_skeletalMeshPartsPerLOD;
 
 protected:
 	std::string m_boneAssetName;
@@ -39,6 +46,7 @@ public:
 
 public:
 	virtual size_t GetLODCount() override;
+	virtual std::shared_ptr<MeshPartsData> GetMeshPartData(const uint32_t& lodLevel) override;
 
 public:
 	virtual void Serialize(FILE* fileIn) const override;

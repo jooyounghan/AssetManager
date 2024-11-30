@@ -3,24 +3,35 @@
 #include "ModelMaterialAsset.h"
 #include <map>
 
-namespace DirectX
-{
-	struct XMFLOAT2;
-	struct XMFLOAT3;
-}
-
 class MeshPartsData : public ISerializable
 {
 protected:
 	std::vector<DirectX::XMFLOAT3> m_positions;
 	std::vector<DirectX::XMFLOAT2> m_uvTextures;
 	std::vector<DirectX::XMFLOAT3> m_normals;
+	const DirectX::XMFLOAT3 m_emptyFloat3;
+	const DirectX::XMFLOAT2 m_emptyFloat2;
 
 protected:
 	std::map<uint32_t, std::vector<uint32_t>> m_offsetToIndices;
+	const std::vector<uint32_t> m_emptyIndices;
 
 public:
+	const std::vector<uint32_t>& GetIndices(const uint32_t& offset);
 	size_t GetPartsCount() { return m_offsetToIndices.size(); }
+
+public:
+	const DirectX::XMFLOAT3& GetPosition(const size_t& index);
+	const DirectX::XMFLOAT2& GetUVTextureCoord(const size_t& index);
+	const DirectX::XMFLOAT3& GetNormal(const size_t& index);
+
+public:
+	void AddPosition(const float& x, const float& y, const float& z);
+	void AddUVTexture(const float& u, const float& v);
+	void AddNormal(const float& x, const float& y, const float& z);
+	void AddIndex(const uint32_t& offset, const uint32_t index);
+	uint32_t GetVerticesCount();
+	std::vector<uint32_t> GetVertexOffsets();
 
 public:
 	virtual void Serialize(FILE* fileIn) const override;
@@ -43,6 +54,7 @@ public:
 
 public:
 	virtual size_t GetLODCount() = 0;
+	virtual std::shared_ptr<MeshPartsData> GetMeshPartData(const uint32_t& lodLevel) = 0;
 
 public:
 	virtual void Serialize(FILE* fileIn) const override;

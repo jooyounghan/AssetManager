@@ -1,9 +1,6 @@
 #include "pch.h"
 #include "ModelFileToAssetWriter.h"
 
-#include "stb/stb_image.h"
-#include "stb/stb_image_write.h"
-
 #include "StringHelper.h"
 
 #include "BoneAsset.h"
@@ -11,8 +8,10 @@
 #include "SkeletalMeshAsset.h"
 #include "BaseTextureAsset.h"
 #include "ModelMaterialAsset.h"
+#include "AnimationAsset.h"
 
 #include <filesystem>
+#include <regex>
 
 using namespace std;
 using namespace std::filesystem;
@@ -32,10 +31,13 @@ ModelFileToAssetWriter::~ModelFileToAssetWriter()
 {
 }
 
-unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::WriteToAssets(const string& filePath)
+unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::SaveAsAssets(const string& filePath)
 {
     unordered_map<EAssetType, vector<shared_ptr<AAsset>>> result;
     vector<unordered_map<EAssetType, vector<shared_ptr<AAsset>>>> writtenAssetsSet;
+
+    const string& fileName = path(filePath).stem().string();
+    const string& extension = path(filePath).extension().string();
 
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(
@@ -43,8 +45,7 @@ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::Wr
         aiProcess_Triangulate | aiProcess_GenNormals | aiProcess_GenUVCoords | aiProcess_ConvertToLeftHanded
     );
 
-    const string& fileName = path(filePath).stem().string();
-    const string& extension = path(filePath).extension().string();
+
 
     if (scene != nullptr)
     {
@@ -61,7 +62,7 @@ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::Wr
 
         if (scene->HasAnimations())
         {
-            //LoadAnimationAssetFromFile(FileNameIn, scene);
+            writtenAssetsSet.emplace_back(LoadAnimations(scene, fileName));
         }
     }
 
@@ -70,12 +71,21 @@ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::Wr
         for (auto& writtenAsset : writtenAssets)
         {
             const EAssetType& assetType = writtenAsset.first;
-            const vector<shared_ptr<AAsset>>& loadedAssets = writtenAsset.second;
+            const vector<shared_ptr<AAsset>>& assets = writtenAsset.second;
 
-            result[assetType].insert(result[assetType].end(), loadedAssets.begin(), loadedAssets.end());
+            SaveAssets(assetType, assets);
+
+            result[assetType].insert(result[assetType].end(), assets.begin(), assets.end());
         }
     }
-	return result;
+
+    return result;
+}
+
+bool ModelFileToAssetWriter::IsAcceptableFilePath(const string& filePath)
+{
+    const string& extension = path(filePath).extension().string();
+    return (find(ModelFileExtensions.begin(), ModelFileExtensions.end(), extension) != ModelFileExtensions.end());
 }
 
 unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::LoadTexturesAndMaterials(const aiScene* const scene)
@@ -187,11 +197,14 @@ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::Lo
         skeletalMeshAsset->SetBoneAsset(boneAsset);
         
         LoadBones(scene, boneAsset);
+        LoadMeshes(scene, skeletalMeshAsset, m_skeletalMehsAssetWriter, isGltf);
     }
     else
     {
-        shared_ptr<StaticMeshAsset> skeletalMeshAsset = make_shared<StaticMeshAsset>(fileName + "_Static");
+        shared_ptr<StaticMeshAsset> staticMeshAsset = make_shared<StaticMeshAsset>(fileName + "_Static");
+        result[EAssetType::ASSET_TYPE_STATIC].emplace_back(staticMeshAsset);
 
+        LoadMeshes(scene, staticMeshAsset, m_staticMeshAssetWriter, isGltf);
     }
 
     return result;
@@ -224,7 +237,7 @@ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::Lo
          {
              for (uint32_t boneIdx = 0; boneIdx < currentMesh->mNumBones; ++boneIdx)
              {
-                 std::shared_ptr<Bone> bone = make_shared<Bone>();
+                 shared_ptr<Bone> bone = make_shared<Bone>();
 
                  XMFLOAT4X4 offsetMatrix;
                  aiBone* currentBone = currentMesh->mBones[boneIdx];
@@ -268,4 +281,110 @@ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::Lo
      };
 
      dfs(nullptr, scene->mRootNode);
+ }
+
+ void ModelFileToAssetWriter::LoadMeshes(
+     const aiScene* const scene, 
+     const shared_ptr<AMeshAsset>& meshAsset,
+     MeshAssetWriter& meshAssetWriter,
+     const bool& isGltf
+ )
+ {
+     function<void(shared_ptr<AMeshAsset>, aiNode*, const XMMATRIX& tranformation)> dfs =
+         [&](shared_ptr<AMeshAsset> meshAsset, aiNode* node, const XMMATRIX& tranformation)
+         {
+             XMMATRIX currentTransformation(&node->mTransformation.a1);
+
+             currentTransformation = XMMatrixTranspose(currentTransformation) * tranformation;
+
+             for (uint32_t meshIdx = 0; meshIdx < node->mNumMeshes; ++meshIdx)
+             {
+                 const aiMesh* const mesh = scene->mMeshes[node->mMeshes[meshIdx]];
+                 const string& meshName = mesh->mName.C_Str();
+
+                 const uint32_t lodLevel = GetLODLevelFromMeshName(meshName);
+                 shared_ptr<MeshPartsData> meshPartsData = meshAsset->GetMeshPartData(lodLevel);
+                 meshAssetWriter.LoadMeshPartData(meshPartsData, isGltf, mesh, currentTransformation);
+             }
+
+             for (uint32_t idx = 0; idx < node->mNumChildren; ++idx)
+             {
+                 dfs(meshAsset, node->mChildren[idx], currentTransformation);
+             }
+         };
+
+     dfs(meshAsset, scene->mRootNode, XMMatrixIdentity());
+ }
+
+ inline uint32_t ModelFileToAssetWriter::GetLODLevelFromMeshName(const string& meshName)
+ {
+     uint32_t lodlevel = 0;
+     regex lodMeshNamePattern("\\.(\\d+)");
+     smatch match;
+
+     if (regex_search(meshName, match, lodMeshNamePattern))
+     {
+         string lod_number = match[1];
+         lodlevel = max(lodlevel, static_cast<uint32_t>(stoul(lod_number)));
+     }
+
+     return lodlevel;
+ }
+
+ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::LoadAnimations(
+     const aiScene* const scene,
+     const string& fileName
+ )
+ {
+     unordered_map<EAssetType, vector<shared_ptr<AAsset>>> result;
+
+     for (uint32_t animationIdx = 0; animationIdx < scene->mNumAnimations; ++animationIdx)
+     {
+         shared_ptr<AnimationAsset> animationAsset;
+         result[EAssetType::ASSET_TYPE_ANIMATION].emplace_back(animationAsset);
+         
+         aiAnimation* animation = scene->mAnimations[animationIdx];
+         animationAsset->SetAnimationDuration(
+             static_cast<float>(animation->mDuration), 
+             static_cast<float>(animation->mTicksPerSecond)
+         );
+
+         for (uint32_t channelIdx = 0; channelIdx < animation->mNumChannels; ++channelIdx)
+         {
+             AnimChannel animChannel;
+
+             aiNodeAnim* channel = animation->mChannels[channelIdx];
+             const string channelName = channel->mNodeName.C_Str();
+
+             for (uint32_t positionIdx = 0; positionIdx < channel->mNumPositionKeys; ++positionIdx)
+             { 
+                 const aiVectorKey& positionKey = channel->mPositionKeys[positionIdx];
+                 animChannel.AddPositionKey(
+                     static_cast<float>(positionKey.mTime), 
+                     XMVectorSet(positionKey.mValue.x, positionKey.mValue.y, positionKey.mValue.z, 1.f)
+                 );
+             }
+
+             for (uint32_t quaternionIdx = 0; quaternionIdx < channel->mNumRotationKeys; ++quaternionIdx)
+             {
+                 const aiQuatKey& quaternionKey = channel->mRotationKeys[quaternionIdx];
+                 animChannel.AddQuaternionKey(
+                     static_cast<float>(quaternionKey.mTime),
+                     XMVectorSet(quaternionKey.mValue.x, quaternionKey.mValue.y, quaternionKey.mValue.z, quaternionKey.mValue.w)
+                 );
+             }
+
+             for (uint32_t scaleIdx = 0; scaleIdx < channel->mNumScalingKeys; ++scaleIdx)
+             {
+                 const aiVectorKey& scaleKey = channel->mScalingKeys[scaleIdx];
+                 animChannel.AddScaleKey(
+                     static_cast<float>(scaleKey.mTime),
+                     XMVectorSet(scaleKey.mValue.x, scaleKey.mValue.y, scaleKey.mValue.z, 0.f)
+                 );
+             }
+
+             animationAsset->AddAnimChannel(channelName, move(animChannel));
+         }
+     }
+     return result;
  }

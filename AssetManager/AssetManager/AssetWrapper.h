@@ -26,6 +26,9 @@ public:
 	MakeGetter(m_assetType, AssetType);
 
 public:
+	void SetAssetType(const EAssetType& assetType);
+
+public:
 	virtual void Serialize(FILE* fileIn) const override;
 	virtual void Deserialize(FILE* fileIn) override;
 };

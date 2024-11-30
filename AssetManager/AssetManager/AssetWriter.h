@@ -13,6 +13,10 @@ protected:
 	std::string m_assetSavePath;
 
 public:
-	virtual std::unordered_map<EAssetType, std::vector<std::shared_ptr<AAsset>>> WriteToAssets(const std::string& filePath) = 0;
+	virtual std::unordered_map<EAssetType, std::vector<std::shared_ptr<AAsset>>> SaveAsAssets(const std::string& filePath) = 0;
+	virtual bool IsAcceptableFilePath(const std::string& filePath) = 0;
+
+protected:
+	void SaveAssets(const EAssetType& assetType, std::vector<std::shared_ptr<AAsset>> assets);
 };
 
