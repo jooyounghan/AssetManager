@@ -83,3 +83,10 @@ public:
 	virtual void Deserialize(FILE* fileIn) override;
 };
 
+class IAnimationProvider
+{
+public:
+	virtual std::shared_ptr<AnimationAsset> GetAnimationAsset(
+		const std::string& assetName
+	) = 0;
+};

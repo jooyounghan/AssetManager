@@ -6,7 +6,7 @@
 
 using namespace std;
 
-BOOL EnumResouceNameProc(HMODULE hModule, LPCWSTR lpszType, LPWSTR lpszName, LONG_PTR lParam)
+BOOL ResourceManager::EnumResouceNameProc(HMODULE hModule, LPCWSTR lpszType, LPWSTR lpszName, LONG_PTR lParam)
 {
     vector<shared_ptr<BaseTextureAsset>>* result = reinterpret_cast<vector<shared_ptr<BaseTextureAsset>>*>(lParam);
 
@@ -31,7 +31,7 @@ BOOL EnumResouceNameProc(HMODULE hModule, LPCWSTR lpszType, LPWSTR lpszName, LON
 }
 
 
-SResourceInfo GetResourceInfo(HMODULE hModule, LPCWSTR lpszType, LPWSTR lpszName)
+SResourceInfo ResourceManager::GetResourceInfo(HMODULE hModule, LPCWSTR lpszType, LPWSTR lpszName)
 {
     SResourceInfo resourceInfo = { 0, 0, {} };
 
@@ -47,28 +47,33 @@ SResourceInfo GetResourceInfo(HMODULE hModule, LPCWSTR lpszType, LPWSTR lpszName
     DWORD resourceSize = SizeofResource(hModule, hResource);
     if (resourceSize == 0) return resourceInfo;
 
-    BITMAPINFOHEADER* pBitmapInfoHeader = reinterpret_cast<BITMAPINFOHEADER*>(pResourceData);
-    resourceInfo.width = pBitmapInfoHeader->biWidth;
-    resourceInfo.height = pBitmapInfoHeader->biHeight;
+    BITMAPINFO* pBitmapInfo = (BITMAPINFO*)pResourceData;
+    int width = pBitmapInfo->bmiHeader.biWidth;
+    int height = pBitmapInfo->bmiHeader.biHeight;
+    
 
-    int width, height, channel;
-    stbi_load_from_memory((stbi_uc*)pResourceData, resourceInfo.width, &width, &height, &channel, 4);
+    uint8_t* pBits = reinterpret_cast<uint8_t*>(pResourceData) + pBitmapInfo->bmiHeader.biSize;
 
-    uint8_t* pBitmapPixels = reinterpret_cast<uint8_t*>(pBitmapInfoHeader) + pBitmapInfoHeader->biSize;
-    uint32_t pixelDataSize = resourceSize - pBitmapInfoHeader->biSize;
+    resourceInfo.resourceData.resize(width * height * 4);
 
-    resourceInfo.resourceData.resize(resourceInfo.width * resourceInfo.height * 4);
-
-    for (uint32_t i = 0, j = 0; i < pixelDataSize; i += 3, j += 4)
+    for (int y = 0; y < height; ++y) 
     {
-        resourceInfo.resourceData[j] = pBitmapPixels[i + 2];
-        resourceInfo.resourceData[j + 1] = pBitmapPixels[i + 1];
-        resourceInfo.resourceData[j + 2] = pBitmapPixels[i];
-        resourceInfo.resourceData[j + 3] = 255;
+        for (int x = 0; x < width; ++x)
+        {
+            int index = (height - y - 1) * width + x;
+            uint8_t* pixel = pBits + index * 3;
+
+            int rgbaIndex = index * 4;
+            resourceInfo.resourceData[rgbaIndex] = pixel[0];
+            resourceInfo.resourceData[rgbaIndex + 1] = pixel[1];
+            resourceInfo.resourceData[rgbaIndex + 2] = pixel[2];
+            resourceInfo.resourceData[rgbaIndex + 3] = 255;
+        }
     }
 
     return resourceInfo;
 }
+
 
 ResourceManager::ResourceManager(HMODULE hModule)
     : m_hModule(hModule ? hModule : GetModuleHandle(nullptr)) 

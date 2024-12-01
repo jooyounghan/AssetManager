@@ -57,6 +57,6 @@ class ISkeletalMeshProvider
 {
 public:
 	virtual std::shared_ptr<SkeletalMeshAsset> GetSkeletalMeshAsset(
-		const std::string& textureName
+		const std::string& assetName
 	) = 0;
 };

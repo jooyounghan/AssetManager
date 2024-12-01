@@ -63,7 +63,7 @@ class IModelMaterialProvider
 {
 public:
 	virtual std::shared_ptr<ModelMaterialAsset> GetModelMaterialAsset(
-		const std::string& textureName
+		const std::string& assetName
 	) = 0;
 };
 

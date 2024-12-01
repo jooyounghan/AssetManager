@@ -37,6 +37,6 @@ class IStaticMeshProvider
 {
 public:
 	virtual std::shared_ptr<StaticMeshAsset> GetStaticMeshAsset(
-		const std::string& textureName
+		const std::string& assetName
 	) = 0;
 };

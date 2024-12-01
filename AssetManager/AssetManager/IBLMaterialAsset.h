@@ -54,6 +54,6 @@ class IIBLMaterialProvider
 {
 public:
 	virtual std::shared_ptr<IBLMaterialAsset> GetIBLMaterialAsset(
-		const std::string& textureName
+		const std::string& assetName
 	) = 0;
 };

@@ -45,3 +45,10 @@ public:
 	virtual void Deserialize(FILE* fileIn) override;
 };
 
+class IMapProvider
+{
+public:
+	virtual std::shared_ptr<MapAsset> GetMapAsset(
+		const std::string& assetName
+	) = 0;
+};
