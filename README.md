@@ -13,6 +13,8 @@ It provides asset classes for files below
 - Map(`MapAsset`)
 
 ## Features
+### Dependency
+Need `DirectXMath`(and `DirectXTex`), `Assimp`, `Zlib` Header and Library files. 
 ### Class Structure
 AssetManager's Class Diagram is Designed in 'ClassDiagram.cd' file.
 
