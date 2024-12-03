@@ -2,16 +2,31 @@
 This AssetManager Library is for managing assets used for Game Engine.
 It provides asset classes for files below
 
-- Mesh (`StaticMeshAsset`, `SkeletalMeshAsset`
+- Mesh (`StaticMeshAsset`, `SkeletalMeshAsset`)
 	- Bones(`BoneAsset`)
 	- Animation(`AnimationAsset`)
 	> Support `.obj`, `.fbx`
 
 - Texture (`BaseTextureAsset`, `ScratchTextureAsset`)
 	> Support `.png` / `.exr` / `.hdr`
-- Material(`MaterialAsset`)
+- Material(`ModelMaterialAsset`, `IBLMaterialAsset`)
+- Map(`MapAsset`)
 
 ## Features
+### Class Structure
+AssetManager's Class Diagram is Designed in 'ClassDiagram.cd' file.
+
+### Serialize/Deserialize
+`AAsset` inherits from `ISerializable`. Therefore, classes that inherit from `AAsset`, such as the Asset class, implement `Serialize(FILE* fileIn)` and `Deserialize(FILE* fileIn` in each class. This allows assets to be managed as raw files, and for textures, compression is performed using libraries such as `zlib`.
+
+### Mesh Asset
+Mesh data can be represented in various forms. In this `AssetManager`, the vertex data within a modeling file is managed as multiple parts through the `MeshPartsData`. For static modeling files, the `StaticMeshPartsData` inherits from `MeshPartsData`, and for skeletal modeling files, the `SkeletalMeshPartsData` class inherits from `StaticMeshPartsData` to manage the data.
+
+`MeshPartsData` manages the data for each vertex and contains the offset of the indices for draw calls per part. In other words, the vertex data of the modeling file is stored in a single container, regardless of parts, but the offset information of the indices allows differentiation between parts.
+* Check `MeshPartsData` in MeshAsset.h 
+
+`AMeshAsset` is a wrapper class designed to manage `MeshPartsData`, intended for cases where a single model might exist in multiple groups based on LOD. `AMeshAsset` manages the default materials for each part. `StaticMeshAsset` and `SkeletalMeshAsset` inherit from `AMeshAsset`, and each manages modeling data for LOD keys through member variables: `std::map<uint32_t, std::shared_ptr<StaticMeshPartsData>>` for `StaticMeshAsset` and `std::map<uint32_t, std::shared_ptr<SkeletalMeshPartData>>` for `SkeletalMeshAsset.`
+
 ### Animation Retargeter
 This Library has `AnimationRetargeter` which adjusts the `AnimationAsset` associated with a specific `BoneAsset` to another `BoneAsset`.
 

@@ -28,8 +28,8 @@ protected:
 	std::shared_ptr<BaseTextureAsset> m_materialTexture[ModelMaterialTextureCount];
 
 protected:
-	 DirectX::XMFLOAT3 m_f0;
-	float m_heightScale;
+	 DirectX::XMFLOAT3 m_f0 = DirectX::XMFLOAT3(0.f, 0.f, 0.f);
+	float m_heightScale = 1.f;
 
 public:
 	MakeGetter(m_f0, FresnelConstant);

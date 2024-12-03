@@ -1,0 +1,368 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AAsset" Collapsed="true">
+    <Position X="13.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAgAAAAEQAAACJAAAAAAJAAAAQAAAA=</HashCode>
+      <FileName>Asset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AAssetWriter" Collapsed="true">
+    <Position X="4.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAACAAAAAAAAAAAAAAAABAAABAAAAACgA=</HashCode>
+      <FileName>AssetWriter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AMeshAsset" Collapsed="true">
+    <Position X="6" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAgBAAAABAEAAAACBAAAAAAAAAAgAgAAA=</HashCode>
+      <FileName>MeshAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AnimationAsset" Collapsed="true">
+    <Position X="13.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AECBAAAQBAAAAAIQAAACAAAAACBAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>AnimationAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AnimationRetargeter" Collapsed="true">
+    <Position X="34.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAEAAAAAAAAIAAAgAAAAABQAFAgQAAAAAA=</HashCode>
+      <FileName>AnimationRetargeter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AnimChannel" Collapsed="true">
+    <Position X="31.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABIBAAAIAQAAAAAABAAAACBAAAABAAAAAAQCEUQ=</HashCode>
+      <FileName>AnimationAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AssetException" Collapsed="true">
+    <Position X="36" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAQAAAAEAAAAAAAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AssetException.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AssetManager" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAIiAQAAQAAACAwACqAAABAgEAAAAgQAAAAAAIEAA=</HashCode>
+      <FileName>AssetManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AssetReader" Collapsed="true">
+    <Position X="37.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAIAACAAAAAAAIAAAAAAABAAAAAAABAAAAAEAAA=</HashCode>
+      <FileName>AssetReader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AssetWrapper" Collapsed="true">
+    <Position X="25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACBAAAAABACAAAQAAAA=</HashCode>
+      <FileName>AssetWrapper.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaseTextureAsset" Collapsed="true">
+    <Position X="9.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>BaseTextureAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bone" Collapsed="true">
+    <Position X="29.5" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAEAQABAAAAAAAAAAAChAAgAAAgAAAAQAAgA=</HashCode>
+      <FileName>BoneAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BoneAsset" Collapsed="true">
+    <Position X="20.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAEAICAAAAAACJAAAAAAACAAAQAAAA=</HashCode>
+      <FileName>BoneAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DeserializeHelper" Collapsed="true">
+    <Position X="34.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAhAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAgAAEAAAA=</HashCode>
+      <FileName>SerializeHelper.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IAnimationProvider" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AnimationAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IBaseTextureProvider" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BaseTextureAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IBLMaterialAsset" Collapsed="true">
+    <Position X="16" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAEAAAAAAACAAAAAAAAAAgAAACFAAAAAgAQAAAYAAAA=</HashCode>
+      <FileName>IBLMaterialAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IBoneProvider" Collapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BoneAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IIBLMaterialProvider" Collapsed="true">
+    <Position X="19.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>IBLMaterialAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ImageFileToAssetWriter" Collapsed="true">
+    <Position X="5.75" Y="8.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AgACIAAAAAAAAAAQAAAAAAAAAAEQBAAAAABBAAEgAAA=</HashCode>
+      <FileName>ImageFileToAssetWriter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMapProvider" Collapsed="true">
+    <Position X="21.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MapAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IModelMaterialProvider" Collapsed="true">
+    <Position X="3.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelMaterialAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IResourceProvider" Collapsed="true">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ResourceManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IScratchTextureProvider" Collapsed="true">
+    <Position X="10.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ScratchTextureAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ISerializable" Collapsed="true">
+    <Position X="18.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACBAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SerializeHelper.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ISkeletalMeshProvider" Collapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SkeletalMeshAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IStaticMeshProvider" Collapsed="true">
+    <Position X="17" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StaticMeshAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapAsset" Collapsed="true">
+    <Position X="22.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAEIAAAAAAAAAAAAAAAAAACBAABAIEAAAIAAYgAA=</HashCode>
+      <FileName>MapAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MathematicalHelper" Collapsed="true">
+    <Position X="36" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASAAA=</HashCode>
+      <FileName>MathematicalHelper.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MeshAssetWriter" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>MeshAssetWriter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MeshPartsData" Collapsed="true">
+    <Position X="27.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAOABAAAAEECAAAAAACJAQAYIAAAQAEAAQQQ=</HashCode>
+      <FileName>MeshAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ModelFileToAssetWriter" Collapsed="true">
+    <Position X="3.5" Y="8.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAABJABgEAAgAAABIACBAAAIAABQEAAAgAA=</HashCode>
+      <FileName>ModelFileToAssetWriter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ModelMaterialAsset" Collapsed="true">
+    <Position X="18.25" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQABAAgAAACJAAAAAgAAEgAQAQBA=</HashCode>
+      <FileName>ModelMaterialAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceManager" Collapsed="true">
+    <Position X="37.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAgAAAACEAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>ResourceManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScratchTextureAsset" Collapsed="true">
+    <Position X="11.5" Y="5.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ScratchTextureAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SerializeHelper" Collapsed="true">
+    <Position X="34.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAABgAAAAAAAAACEAAA=</HashCode>
+      <FileName>SerializeHelper.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkeletalMeshAsset" Collapsed="true">
+    <Position X="4.75" Y="5.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>gAAAQAAAACAAAgAAAAEAAAAAACBAAAAABAAAIgAAAAA=</HashCode>
+      <FileName>SkeletalMeshAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkeletalMeshAssetWriter" Collapsed="true">
+    <Position X="0.5" Y="7.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>SkeletalMeshAssetWriter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkeletalMeshPartData" Collapsed="true">
+    <Position X="27.25" Y="5.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAQAAAAAACBAABAAAAAAAQAAAAA=</HashCode>
+      <FileName>SkeletalMeshAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StaticMeshAsset" Collapsed="true">
+    <Position X="7" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAACAAAAAAAAAAAAAAACBAAIIAAAAAAgAAAAA=</HashCode>
+      <FileName>StaticMeshAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StaticMeshAssetWriter" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>StaticMeshAssetWriter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StaticMeshPartData" Collapsed="true">
+    <Position X="27.25" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAACBAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>StaticMeshAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StringHelper" Collapsed="true">
+    <Position X="36" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAABAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>StringHelper.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextureAsset" Collapsed="true">
+    <Position X="10.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAACABAAQAAAAAAiBEAACAAAgAgQAAAAA=</HashCode>
+      <FileName>TextureAsset.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TopologySorter&lt;T&gt;" Collapsed="true">
+    <Position X="37.75" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAABAAAAAAAAABAAAEAAAAAA=</HashCode>
+      <FileName>TopologySorter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="SAnimationKey" Collapsed="true">
+    <Position X="34.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AnimationAsset.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SAssetPreloadArgs" Collapsed="true">
+    <Position X="36" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AssetReader.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SResourceInfo" Collapsed="true">
+    <Position X="37.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAQAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ResourceManager.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SResourceSearchContext" Collapsed="true">
+    <Position X="34.25" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ResourceManager.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="EAssetType" Collapsed="true">
+    <Position X="34.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAYAAAAAAABABAAAAAAAAAAAAAAAAAJAAgAABIAAA=</HashCode>
+      <FileName>AssetWrapper.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="EIBLMaterialTexture" Collapsed="true">
+    <Position X="36" Y="6" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAQAAQgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IBLMaterialAsset.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="EModelMaterialTexture" Collapsed="true">
+    <Position X="37.75" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAgACAAAAAAAgAAAAECEAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>ModelMaterialAsset.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>

@@ -7,7 +7,7 @@
 struct SAssetPreloadArgs
 {
 	std::string assetPath;
-	long lastReadPoint;
+	long lastReadPoint = NULL;
 };
 
 class AssetReader

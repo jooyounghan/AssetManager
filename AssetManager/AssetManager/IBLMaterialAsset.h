@@ -35,8 +35,8 @@ public:
 	);
 
 protected:
-	float m_exposure;
-	float m_gamma;
+	float m_exposure = 1.f;
+	float m_gamma = 1.f;
 
 public:
 	MakeGetter(m_exposure, Exposure);
