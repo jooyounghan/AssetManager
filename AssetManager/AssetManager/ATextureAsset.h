@@ -2,17 +2,17 @@
 #include "Asset.h"
 #include <vector>
 
-class TextureAsset : public AAsset
+class ATextureAsset : public AAsset
 {
 public:
-	TextureAsset() = default;
-	TextureAsset(
+	ATextureAsset() = default;
+	ATextureAsset(
 		const std::string& assetName,
 		const unsigned int& widthIn,
 		const unsigned int& heightIn,
 		const unsigned int& arraysizeIn
 	);
-	virtual ~TextureAsset();
+	virtual ~ATextureAsset();
 
 protected:
 	unsigned int m_width = 0;
@@ -29,6 +29,9 @@ protected:
 public:
 	std::vector<std::vector<uint8_t>> CompressDataArray(const std::vector<std::vector<uint8_t>>& originalBufferPerArray);
 	std::vector<std::vector<uint8_t>> DecompressDataArray();
+
+public:
+	virtual std::vector<UINT> GetRowPitchArray() = 0;
 
 public:
 	virtual void Serialize(FILE* fileIn) const override;

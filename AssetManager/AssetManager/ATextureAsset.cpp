@@ -1,9 +1,9 @@
 #include "pch.h"
-#include "TextureAsset.h"
+#include "ATextureAsset.h"
 
 using namespace std;
 
-TextureAsset::TextureAsset(
+ATextureAsset::ATextureAsset(
 	const string& assetName,
 	const unsigned int& widthIn,
 	const unsigned int& heightIn,
@@ -14,13 +14,13 @@ TextureAsset::TextureAsset(
 
 }
 
-TextureAsset::~TextureAsset() 
+ATextureAsset::~ATextureAsset() 
 {
 
 }
 
 
-vector<vector<uint8_t>> TextureAsset::CompressDataArray(
+vector<vector<uint8_t>> ATextureAsset::CompressDataArray(
 	const vector<vector<uint8_t>>& originalBufferPerArray
 )
 {
@@ -47,7 +47,7 @@ vector<vector<uint8_t>> TextureAsset::CompressDataArray(
 	return result;
 }
 
-vector<vector<uint8_t>> TextureAsset::DecompressDataArray()
+vector<vector<uint8_t>> ATextureAsset::DecompressDataArray()
 {
 	vector<vector<uint8_t>> result;
 	for (unsigned int arrayIdx = 0; arrayIdx < m_arraySize; ++arrayIdx)
@@ -68,7 +68,7 @@ vector<vector<uint8_t>> TextureAsset::DecompressDataArray()
 }
 
 
-void TextureAsset::Serialize(FILE* fileIn) const
+void ATextureAsset::Serialize(FILE* fileIn) const
 {
 	AAsset::Serialize(fileIn);
 
@@ -88,7 +88,7 @@ void TextureAsset::Serialize(FILE* fileIn) const
 
 
 
-void TextureAsset::Deserialize(FILE* fileIn)
+void ATextureAsset::Deserialize(FILE* fileIn)
 {
 	AAsset::Deserialize(fileIn);
 

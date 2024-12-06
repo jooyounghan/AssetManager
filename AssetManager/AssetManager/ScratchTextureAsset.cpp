@@ -10,7 +10,7 @@ ScratchTextureAsset::ScratchTextureAsset(
 	const ScratchImage& scratch,
 	const TexMetadata& metaData
 )
-	: TextureAsset(
+	: ATextureAsset(
 		assetName, 
 		static_cast<unsigned int>(metaData.width), 
 		static_cast<unsigned int>(metaData.height),
@@ -29,12 +29,13 @@ ScratchTextureAsset::ScratchTextureAsset(
 			vector<uint8_t> originalBuffer(originalBufferSize);
 			memcpy(originalBuffer.data(), img->pixels, originalBufferSize);
 			m_originalSizePerArray.push_back(originalBufferSize);
+			m_rowPitchPerArray.push_back(static_cast<UINT>(img->rowPitch));
 		}
 		else
 		{
 			originalBufferPerArray.push_back(vector<uint8_t>());
 			m_originalSizePerArray.push_back(NULL);
-
+			m_rowPitchPerArray.push_back(NULL);
 			AssetException assetException(*this, "ScratchImage::GetImage's Result (DirectX::Image) is nullptr");
 			throw assetException;
 		}
@@ -45,4 +46,21 @@ ScratchTextureAsset::ScratchTextureAsset(
 
 ScratchTextureAsset::~ScratchTextureAsset()
 {
+}
+
+std::vector<UINT> ScratchTextureAsset::GetRowPitchArray()
+{
+	return m_rowPitchPerArray;
+}
+
+void ScratchTextureAsset::Serialize(FILE* fileIn) const
+{
+	ATextureAsset::Serialize(fileIn);
+	SerializeHelper::SerializeSequenceContainer(m_rowPitchPerArray, fileIn);
+}
+
+void ScratchTextureAsset::Deserialize(FILE* fileIn)
+{
+	ATextureAsset::Deserialize(fileIn);
+	m_rowPitchPerArray = DeserializeHelper::DeserializeSequenceContainer<vector<UINT>>(fileIn);
 }

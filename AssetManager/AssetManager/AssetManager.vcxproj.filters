@@ -128,7 +128,7 @@
     <ClInclude Include="Asset.h">
       <Filter>헤더 파일\Asset</Filter>
     </ClInclude>
-    <ClInclude Include="TextureAsset.h">
+    <ClInclude Include="ATextureAsset.h">
       <Filter>헤더 파일\Asset\Texture</Filter>
     </ClInclude>
     <ClInclude Include="BaseTextureAsset.h">
@@ -220,7 +220,7 @@
     <ClCompile Include="Asset.cpp">
       <Filter>소스 파일\Asset</Filter>
     </ClCompile>
-    <ClCompile Include="TextureAsset.cpp">
+    <ClCompile Include="ATextureAsset.cpp">
       <Filter>소스 파일\Asset\Texture</Filter>
     </ClCompile>
     <ClCompile Include="BaseTextureAsset.cpp">
@@ -295,5 +295,8 @@
     <ClCompile Include="ResourceManager.cpp">
       <Filter>소스 파일\Resource</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

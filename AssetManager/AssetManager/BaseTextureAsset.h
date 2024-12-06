@@ -1,7 +1,7 @@
 #pragma once
-#include "TextureAsset.h"
+#include "ATextureAsset.h"
 
-class BaseTextureAsset : public TextureAsset
+class BaseTextureAsset : public ATextureAsset
 {
 public:
 	BaseTextureAsset() = default;
@@ -13,6 +13,9 @@ public:
 	);
 
 	virtual ~BaseTextureAsset();
+
+public:
+	virtual std::vector<UINT> GetRowPitchArray() override;
 };
 
 class IBaseTextureProvider

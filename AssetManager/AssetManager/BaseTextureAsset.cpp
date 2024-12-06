@@ -9,7 +9,7 @@ BaseTextureAsset::BaseTextureAsset(
 	const unsigned int& heightIn,
 	uint8_t* imageBufferIn
 )
-	: TextureAsset(assetName, widthIn, heightIn, 1)
+	: ATextureAsset(assetName, widthIn, heightIn, 1)
 {
 	m_originalSizePerArray.push_back(m_width * m_height * 4);
 
@@ -26,4 +26,9 @@ BaseTextureAsset::BaseTextureAsset(
 BaseTextureAsset::~BaseTextureAsset()
 {
 
+}
+
+std::vector<UINT> BaseTextureAsset::GetRowPitchArray()
+{
+	return { m_width * 4 };
 }
