@@ -86,7 +86,7 @@ public:
 class IAnimationProvider
 {
 public:
-	virtual std::shared_ptr<AnimationAsset> GetAnimationAsset(
+	virtual AnimationAsset* GetAnimationAsset(
 		const std::string& assetName
 	) = 0;
 };

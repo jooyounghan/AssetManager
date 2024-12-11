@@ -5,12 +5,15 @@
 
 class MeshPartsData : public ISerializable
 {
+public:
+	MeshPartsData() = default;
+
 protected:
 	std::vector<DirectX::XMFLOAT3> m_positions;
 	std::vector<DirectX::XMFLOAT2> m_uvTextures;
 	std::vector<DirectX::XMFLOAT3> m_normals;
-	const DirectX::XMFLOAT3 m_emptyFloat3;
-	const DirectX::XMFLOAT2 m_emptyFloat2;
+	const DirectX::XMFLOAT3 m_emptyFloat3 = DirectX::XMFLOAT3(0, 0, 0);
+	const DirectX::XMFLOAT2 m_emptyFloat2 = DirectX::XMFLOAT2(0, 0);
 
 protected:
 	std::map<uint32_t, std::vector<uint32_t>> m_offsetToIndices;
@@ -47,14 +50,14 @@ public:
 
 protected:
 	std::vector<std::string> m_defaultMaterialNames;
-	std::vector<std::shared_ptr<ModelMaterialAsset>> m_defaultMaterials;
+	std::vector<ModelMaterialAsset*> m_defaultMaterials;
 
 public:
 	void UpdateDefaultMaterialAsset(IModelMaterialProvider& provider);
 
 public:
 	virtual size_t GetLODCount() = 0;
-	virtual std::shared_ptr<MeshPartsData> GetMeshPartData(const uint32_t& lodLevel) = 0;
+	virtual MeshPartsData* GetMeshPartData(const uint32_t& lodLevel) = 0;
 
 public:
 	virtual void Serialize(FILE* fileIn) const override;

@@ -14,10 +14,10 @@ public:
 
 protected:
 	std::string m_iblMaterialName;
-	std::shared_ptr<IBLMaterialAsset> m_iblMaterial;
+	IBLMaterialAsset* m_iblMaterial;
 
 protected:
-	std::unordered_map<std::string, std::shared_ptr<StaticMeshAsset>> m_assetNameToAssets;
+	std::unordered_map<std::string, StaticMeshAsset*> m_assetNameToAssets;
 	std::unordered_map<std::string, std::vector<DirectX::XMMATRIX>> m_assetNameToTransformations;
 
 public:
@@ -48,7 +48,7 @@ public:
 class IMapProvider
 {
 public:
-	virtual std::shared_ptr<MapAsset> GetMapAsset(
+	virtual MapAsset* GetMapAsset(
 		const std::string& assetName
 	) = 0;
 };

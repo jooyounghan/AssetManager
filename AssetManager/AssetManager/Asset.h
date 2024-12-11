@@ -27,7 +27,7 @@ public:
 
 public:
 	void SerializeAssetName(
-		const std::shared_ptr<AAsset>& asset,
+		const AAsset* asset,
 		FILE* fileIn
 	) const;
 };

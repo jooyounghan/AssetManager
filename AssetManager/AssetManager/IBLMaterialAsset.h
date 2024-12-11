@@ -21,7 +21,7 @@ public:
 
 protected:
 	std::string m_materialTextureName[IBLMaterialTextureCount];
-	std::shared_ptr<ScratchTextureAsset> m_materialTexture[IBLMaterialTextureCount];
+	ScratchTextureAsset* m_materialTexture[IBLMaterialTextureCount];
 
 public:
 	void UpdateIBLBaseTextureAsset(
@@ -53,7 +53,7 @@ public:
 class IIBLMaterialProvider
 {
 public:
-	virtual std::shared_ptr<IBLMaterialAsset> GetIBLMaterialAsset(
+	virtual IBLMaterialAsset* GetIBLMaterialAsset(
 		const std::string& assetName
 	) = 0;
 };

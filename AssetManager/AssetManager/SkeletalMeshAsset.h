@@ -4,6 +4,9 @@
 
 class SkeletalMeshPartData : public StaticMeshPartData
 {
+public:
+	SkeletalMeshPartData() = default;
+
 protected:
 	std::vector<DirectX::XMFLOAT4> m_blendWeight;
 	std::vector<DirectX::XMINT4> m_blendIndex;
@@ -28,16 +31,14 @@ public:
 	virtual ~SkeletalMeshAsset();
 
 protected:
-	std::map<uint32_t, std::shared_ptr<SkeletalMeshPartData>> m_skeletalMeshPartsPerLOD;
+	std::map<uint32_t, SkeletalMeshPartData*> m_skeletalMeshPartsPerLOD;
 
 protected:
 	std::string m_boneAssetName;
-	std::shared_ptr<BoneAsset> m_boneAsset;
+	const BoneAsset* m_boneAsset;
 
 public:
-	void SetBoneAsset(
-		const std::shared_ptr<BoneAsset>& boneAsset
-	);
+	void SetBoneAsset(const BoneAsset* const boneAsset);
 
 public:
 	void UpdateBoneAsset(
@@ -46,7 +47,7 @@ public:
 
 public:
 	virtual size_t GetLODCount() override;
-	virtual std::shared_ptr<MeshPartsData> GetMeshPartData(const uint32_t& lodLevel) override;
+	virtual MeshPartsData* GetMeshPartData(const uint32_t& lodLevel) override;
 
 public:
 	virtual void Serialize(FILE* fileIn) const override;
@@ -56,7 +57,7 @@ public:
 class ISkeletalMeshProvider
 {
 public:
-	virtual std::shared_ptr<SkeletalMeshAsset> GetSkeletalMeshAsset(
+	virtual SkeletalMeshAsset* const GetSkeletalMeshAsset(
 		const std::string& assetName
 	) = 0;
 };

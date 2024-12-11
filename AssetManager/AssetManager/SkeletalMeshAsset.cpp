@@ -68,9 +68,13 @@ SkeletalMeshAsset::SkeletalMeshAsset(const string& assetName)
 
 SkeletalMeshAsset::~SkeletalMeshAsset()
 {
+	for (auto& skeletalMeshPartsPerLOD : m_skeletalMeshPartsPerLOD)
+	{
+		delete skeletalMeshPartsPerLOD.second;
+	}
 }
 
-void SkeletalMeshAsset::SetBoneAsset(const std::shared_ptr<BoneAsset>& boneAsset)
+void SkeletalMeshAsset::SetBoneAsset(const BoneAsset* const boneAsset)
 {
 	m_boneAssetName = boneAsset->GetAssetName();
 	m_boneAsset = boneAsset;
@@ -86,11 +90,11 @@ size_t SkeletalMeshAsset::GetLODCount()
 	return m_skeletalMeshPartsPerLOD.size();
 }
 
-shared_ptr<MeshPartsData> SkeletalMeshAsset::GetMeshPartData(const uint32_t& lodLevel)
+MeshPartsData* SkeletalMeshAsset::GetMeshPartData(const uint32_t& lodLevel)
 {
 	if (m_skeletalMeshPartsPerLOD.find(lodLevel) == m_skeletalMeshPartsPerLOD.end())
 	{
-		m_skeletalMeshPartsPerLOD[lodLevel] = make_shared<SkeletalMeshPartData>();
+		m_skeletalMeshPartsPerLOD[lodLevel] = new SkeletalMeshPartData();
 	}
 	return m_skeletalMeshPartsPerLOD[lodLevel];
 }
@@ -103,7 +107,7 @@ void SkeletalMeshAsset::Serialize(FILE* fileIn) const
 	for (auto& skeletalMeshPart : m_skeletalMeshPartsPerLOD)
 	{
 		const uint32_t& lodLevel = skeletalMeshPart.first;
-		const shared_ptr<SkeletalMeshPartData>& meshPartData = skeletalMeshPart.second;
+		const SkeletalMeshPartData* const meshPartData = skeletalMeshPart.second;
 
 		SerializeHelper::SerializeElement(lodLevel, fileIn);
 		meshPartData->Serialize(fileIn);
@@ -121,7 +125,7 @@ void SkeletalMeshAsset::Deserialize(FILE* fileIn)
 	for (size_t idx = 0; idx < containerSize; ++idx)
 	{
 		const uint32_t lodLevel = DeserializeHelper::DeserializeElement<uint32_t>(fileIn);
-		shared_ptr<SkeletalMeshPartData> skeletalMeshPartData = make_shared<SkeletalMeshPartData>();
+		SkeletalMeshPartData* skeletalMeshPartData = new SkeletalMeshPartData();
 		skeletalMeshPartData->Deserialize(fileIn);
 		m_skeletalMeshPartsPerLOD.emplace(lodLevel, skeletalMeshPartData);
 	}

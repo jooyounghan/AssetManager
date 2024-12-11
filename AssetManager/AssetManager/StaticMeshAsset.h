@@ -3,6 +3,9 @@
 
 class StaticMeshPartData : public MeshPartsData
 {
+public:
+	StaticMeshPartData() = default;
+
 protected:
 	std::vector<DirectX::XMFLOAT3> m_tangents;
 
@@ -22,11 +25,11 @@ public:
 	virtual ~StaticMeshAsset();
 
 protected:
-	std::map<uint32_t, std::shared_ptr<StaticMeshPartData>> m_staticMeshPartsPerLOD;
+	std::map<uint32_t, StaticMeshPartData*> m_staticMeshPartsPerLOD;
 
 public:
 	virtual size_t GetLODCount() override;
-	virtual std::shared_ptr<MeshPartsData> GetMeshPartData(const uint32_t& lodLevel) override;
+	virtual MeshPartsData* GetMeshPartData(const uint32_t& lodLevel) override;
 
 public:
 	virtual void Serialize(FILE* fileIn) const override;
@@ -36,7 +39,7 @@ public:
 class IStaticMeshProvider
 {
 public:
-	virtual std::shared_ptr<StaticMeshAsset> GetStaticMeshAsset(
+	virtual StaticMeshAsset* const GetStaticMeshAsset(
 		const std::string& assetName
 	) = 0;
 };

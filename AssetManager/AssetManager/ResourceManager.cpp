@@ -8,13 +8,14 @@ using namespace std;
 
 BOOL ResourceManager::EnumResouceNameProc(HMODULE hModule, LPCWSTR lpszType, LPWSTR lpszName, LONG_PTR lParam)
 {
-    vector<shared_ptr<BaseTextureAsset>>* result = reinterpret_cast<vector<shared_ptr<BaseTextureAsset>>*>(lParam);
+    vector<BaseTextureAsset*>* result = reinterpret_cast<vector<BaseTextureAsset*>*>(lParam);
 
     SResourceInfo resourceInfo = GetResourceInfo(hModule, lpszType, lpszName);
     if (IS_INTRESOURCE(lpszName))
     {
         const size_t resouceId = reinterpret_cast<size_t>(lpszName);
-        result->emplace_back(make_shared<BaseTextureAsset>(
+
+        result->emplace_back(new BaseTextureAsset(
             format("Resouce_{}", to_string(resouceId)).c_str(),
             resourceInfo.width, resourceInfo.height / 2,
             resourceInfo.resourceData.data()
@@ -22,7 +23,7 @@ BOOL ResourceManager::EnumResouceNameProc(HMODULE hModule, LPCWSTR lpszType, LPW
     }
     else 
     {
-        result->emplace_back(make_shared<BaseTextureAsset>(
+        result->emplace_back(new BaseTextureAsset(
             StringHelper::ConvertWStringToACP(lpszName), resourceInfo.width, resourceInfo.height / 2,
             resourceInfo.resourceData.data()
         ));
@@ -80,13 +81,23 @@ ResourceManager::ResourceManager(HMODULE hModule)
 {
 }
 
-std::vector<shared_ptr<BaseTextureAsset>> ResourceManager::LoadBitmapResources() const
+ResourceManager::~ResourceManager()
 {
-    vector<shared_ptr<BaseTextureAsset>> result;
+    for (BaseTextureAsset* loadedBaseTextureAssets : m_loadedBaseTextureAssets)
+    {
+        delete loadedBaseTextureAssets;
+    }
+}
 
-    if (!EnumResourceNames(m_hModule, RT_BITMAP, EnumResouceNameProc, reinterpret_cast<LONG_PTR>(&result)))
+std::vector<BaseTextureAsset*> ResourceManager::LoadBitmapResources()
+{
+    vector<BaseTextureAsset*> results;
+
+    if (!EnumResourceNames(m_hModule, RT_BITMAP, EnumResouceNameProc, reinterpret_cast<LONG_PTR>(&results)))
     {
     }
 
-    return result;
+    m_loadedBaseTextureAssets.insert(m_loadedBaseTextureAssets.end(), results.begin(), results.end());
+
+    return results;
 }

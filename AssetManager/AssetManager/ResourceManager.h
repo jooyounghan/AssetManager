@@ -3,7 +3,6 @@
 
 #include <windows.h>
 #include <vector>
-#include <memory>
 
 struct SResourceSearchContext 
 {
@@ -22,6 +21,7 @@ class ResourceManager
 {
 public:
     ResourceManager(HMODULE hModule = nullptr);
+    ~ResourceManager();
 
 protected:
     static BOOL CALLBACK EnumResouceNameProc(HMODULE hModule, LPCWSTR lpszType, LPWSTR lpszName, LONG_PTR lParam);
@@ -30,14 +30,15 @@ protected:
 private:
     HMODULE m_hModule;
 
+private:
+    std::vector<BaseTextureAsset*> m_loadedBaseTextureAssets;
+
 public:
-    std::vector<std::shared_ptr<BaseTextureAsset>> LoadBitmapResources() const;
+    std::vector<BaseTextureAsset*> LoadBitmapResources();
 };
 
 class IResourceProvider
 {
 public:
-    virtual std::shared_ptr<BaseTextureAsset> GetResourceAsset(
-        const std::string& assetName
-    ) = 0;
+    virtual BaseTextureAsset GetResourceAsset(const std::string& assetName) = 0;
 };

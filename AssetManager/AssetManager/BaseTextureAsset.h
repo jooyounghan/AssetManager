@@ -21,7 +21,7 @@ public:
 class IBaseTextureProvider
 {
 public:
-	virtual std::shared_ptr<BaseTextureAsset> GetBaseTextureAsset(
+	virtual BaseTextureAsset* const GetBaseTextureAsset(
 		const std::string& assetName
 	) = 0;
 };

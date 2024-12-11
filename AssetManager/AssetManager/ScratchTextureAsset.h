@@ -32,7 +32,7 @@ public:
 class IScratchTextureProvider
 {
 public:
-	virtual std::shared_ptr<ScratchTextureAsset> GetScratchTextureAsset(
+	virtual ScratchTextureAsset* const GetScratchTextureAsset(
 		const std::string& assetName
 	) = 0;
 };

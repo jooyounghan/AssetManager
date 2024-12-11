@@ -15,7 +15,7 @@ AnimationRetargeter::~AnimationRetargeter()
 {
 }
 
-std::shared_ptr<AnimationAsset> AnimationRetargeter::GetRetargetedAnimation(const std::string& assetName)
+AnimationAsset* AnimationRetargeter::GetRetargetedAnimation(const std::string& assetName)
 {
 	if (m_boneTargetings.empty())
 	{
@@ -35,18 +35,18 @@ std::shared_ptr<AnimationAsset> AnimationRetargeter::GetRetargetedAnimation(cons
 		const float& TicksPerSecond = m_sourceAnimationAsset->GetTicksPerSecond();
 
 		const unordered_map<string, AnimChannel>& SourceBoneNameToAnimChannels = m_sourceAnimationAsset->GetBoneNameToAnimChannels();
-		shared_ptr<AnimationAsset> RetargetedAnimation = make_shared<AnimationAsset>(assetName);
+		AnimationAsset* RetargetedAnimation = new AnimationAsset(assetName);
 
 		const map<string, XMMATRIX> TPoseLocalSourceTransformations = GetTPoseLocalTransformations(m_sourceBoneAsset);
 		const map<string, XMMATRIX> TPoseLocalDestTransformations = GetTPoseLocalTransformations(m_destBoneAsset);
 
-		const map<shared_ptr<Bone>, string>& SourceBoneToNames = m_sourceBoneAsset->GetBoneToNames();
-		const map<shared_ptr<Bone>, string>& DestBoneToNames = m_destBoneAsset->GetBoneToNames();
+		const map<Bone*, string>& SourceBoneToNames = m_sourceBoneAsset->GetBoneToNames();
+		const map<Bone*, string>& DestBoneToNames = m_destBoneAsset->GetBoneToNames();
 
 		for (const auto& BoneTargeting : m_boneTargetings)
 		{
-			const shared_ptr<Bone>& DestBone = BoneTargeting.first;
-			const shared_ptr<Bone>& SourceBone = BoneTargeting.second;
+			Bone* const DestBone = BoneTargeting.first;
+			Bone* const SourceBone = BoneTargeting.second;
 
 			const string& DestBoneName = DestBoneToNames.at(DestBone);
 			const string& SourceBoneName = SourceBoneToNames.at(SourceBone);
@@ -104,8 +104,8 @@ void AnimationRetargeter::GenerateBoneTargetings()
 
 	if (m_sourceBoneAsset != nullptr && m_destBoneAsset != nullptr)
 	{
-		const map<shared_ptr<Bone>, string>& sourceBoneToNames = m_sourceBoneAsset->GetBoneToNames();
-		const map<shared_ptr<Bone>, string>& destBoneToNames = m_destBoneAsset->GetBoneToNames();
+		const map<Bone*, string>& sourceBoneToNames = m_sourceBoneAsset->GetBoneToNames();
+		const map<Bone*, string>& destBoneToNames = m_destBoneAsset->GetBoneToNames();
 
 		unordered_map<string, shared_ptr<Bone>> sourceNameToBones;
 		for (auto& sourceBoneToName : sourceBoneToNames)
@@ -127,7 +127,7 @@ void AnimationRetargeter::GenerateBoneTargetings()
 	}
 }
 
-void AnimationRetargeter::ReplaceTargetedSourceBone(const shared_ptr<Bone>& destBone, const shared_ptr<Bone>& sourceBone)
+void AnimationRetargeter::ReplaceTargetedSourceBone(Bone* const destBone, Bone* const sourceBone)
 {
 	if (m_boneTargetings.find(destBone) != m_boneTargetings.end())
 	{
@@ -135,7 +135,7 @@ void AnimationRetargeter::ReplaceTargetedSourceBone(const shared_ptr<Bone>& dest
 	}
 }
 
-bool AnimationRetargeter::IsSameProfile(const shared_ptr<BoneAsset>& boneAssetIn, const shared_ptr<AnimationAsset>& animationAssetIn)
+bool AnimationRetargeter::IsSameProfile(const BoneAsset* const boneAssetIn, const AnimationAsset* const animationAssetIn)
 {
 	if (boneAssetIn != nullptr)
 	{
@@ -146,7 +146,7 @@ bool AnimationRetargeter::IsSameProfile(const shared_ptr<BoneAsset>& boneAssetIn
 		return false;
 	}
 
-	const map<shared_ptr<Bone>, string>& boneToNames = boneAssetIn->GetBoneToNames();
+	const map<Bone*, string>& boneToNames = boneAssetIn->GetBoneToNames();
 	const unordered_map<string, AnimChannel>& boneNameToAnimationChannels = animationAssetIn->GetBoneNameToAnimChannels();
 
 	for (const auto& boneToName : boneToNames)
@@ -160,24 +160,24 @@ bool AnimationRetargeter::IsSameProfile(const shared_ptr<BoneAsset>& boneAssetIn
 	return true;
 }
 
-map<string, XMMATRIX> AnimationRetargeter::GetTPoseLocalTransformations(const shared_ptr<BoneAsset>& boneAssetIn)
+map<string, XMMATRIX> AnimationRetargeter::GetTPoseLocalTransformations(const BoneAsset* const boneAssetIn)
 {
 	map<string, XMMATRIX> tPoseLocalTransformation;
 
-	shared_ptr<Bone> rootBone = boneAssetIn->GetRootBone();
-	const map<shared_ptr<Bone>, string>& boneToNames = boneAssetIn->GetBoneToNames();
+	Bone* rootBone = boneAssetIn->GetRootBone();
+	const map<Bone*, string>& boneToNames = boneAssetIn->GetBoneToNames();
 
 	for (auto& boneToName : boneToNames)
 	{
 		tPoseLocalTransformation[boneToName.second] = XMMatrixIdentity();
 	}
 
-	function<void(const shared_ptr<Bone>&)> updateTLocalTransformation = [&](const shared_ptr<Bone>& currentBone)
+	function<void(Bone* const)> updateTLocalTransformation = [&](Bone* const currentBone)
 		{
 			if (currentBone != nullptr)
 			{
 				const string& boneName = boneToNames.at(currentBone);
-				shared_ptr<Bone> parentBone = currentBone->GetParentBone();
+				Bone* parentBone = currentBone->GetParentBone();
 
 				tPoseLocalTransformation[boneName] 
 					= XMMatrixMultiply(
@@ -185,8 +185,8 @@ map<string, XMMATRIX> AnimationRetargeter::GetTPoseLocalTransformations(const sh
 						parentBone != nullptr ? parentBone->GetOffsetMatrix() : XMMatrixIdentity()
 					);
 
-				const list<shared_ptr<Bone>> childrenBone = currentBone->GetBoneChildren();
-				for (const shared_ptr<Bone>& childBone : childrenBone)
+				const list<Bone*> childrenBone = currentBone->GetBoneChildren();
+				for (Bone* const childBone : childrenBone)
 				{
 					updateTLocalTransformation(childBone);
 				}

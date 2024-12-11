@@ -25,7 +25,7 @@ public:
 
 protected:
 	std::string m_materialTextureName[ModelMaterialTextureCount];
-	std::shared_ptr<BaseTextureAsset> m_materialTexture[ModelMaterialTextureCount];
+	BaseTextureAsset* m_materialTexture[ModelMaterialTextureCount];
 
 protected:
 	 DirectX::XMFLOAT3 m_f0 = DirectX::XMFLOAT3(0.f, 0.f, 0.f);
@@ -48,7 +48,7 @@ public:
 
 	void SetModelMaterialTexture(
 		EModelMaterialTexture modelMaterialTextureType,
-		std::shared_ptr<BaseTextureAsset> baseTextureAsset
+		BaseTextureAsset* const baseTextureAsset
 	);
 
 public:
@@ -62,7 +62,7 @@ public:
 class IModelMaterialProvider
 {
 public:
-	virtual std::shared_ptr<ModelMaterialAsset> GetModelMaterialAsset(
+	virtual ModelMaterialAsset* GetModelMaterialAsset(
 		const std::string& assetName
 	) = 0;
 };

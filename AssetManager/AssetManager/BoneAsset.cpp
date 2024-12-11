@@ -4,7 +4,13 @@
 using namespace std;
 using namespace DirectX;
 
-Bone::~Bone() {}
+Bone::~Bone() 
+{
+	for (Bone* bone : m_boneChildren)
+	{
+		delete bone;
+	}
+}
 
 void Bone::SetBoneProperties(const uint32_t& boneIdxIn, const XMMATRIX offsetMatrix)
 {
@@ -12,14 +18,14 @@ void Bone::SetBoneProperties(const uint32_t& boneIdxIn, const XMMATRIX offsetMat
 	m_offsetMatrix = offsetMatrix;
 }
 
-inline void Bone::SetParentBone(const shared_ptr<Bone>& parentBone)
+inline void Bone::SetParentBone(Bone* const parentBone)
 {
 	m_parentBone = parentBone;
 }
 
-inline void Bone::AddChildBone(const shared_ptr<Bone>& childBone)
+inline void Bone::AddChildBone(Bone* const childBone)
 {
-	childBone->SetParentBone(shared_from_this());
+	childBone->SetParentBone(this);
 	m_boneChildren.push_back(childBone);
 }
 
@@ -41,15 +47,18 @@ BoneAsset::BoneAsset(const string& assetName)
 {
 }
 
-BoneAsset::~BoneAsset() {}
+BoneAsset::~BoneAsset() 
+{
+	delete m_rootBone;
+}
 
 
-void BoneAsset::SetRootBone(const std::shared_ptr<Bone> bone)
+void BoneAsset::SetRootBone(Bone* const bone)
 {
 	m_rootBone = bone;
 }
 
-void BoneAsset::AddBone(const std::shared_ptr<Bone>& bone, const std::string& boneName)
+void BoneAsset::AddBone(Bone* const bone, const std::string& boneName)
 {
 	m_boneToNames.emplace(bone, boneName);
 }
@@ -58,7 +67,7 @@ void BoneAsset::Serialize(FILE* fileIn) const
 {
 	AAsset::Serialize(fileIn);
 
-	function<void(const shared_ptr<Bone>&)> dfs = [&](const shared_ptr<Bone>& currentBone)
+	function<void(Bone* const)> dfs = [&](Bone* const currentBone)
 	{
 		SerializeHelper::SerializeString(
 			m_boneToNames.find(currentBone) != m_boneToNames.end() ? m_boneToNames.at(currentBone) : "",
@@ -67,7 +76,7 @@ void BoneAsset::Serialize(FILE* fileIn) const
 
 		currentBone->Serialize(fileIn);
 
-		const list<shared_ptr<Bone>>& boneChildren = currentBone->GetBoneChildren();
+		const list<Bone*>& boneChildren = currentBone->GetBoneChildren();
 
 		SerializeHelper::SerializeContainerSize(boneChildren, fileIn);
 		for (const auto& bone : boneChildren)
@@ -83,9 +92,9 @@ void BoneAsset::Deserialize(FILE* fileIn)
 {
 	AAsset::Deserialize(fileIn);
 
-	function<shared_ptr<Bone>()> dfs = [&]()
+	function<Bone*()> dfs = [&]()
 	{
-		shared_ptr<Bone> currentBone = make_shared<Bone>();
+		Bone* currentBone = new Bone();
 
 		string currentBoneName = DeserializeHelper::DeserializeString(fileIn);
 		currentBone->Deserialize(fileIn);

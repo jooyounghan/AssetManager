@@ -15,29 +15,29 @@ public:
 	~AnimationRetargeter();
 
 protected:
-	std::shared_ptr<BoneAsset> m_sourceBoneAsset;
-	std::shared_ptr<BoneAsset> m_destBoneAsset;
+	BoneAsset* m_sourceBoneAsset;
+	BoneAsset* m_destBoneAsset;
 
 protected:
-	std::shared_ptr<AnimationAsset> m_sourceAnimationAsset;
+	AnimationAsset* m_sourceAnimationAsset;
 
 protected:
-	std::unordered_map<std::shared_ptr<Bone>, std::shared_ptr<Bone>> m_boneTargetings;
+	std::unordered_map<Bone*, Bone*> m_boneTargetings;
 
 public:
-	std::shared_ptr<AnimationAsset> GetRetargetedAnimation(const std::string& assetName);
+	AnimationAsset* GetRetargetedAnimation(const std::string& assetName);
 
 public:
 	void GenerateBoneTargetings();
-	void ReplaceTargetedSourceBone(const std::shared_ptr<Bone>& destBone, const std::shared_ptr<Bone>& sourceBone);
+	void ReplaceTargetedSourceBone(Bone* const destBone, Bone* const sourceBone);
 
 private:
 	bool IsSameProfile(
-		const std::shared_ptr<BoneAsset>& boneAssetIn,
-		const std::shared_ptr<AnimationAsset>& animationAssetIn
+		const BoneAsset* const boneAssetIn,
+		const AnimationAsset* const animationAssetIn
 	);
 
 private:
-	std::map<std::string, DirectX::XMMATRIX> GetTPoseLocalTransformations(const std::shared_ptr<BoneAsset>& boneAssetIn);
+	std::map<std::string, DirectX::XMMATRIX> GetTPoseLocalTransformations(const BoneAsset* const boneAssetIn);
 };
 

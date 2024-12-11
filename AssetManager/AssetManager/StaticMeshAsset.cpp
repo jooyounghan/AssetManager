@@ -33,7 +33,10 @@ StaticMeshAsset::StaticMeshAsset(const string& assetName)
 
 StaticMeshAsset::~StaticMeshAsset() 
 {
-
+	for (auto& staticMeshPartsPerLOD : m_staticMeshPartsPerLOD)
+	{
+		delete staticMeshPartsPerLOD.second;
+	}
 }
 
 size_t StaticMeshAsset::GetLODCount()
@@ -41,11 +44,11 @@ size_t StaticMeshAsset::GetLODCount()
 	return m_staticMeshPartsPerLOD.size();
 }
 
-shared_ptr<MeshPartsData> StaticMeshAsset::GetMeshPartData(const uint32_t& lodLevel)
+MeshPartsData* StaticMeshAsset::GetMeshPartData(const uint32_t& lodLevel)
 {
 	if (m_staticMeshPartsPerLOD.find(lodLevel) == m_staticMeshPartsPerLOD.end())
 	{
-		m_staticMeshPartsPerLOD[lodLevel] = make_shared<StaticMeshPartData>();
+		m_staticMeshPartsPerLOD[lodLevel] = new StaticMeshPartData();
 	}
 	return m_staticMeshPartsPerLOD[lodLevel];
 }
@@ -58,7 +61,7 @@ void StaticMeshAsset::Serialize(FILE* fileIn) const
 	for (auto& staticMeshPart : m_staticMeshPartsPerLOD)
 	{
 		const uint32_t& lodLevel = staticMeshPart.first;
-		const shared_ptr<StaticMeshPartData>& meshPartData = staticMeshPart.second;
+		const StaticMeshPartData* const meshPartData = staticMeshPart.second;
 
 		SerializeHelper::SerializeElement(lodLevel, fileIn);
 		meshPartData->Serialize(fileIn);
@@ -73,7 +76,7 @@ void StaticMeshAsset::Deserialize(FILE* fileIn)
 	for (size_t idx = 0; idx < containerSize; ++idx)
 	{
 		const uint32_t lodLevel = DeserializeHelper::DeserializeElement<uint32_t>(fileIn);
-		shared_ptr<StaticMeshPartData> staticMeshPartData = make_shared<StaticMeshPartData>();
+		StaticMeshPartData* staticMeshPartData = new StaticMeshPartData();
 		staticMeshPartData->Deserialize(fileIn);
 		m_staticMeshPartsPerLOD.emplace(lodLevel, staticMeshPartData);
 	}

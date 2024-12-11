@@ -34,7 +34,7 @@ void ModelMaterialAsset::SetModelMaterialTexture(
 
 void ModelMaterialAsset::SetModelMaterialTexture(
 	EModelMaterialTexture modelMaterialTextureType, 
-	shared_ptr<BaseTextureAsset> baseTextureAsset
+	BaseTextureAsset* const baseTextureAsset
 )
 {
 	const size_t& materialTextureIdx = static_cast<size_t>(modelMaterialTextureType);
