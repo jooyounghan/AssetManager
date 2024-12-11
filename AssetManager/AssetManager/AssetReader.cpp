@@ -90,48 +90,48 @@ void AssetReader::UpdatePreloadArgs()
 	}
 }
 
-unordered_map<EAssetType, vector<shared_ptr<AAsset>>> AssetReader::GetLoadedAsset() const
+unordered_map<EAssetType, vector<AAsset*>> AssetReader::GetLoadedAsset() const
 {
-	function<shared_ptr<AAsset>()> assetMaker;
-	unordered_map<EAssetType, vector<shared_ptr<AAsset>>> loadedAssets;
+	function<AAsset*()> assetMaker;
+	unordered_map<EAssetType, vector<AAsset*>> loadedAssets;
 
 	vector<EAssetType> loadPriorities = m_topologySorter.GetTopologySort();
 	for (const EAssetType& loadPriority : loadPriorities)
 	{
 		if (m_assetTypeToPreloadArgs.find(loadPriority) != m_assetTypeToPreloadArgs.end())
 		{
-			vector<shared_ptr<AAsset>> loadedAssetsPerType;
+			vector<AAsset*> loadedAssetsPerType;
 
 			const vector<SAssetPreloadArgs>& preloadArgs = m_assetTypeToPreloadArgs.at(loadPriority);
 
 			switch (loadPriority)
 			{
 			case EAssetType::ASSET_TYPE_STATIC:
-				assetMaker = [&] { return make_shared<StaticMeshAsset>(); };
+				assetMaker = [&] { return new StaticMeshAsset(); };
 				break;
 			case EAssetType::ASSET_TYPE_SKELETAL:
-				assetMaker = [&] { return make_shared<SkeletalMeshAsset>(); };
+				assetMaker = [&] { return new SkeletalMeshAsset(); };
 				break;
 			case EAssetType::ASSET_TYPE_BONE:
-				assetMaker = [&] { return make_shared<BoneAsset>(); };
+				assetMaker = [&] { return new BoneAsset(); };
 				break;
 			case EAssetType::ASSET_TYPE_ANIMATION:
-				assetMaker = [&] { return make_shared<AnimationAsset>(); };
+				assetMaker = [&] { return new AnimationAsset(); };
 				break;
 			case EAssetType::ASSET_TYPE_BASE_TEXTURE:
-				assetMaker = [&] { return make_shared<BaseTextureAsset>(); };
+				assetMaker = [&] { return new BaseTextureAsset(); };
 				break;
 			case EAssetType::ASSET_TYPE_SCRATCH_TEXTURE:
-				assetMaker = [&] { return make_shared<ScratchTextureAsset>(); };
+				assetMaker = [&] { return new ScratchTextureAsset(); };
 				break;
 			case EAssetType::ASSET_TYPE_MODEL_MATERIAL:
-				assetMaker = [&] { return make_shared<ModelMaterialAsset>(); };
+				assetMaker = [&] { return new ModelMaterialAsset(); };
 				break;
 			case EAssetType::ASSET_TYPE_IBL_MATERIAL:
-				assetMaker = [&] { return make_shared<IBLMaterialAsset>(); };
+				assetMaker = [&] { return new IBLMaterialAsset(); };
 				break;
 			case EAssetType::ASSET_TYPE_MAP:
-				assetMaker = [&] { return make_shared<MapAsset>(); };
+				assetMaker = [&] { return new MapAsset(); };
 				break;
 			}
 
@@ -144,7 +144,7 @@ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> AssetReader::GetLoadedAsse
 				fopen_s(&fileIn, assetPath.c_str(), "rb");
 				if (fileIn != nullptr)
 				{
-					shared_ptr<AAsset> asset = assetMaker();
+					AAsset* asset = assetMaker();
 					loadedAssetsPerType.push_back(asset);
 
 					fseek(fileIn, lastReadPoint, SEEK_SET);

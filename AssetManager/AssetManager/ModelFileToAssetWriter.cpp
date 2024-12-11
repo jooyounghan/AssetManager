@@ -31,10 +31,10 @@ ModelFileToAssetWriter::~ModelFileToAssetWriter()
 {
 }
 
-unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::SaveAsAssets(const string& filePath)
+unordered_map<EAssetType, vector<AAsset*>> ModelFileToAssetWriter::SaveAsAssets(const string& filePath)
 {
-    unordered_map<EAssetType, vector<shared_ptr<AAsset>>> result;
-    vector<unordered_map<EAssetType, vector<shared_ptr<AAsset>>>> writtenAssetsSet;
+    unordered_map<EAssetType, vector<AAsset*>> result;
+    vector<unordered_map<EAssetType, vector<AAsset*>>> writtenAssetsSet;
 
     const string& fileName = path(filePath).stem().string();
     const string& extension = path(filePath).extension().string();
@@ -71,7 +71,7 @@ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::Sa
         for (auto& writtenAsset : writtenAssets)
         {
             const EAssetType& assetType = writtenAsset.first;
-            const vector<shared_ptr<AAsset>>& assets = writtenAsset.second;
+            const vector<AAsset*>& assets = writtenAsset.second;
 
             SaveAssets(assetType, assets);
 
@@ -82,67 +82,67 @@ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::Sa
     return result;
 }
 
-bool ModelFileToAssetWriter::IsAcceptableFilePath(const string& filePath)
+bool ModelFileToAssetWriter::IsAcceptableFilePath(const string& filePath) const
 {
     const string& extension = path(filePath).extension().string();
     return (find(ModelFileExtensions.begin(), ModelFileExtensions.end(), extension) != ModelFileExtensions.end());
 }
 
-unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::LoadTexturesAndMaterials(const aiScene* const scene)
+unordered_map<EAssetType, vector<AAsset*>> ModelFileToAssetWriter::LoadTexturesAndMaterials(const aiScene* const scene) const
 {
-    unordered_map<EAssetType, vector<shared_ptr<AAsset>>> result;
+    unordered_map<EAssetType, vector<AAsset*>> result;
 
     for (size_t material_idx = 0; material_idx < scene->mNumMaterials; ++material_idx)
     {
         aiMaterial* material = scene->mMaterials[material_idx];
 
-        shared_ptr<ModelMaterialAsset> modelMaterialAsset = make_shared<ModelMaterialAsset>(material->GetName().C_Str());
+        ModelMaterialAsset* modelMaterialAsset = new ModelMaterialAsset(material->GetName().C_Str());
 
         if (material->GetTextureCount(aiTextureType_AMBIENT_OCCLUSION) > 0)
         {
-            shared_ptr<BaseTextureAsset> ambientOcculusion = LoadBaseTextureFromMaterial(scene, material, aiTextureType_AMBIENT_OCCLUSION);
+            BaseTextureAsset* ambientOcculusion = LoadBaseTextureFromMaterial(scene, material, aiTextureType_AMBIENT_OCCLUSION);
             modelMaterialAsset->SetModelMaterialTexture(EModelMaterialTexture::MODEL_MATERIAL_TEXTURE_AMBIENTOCCULUSION, ambientOcculusion);
             result[EAssetType::ASSET_TYPE_BASE_TEXTURE].emplace_back(ambientOcculusion);
         }
         if (material->GetTextureCount(aiTextureType_SPECULAR) > 0)
         {
-            shared_ptr<BaseTextureAsset> specular = LoadBaseTextureFromMaterial(scene, material, aiTextureType_SPECULAR);
+            BaseTextureAsset* specular = LoadBaseTextureFromMaterial(scene, material, aiTextureType_SPECULAR);
             modelMaterialAsset->SetModelMaterialTexture(EModelMaterialTexture::MODEL_MATERIAL_TEXTURE_SPECULAR, specular);
             result[EAssetType::ASSET_TYPE_BASE_TEXTURE].emplace_back(specular);
         }
         if (material->GetTextureCount(aiTextureType_DIFFUSE) > 0)
         {
-            shared_ptr<BaseTextureAsset> diffuse = LoadBaseTextureFromMaterial(scene, material, aiTextureType_DIFFUSE);
+            BaseTextureAsset* diffuse = LoadBaseTextureFromMaterial(scene, material, aiTextureType_DIFFUSE);
             modelMaterialAsset->SetModelMaterialTexture(EModelMaterialTexture::MODEL_MATERIAL_TEXTURE_DIFFUSE, diffuse);
             result[EAssetType::ASSET_TYPE_BASE_TEXTURE].emplace_back(diffuse);
         }
         if (material->GetTextureCount(aiTextureType_DIFFUSE_ROUGHNESS) > 0)
         {
-            shared_ptr<BaseTextureAsset> roughness = LoadBaseTextureFromMaterial(scene, material, aiTextureType_DIFFUSE_ROUGHNESS);
+            BaseTextureAsset* roughness = LoadBaseTextureFromMaterial(scene, material, aiTextureType_DIFFUSE_ROUGHNESS);
             modelMaterialAsset->SetModelMaterialTexture(EModelMaterialTexture::MODEL_MATERIAL_TEXTURE_ROUGHNESS, roughness);
             result[EAssetType::ASSET_TYPE_BASE_TEXTURE].emplace_back(roughness);
         }
         if (material->GetTextureCount(aiTextureType_METALNESS) > 0)
         {
-            shared_ptr<BaseTextureAsset> metalness = LoadBaseTextureFromMaterial(scene, material, aiTextureType_METALNESS);
+            BaseTextureAsset* metalness = LoadBaseTextureFromMaterial(scene, material, aiTextureType_METALNESS);
             modelMaterialAsset->SetModelMaterialTexture(EModelMaterialTexture::MODEL_MATERIAL_TEXTURE_METALIC, metalness);
             result[EAssetType::ASSET_TYPE_BASE_TEXTURE].emplace_back(metalness);
         }
         if (material->GetTextureCount(aiTextureType_NORMALS) > 0)
         {
-            shared_ptr<BaseTextureAsset> normal = LoadBaseTextureFromMaterial(scene, material, aiTextureType_NORMALS);
+            BaseTextureAsset* normal = LoadBaseTextureFromMaterial(scene, material, aiTextureType_NORMALS);
             modelMaterialAsset->SetModelMaterialTexture(EModelMaterialTexture::MODEL_MATERIAL_TEXTURE_NORMAL, normal);
             result[EAssetType::ASSET_TYPE_BASE_TEXTURE].emplace_back(normal);
         }
         if (material->GetTextureCount(aiTextureType_HEIGHT) > 0)
         {
-            shared_ptr<BaseTextureAsset> height = LoadBaseTextureFromMaterial(scene, material, aiTextureType_HEIGHT);
+            BaseTextureAsset* height = LoadBaseTextureFromMaterial(scene, material, aiTextureType_HEIGHT);
             modelMaterialAsset->SetModelMaterialTexture(EModelMaterialTexture::MODEL_MATERIAL_TEXTURE_HEIGHT, height);
             result[EAssetType::ASSET_TYPE_BASE_TEXTURE].emplace_back(height);
         }
         if (material->GetTextureCount(aiTextureType_EMISSIVE) > 0)
         {
-            shared_ptr<BaseTextureAsset> emissive = LoadBaseTextureFromMaterial(scene, material, aiTextureType_EMISSIVE);
+            BaseTextureAsset* emissive = LoadBaseTextureFromMaterial(scene, material, aiTextureType_EMISSIVE);
             modelMaterialAsset->SetModelMaterialTexture(EModelMaterialTexture::MODEL_MATERIAL_TEXTURE_EMISSIVE, emissive);
             result[EAssetType::ASSET_TYPE_BASE_TEXTURE].emplace_back(emissive);
         }
@@ -152,9 +152,9 @@ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::Lo
     return result;
 }
 
-shared_ptr<BaseTextureAsset> ModelFileToAssetWriter::LoadBaseTextureFromMaterial(const aiScene* const scene, aiMaterial* material, aiTextureType textureType)
+BaseTextureAsset* ModelFileToAssetWriter::LoadBaseTextureFromMaterial(const aiScene* const scene, aiMaterial* material, aiTextureType textureType) const
 {
-    shared_ptr<BaseTextureAsset> asset;
+    BaseTextureAsset* asset = nullptr;
     aiString aiTexturePath;
     if (material->GetTexture(textureType, 0, &aiTexturePath) == aiReturn_SUCCESS)
     {
@@ -168,7 +168,7 @@ shared_ptr<BaseTextureAsset> ModelFileToAssetWriter::LoadBaseTextureFromMaterial
             stbi_uc* imageBuffer = stbi_load_from_memory((const stbi_uc*)texture->pcData, texture->mWidth, &widthOut, &heightOut, &channelOut, 4);
             if (imageBuffer != nullptr)
             {
-                asset = make_shared<BaseTextureAsset>(textureName, widthOut, heightOut, imageBuffer);
+                asset = new BaseTextureAsset(textureName, widthOut, heightOut, imageBuffer);
                 stbi_image_free(imageBuffer);
             }
         }
@@ -176,23 +176,23 @@ shared_ptr<BaseTextureAsset> ModelFileToAssetWriter::LoadBaseTextureFromMaterial
     return asset;
 }
 
-unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::LoadMeshesAndBones(
+unordered_map<EAssetType, vector<AAsset*>> ModelFileToAssetWriter::LoadMeshesAndBones(
     const aiScene* const scene,
     const string& fileName,
     const bool& isGltf
 )
 {
-    unordered_map<EAssetType, vector<shared_ptr<AAsset>>> result;
+    unordered_map<EAssetType, vector<AAsset*>> result;
 
     XMMATRIX rootTransform = DirectX::XMMatrixIdentity();
     aiNode* rootNode = scene->mRootNode;
 
     if (HasBones(scene))
     {
-        shared_ptr<SkeletalMeshAsset> skeletalMeshAsset = make_shared<SkeletalMeshAsset>(fileName + "_Skeletal");
+        SkeletalMeshAsset* skeletalMeshAsset = new SkeletalMeshAsset(fileName + "_Skeletal");
         result[EAssetType::ASSET_TYPE_SKELETAL].emplace_back(skeletalMeshAsset);
 
-        shared_ptr<BoneAsset> boneAsset = make_shared<BoneAsset>(fileName + "_Bone");
+        BoneAsset* boneAsset = new BoneAsset(fileName + "_Bone");
         result[EAssetType::ASSET_TYPE_BONE].emplace_back(boneAsset);
         skeletalMeshAsset->SetBoneAsset(boneAsset);
         
@@ -201,7 +201,7 @@ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::Lo
     }
     else
     {
-        shared_ptr<StaticMeshAsset> staticMeshAsset = make_shared<StaticMeshAsset>(fileName + "_Static");
+        StaticMeshAsset* staticMeshAsset = new StaticMeshAsset(fileName + "_Static");
         result[EAssetType::ASSET_TYPE_STATIC].emplace_back(staticMeshAsset);
 
         LoadMeshes(scene, staticMeshAsset, m_staticMeshAssetWriter, isGltf);
@@ -225,10 +225,10 @@ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::Lo
 
  void ModelFileToAssetWriter::LoadBones(
      const aiScene* const scene, 
-     const shared_ptr<BoneAsset>& boneAsset
- )
+     BoneAsset* const boneAsset
+ ) const
  {
-     unordered_map<string, shared_ptr<Bone>> nodeNameToBone;
+     unordered_map<string, Bone*> nodeNameToBone;
 
      for (uint32_t meshIdx = 0; meshIdx < scene->mNumMeshes; ++meshIdx)
      {
@@ -237,7 +237,7 @@ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::Lo
          {
              for (uint32_t boneIdx = 0; boneIdx < currentMesh->mNumBones; ++boneIdx)
              {
-                 shared_ptr<Bone> bone = make_shared<Bone>();
+                 Bone* bone = new Bone();
 
                  XMFLOAT4X4 offsetMatrix;
                  aiBone* currentBone = currentMesh->mBones[boneIdx];
@@ -253,14 +253,14 @@ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::Lo
          }
      }
 
-     function<void(shared_ptr<Bone>, aiNode*)> dfs = [&](shared_ptr<Bone> parentBone, aiNode* node) {
+     function<void(Bone*, aiNode*)> dfs = [&](Bone* parentBone, aiNode* node) {
 
-         shared_ptr<Bone> newParentBone = parentBone;
+         Bone* newParentBone = parentBone;
 
          const string& nodeName = node->mName.C_Str();
          if (nodeNameToBone.find(nodeName) != nodeNameToBone.end())
          {
-             shared_ptr<Bone> currentBone = nodeNameToBone[nodeName];
+             Bone* currentBone = nodeNameToBone[nodeName];
              if (parentBone != nullptr)
              {
                  parentBone->AddChildBone(currentBone);
@@ -285,13 +285,13 @@ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::Lo
 
  void ModelFileToAssetWriter::LoadMeshes(
      const aiScene* const scene, 
-     const shared_ptr<AMeshAsset>& meshAsset,
+     AMeshAsset* const meshAsset,
      MeshAssetWriter& meshAssetWriter,
      const bool& isGltf
- )
+ ) const
  {
-     function<void(shared_ptr<AMeshAsset>, aiNode*, const XMMATRIX& tranformation)> dfs =
-         [&](shared_ptr<AMeshAsset> meshAsset, aiNode* node, const XMMATRIX& tranformation)
+     function<void(AMeshAsset* const, aiNode*, const XMMATRIX& tranformation)> dfs =
+         [&](AMeshAsset* const meshAsset, aiNode* node, const XMMATRIX& tranformation)
          {
              XMMATRIX currentTransformation(&node->mTransformation.a1);
 
@@ -303,7 +303,7 @@ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::Lo
                  const string& meshName = mesh->mName.C_Str();
 
                  const uint32_t lodLevel = GetLODLevelFromMeshName(meshName);
-                 shared_ptr<MeshPartsData> meshPartsData = meshAsset->GetMeshPartData(lodLevel);
+                 MeshPartsData* meshPartsData = meshAsset->GetMeshPartData(lodLevel);
                  meshAssetWriter.LoadMeshPartData(meshPartsData, isGltf, mesh, currentTransformation);
              }
 
@@ -316,7 +316,7 @@ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::Lo
      dfs(meshAsset, scene->mRootNode, XMMatrixIdentity());
  }
 
- inline uint32_t ModelFileToAssetWriter::GetLODLevelFromMeshName(const string& meshName)
+ inline uint32_t ModelFileToAssetWriter::GetLODLevelFromMeshName(const string& meshName) const
  {
      uint32_t lodlevel = 0;
      regex lodMeshNamePattern("\\.(\\d+)");
@@ -331,16 +331,16 @@ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::Lo
      return lodlevel;
  }
 
- unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ModelFileToAssetWriter::LoadAnimations(
+ unordered_map<EAssetType, vector<AAsset*>> ModelFileToAssetWriter::LoadAnimations(
      const aiScene* const scene,
      const string& fileName
  )
  {
-     unordered_map<EAssetType, vector<shared_ptr<AAsset>>> result;
+     unordered_map<EAssetType, vector<AAsset*>> result;
 
      for (uint32_t animationIdx = 0; animationIdx < scene->mNumAnimations; ++animationIdx)
      {
-         shared_ptr<AnimationAsset> animationAsset;
+         AnimationAsset* animationAsset;
          result[EAssetType::ASSET_TYPE_ANIMATION].emplace_back(animationAsset);
          
          aiAnimation* animation = scene->mAnimations[animationIdx];

@@ -6,14 +6,15 @@ using namespace std;
 using namespace DirectX;
 
 void SkeletalMeshAssetWriter::LoadMeshPartData(
-	shared_ptr<MeshPartsData> meshPartData, 
+	MeshPartsData* meshPartData, 
 	const bool& isGltf, 
     const aiMesh* const mesh,
 	const XMMATRIX& transformation
 )
 {
 	StaticMeshAssetWriter::LoadMeshPartData(meshPartData, isGltf, mesh, transformation);
-	shared_ptr<SkeletalMeshPartData> skeletalMeshPartData = dynamic_pointer_cast<SkeletalMeshPartData>(meshPartData);
+	SkeletalMeshPartData* skeletalMeshPartData = dynamic_cast<SkeletalMeshPartData*>(meshPartData);
+
 	if (skeletalMeshPartData != nullptr)
 	{
         const vector<uint32_t> offsets = skeletalMeshPartData->GetVertexOffsets();

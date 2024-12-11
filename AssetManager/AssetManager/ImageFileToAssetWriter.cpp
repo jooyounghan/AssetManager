@@ -28,28 +28,28 @@ ImageFileToAssetWriter::~ImageFileToAssetWriter()
 {
 }
 
-unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ImageFileToAssetWriter::SaveAsAssets(const string& filePath)
+unordered_map<EAssetType, vector<AAsset*>> ImageFileToAssetWriter::SaveAsAssets(const string& filePath)
 {
-	unordered_map<EAssetType, vector<shared_ptr<AAsset>>> writtenAssets;
+	unordered_map<EAssetType, vector<AAsset*>> writtenAssets;
 
 	const string& fileName = path(filePath).stem().string();
 	const string& extension = path(filePath).extension().string();
 	
 	if (extension == PngExtension || extension == JpegExtension)
 	{
-		shared_ptr<AAsset> baseTextureAsset = LoadBaseTexureAsset(filePath, fileName);
+		AAsset* baseTextureAsset = LoadBaseTexureAsset(filePath, fileName);
 		writtenAssets[EAssetType::ASSET_TYPE_BASE_TEXTURE].emplace_back(baseTextureAsset);
 	}
 	else if (extension == ExrExtension)
 	{
-		shared_ptr<AAsset> scratchTextureAsset = LoadScratchTexureByEXRAsset(filePath, fileName);
+		AAsset* scratchTextureAsset = LoadScratchTexureByEXRAsset(filePath, fileName);
 		writtenAssets[EAssetType::ASSET_TYPE_BASE_TEXTURE].emplace_back(scratchTextureAsset);
 
 
 	}
 	else if (extension == HdrExtension)
 	{
-		shared_ptr<AAsset> scratchTextureAsset = LoadScratchTexureByHDRAsset(filePath, fileName);
+		AAsset* scratchTextureAsset = LoadScratchTexureByHDRAsset(filePath, fileName);
 		writtenAssets[EAssetType::ASSET_TYPE_SCRATCH_TEXTURE].emplace_back(scratchTextureAsset);
 	}
 	else
@@ -60,25 +60,25 @@ unordered_map<EAssetType, vector<shared_ptr<AAsset>>> ImageFileToAssetWriter::Sa
 	for (auto& writtenAsset : writtenAssets)
 	{
 		const EAssetType& assetType = writtenAsset.first;
-		const vector<shared_ptr<AAsset>>& assets = writtenAsset.second;
+		const vector<AAsset*>& assets = writtenAsset.second;
 
 		SaveAssets(assetType, assets);
 	}
 	return writtenAssets;
 }
 
-bool ImageFileToAssetWriter::IsAcceptableFilePath(const string& filePath)
+bool ImageFileToAssetWriter::IsAcceptableFilePath(const string& filePath) const
 {
 	const string& extension = path(filePath).extension().string();
 	return (find(ImageFileExtensions.begin(), ImageFileExtensions.end(), extension) != ImageFileExtensions.end());
 }
 
-shared_ptr<AAsset> ImageFileToAssetWriter::LoadBaseTexureAsset(const string& filePath, const string& fileName)
+AAsset* ImageFileToAssetWriter::LoadBaseTexureAsset(const string& filePath, const string& fileName) const
 {
 	FILE* fileHandle;
 	fopen_s(&fileHandle, filePath.c_str(), "rb");
 
-	shared_ptr<BaseTextureAsset> result;
+	BaseTextureAsset* result = nullptr;
 
 	if (fileHandle != nullptr)
 	{
@@ -88,7 +88,7 @@ shared_ptr<AAsset> ImageFileToAssetWriter::LoadBaseTexureAsset(const string& fil
 
 		if (imageBuffer != nullptr)
 		{
-			result = make_shared<BaseTextureAsset>(fileName, widthOut, heightOut, imageBuffer);
+			result = new BaseTextureAsset(fileName, widthOut, heightOut, imageBuffer);
 		}
 		fclose(fileHandle);
 
@@ -100,33 +100,33 @@ shared_ptr<AAsset> ImageFileToAssetWriter::LoadBaseTexureAsset(const string& fil
 	return result;
 }
 
-shared_ptr<AAsset> ImageFileToAssetWriter::LoadScratchTexureByEXRAsset(const string& filePath, const string& fileName)
+AAsset* ImageFileToAssetWriter::LoadScratchTexureByEXRAsset(const string& filePath, const string& fileName) const
 {
 	ScratchImage scratch;
 	TexMetadata metaData;
 	HRESULT hResult = LoadFromEXRFile(StringHelper::ConvertACPToWString(filePath).c_str(), &metaData, scratch);
 
-	shared_ptr<ScratchTextureAsset> result;
+	ScratchTextureAsset* result = nullptr;
 
 	if (!FAILED(hResult))
 	{
-		result = make_shared<ScratchTextureAsset>(fileName, scratch, metaData);
+		result = new ScratchTextureAsset(fileName, scratch, metaData);
 	}
 
 	return result;
 }
 
-shared_ptr<AAsset> ImageFileToAssetWriter::LoadScratchTexureByHDRAsset(const string& filePath, const string& fileName)
+AAsset* ImageFileToAssetWriter::LoadScratchTexureByHDRAsset(const string& filePath, const string& fileName) const
 {
 	ScratchImage scratch;
 	TexMetadata metaData;
 	HRESULT hResult = LoadFromDDSFile(StringHelper::ConvertACPToWString(filePath).c_str(), DDS_FLAGS_NONE, &metaData, scratch);
 
-	shared_ptr<ScratchTextureAsset> result;
+	ScratchTextureAsset* result = nullptr;
 
 	if (!FAILED(hResult))
 	{
-		result = make_shared<ScratchTextureAsset>(fileName, scratch, metaData);
+		result = new ScratchTextureAsset(fileName, scratch, metaData);
 	}
 	return result;
 }

@@ -15,11 +15,11 @@ public:
 	~AnimationRetargeter();
 
 protected:
-	BoneAsset* m_sourceBoneAsset;
-	BoneAsset* m_destBoneAsset;
+	BoneAsset* m_sourceBoneAsset = nullptr;
+	BoneAsset* m_destBoneAsset = nullptr;
 
 protected:
-	AnimationAsset* m_sourceAnimationAsset;
+	AnimationAsset* m_sourceAnimationAsset = nullptr;
 
 protected:
 	std::unordered_map<Bone*, Bone*> m_boneTargetings;

@@ -40,5 +40,5 @@ public:
 class IResourceProvider
 {
 public:
-    virtual BaseTextureAsset GetResourceAsset(const std::string& assetName) = 0;
+    virtual BaseTextureAsset* const GetResourceAsset(const std::string& assetName) = 0;
 };

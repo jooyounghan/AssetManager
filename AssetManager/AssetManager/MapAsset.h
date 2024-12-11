@@ -14,7 +14,7 @@ public:
 
 protected:
 	std::string m_iblMaterialName;
-	IBLMaterialAsset* m_iblMaterial;
+	IBLMaterialAsset* m_iblMaterial = nullptr;
 
 protected:
 	std::unordered_map<std::string, StaticMeshAsset*> m_assetNameToAssets;
@@ -48,7 +48,7 @@ public:
 class IMapProvider
 {
 public:
-	virtual MapAsset* GetMapAsset(
+	virtual MapAsset* const GetMapAsset(
 		const std::string& assetName
 	) = 0;
 };

@@ -12,12 +12,12 @@ AAssetWriter::~AAssetWriter()
 {
 }
 
-void AAssetWriter::SaveAssets(const EAssetType& assetType, vector<shared_ptr<AAsset>> assets)
+void AAssetWriter::SaveAssets(const EAssetType& assetType, const vector<AAsset*>& assets) const
 {
     AssetWrapper assetWrapper;
     assetWrapper.SetAssetType(assetType);
 
-    for (const shared_ptr<AAsset>& asset : assets)
+    for (const AAsset* const asset : assets)
     {
         FILE* fileIn = nullptr;
         const string assetPathStr = m_assetSavePath + asset->GetAssetName() + AAsset::AssetExtension;

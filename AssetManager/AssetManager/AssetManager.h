@@ -23,11 +23,11 @@ public:
 
 protected:
 	std::vector<AssetReader> m_assetReaders;
-	std::vector<std::shared_ptr<AAssetWriter>> m_assetWriters;
+	std::vector<AAssetWriter*> m_assetWriters;
 	ResourceManager m_resourceManager;
 
 protected:
-	std::unordered_map<EAssetType, std::unordered_map<std::string, std::shared_ptr<AAsset>>> m_assetNameToAssets;
+	std::unordered_map<EAssetType, std::unordered_map<std::string, AAsset*>> m_assetNameToAssets;
 	
 public:
 	void RegisterAssetReadPath(const std::string& readPath);
@@ -38,18 +38,18 @@ public:
 	void WrtieFileAsAsset(const std::string filePath);
 
 public:
-	virtual std::shared_ptr<BaseTextureAsset> GetBaseTextureAsset(const std::string& assetName) override;
-	virtual std::shared_ptr<ScratchTextureAsset> GetScratchTextureAsset(const std::string& assetName) override;
-	virtual std::shared_ptr<StaticMeshAsset> GetStaticMeshAsset(const std::string& assetName) override;
-	virtual std::shared_ptr<SkeletalMeshAsset> GetSkeletalMeshAsset(const std::string& assetName) override;
-	virtual std::shared_ptr<ModelMaterialAsset> GetModelMaterialAsset(const std::string& assetName) override;
-	virtual std::shared_ptr<IBLMaterialAsset> GetIBLMaterialAsset(const std::string& assetName) override;
-	virtual std::shared_ptr<BoneAsset> GetBoneAsset(const std::string& assetName) override;
-	virtual std::shared_ptr<AnimationAsset> GetAnimationAsset(const std::string& assetName) override;
-	virtual std::shared_ptr<MapAsset> GetMapAsset(const std::string& assetName) override;
-	virtual std::shared_ptr<BaseTextureAsset> GetResourceAsset(const std::string& assetName) override;
+	virtual BaseTextureAsset* const GetBaseTextureAsset(const std::string& assetName) override;
+	virtual ScratchTextureAsset* const GetScratchTextureAsset(const std::string& assetName) override;
+	virtual StaticMeshAsset* const GetStaticMeshAsset(const std::string& assetName) override;
+	virtual SkeletalMeshAsset* const GetSkeletalMeshAsset(const std::string& assetName) override;
+	virtual ModelMaterialAsset* const GetModelMaterialAsset(const std::string& assetName) override;
+	virtual IBLMaterialAsset* const GetIBLMaterialAsset(const std::string& assetName) override;
+	virtual BoneAsset* const GetBoneAsset(const std::string& assetName) override;
+	virtual AnimationAsset* const GetAnimationAsset(const std::string& assetName) override;
+	virtual MapAsset* const GetMapAsset(const std::string& assetName) override;
+	virtual BaseTextureAsset* const GetResourceAsset(const std::string& assetName) override;
 
 private:
 	template<typename T>
-	std::shared_ptr<T> GetAssetHelper(const EAssetType& asssetType, const std::string& assetName);
+	T* const GetAssetHelper(const EAssetType& asssetType, const std::string& assetName);
 };

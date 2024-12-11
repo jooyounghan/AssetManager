@@ -27,6 +27,6 @@ public:
 	void UpdatePreloadArgs();
 
 public:
-	std::unordered_map<EAssetType, std::vector<std::shared_ptr<AAsset>>> GetLoadedAsset() const;
+	std::unordered_map<EAssetType, std::vector<AAsset*>> GetLoadedAsset() const;
 };
 

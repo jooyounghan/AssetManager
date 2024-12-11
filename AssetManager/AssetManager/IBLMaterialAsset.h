@@ -53,7 +53,7 @@ public:
 class IIBLMaterialProvider
 {
 public:
-	virtual IBLMaterialAsset* GetIBLMaterialAsset(
+	virtual IBLMaterialAsset* const GetIBLMaterialAsset(
 		const std::string& assetName
 	) = 0;
 };

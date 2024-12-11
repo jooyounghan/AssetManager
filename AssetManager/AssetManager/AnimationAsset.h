@@ -86,7 +86,7 @@ public:
 class IAnimationProvider
 {
 public:
-	virtual AnimationAsset* GetAnimationAsset(
+	virtual AnimationAsset* const GetAnimationAsset(
 		const std::string& assetName
 	) = 0;
 };

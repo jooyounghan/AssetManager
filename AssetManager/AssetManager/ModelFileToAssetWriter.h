@@ -30,38 +30,38 @@ private:
 	SkeletalMeshAssetWriter m_skeletalMehsAssetWriter;
 
 public:
-	virtual std::unordered_map<EAssetType, std::vector<std::shared_ptr<AAsset>>> SaveAsAssets(const std::string& filePath) override;
-	virtual bool IsAcceptableFilePath(const std::string& filePath) override;
+	virtual std::unordered_map<EAssetType, std::vector<AAsset*>> SaveAsAssets(const std::string& filePath) override;
+	virtual bool IsAcceptableFilePath(const std::string& filePath) const override;
 
 private:
-	std::unordered_map<EAssetType, std::vector<std::shared_ptr<AAsset>>> LoadTexturesAndMaterials(const aiScene* const scene);
-	std::shared_ptr<BaseTextureAsset> LoadBaseTextureFromMaterial(
+	std::unordered_map<EAssetType, std::vector<AAsset*>> LoadTexturesAndMaterials(const aiScene* const scene) const;
+	BaseTextureAsset* LoadBaseTextureFromMaterial(
 		const aiScene* const scene,
 		aiMaterial* material,
 		aiTextureType textureType
-	);
+	) const;
 		
 private:
-	std::unordered_map<EAssetType, std::vector<std::shared_ptr<AAsset>>> LoadMeshesAndBones(
+	std::unordered_map<EAssetType, std::vector<AAsset*>> LoadMeshesAndBones(
 		const aiScene* const scene, 
 		const std::string& fileName,
 		const bool& isGltf
-	);
+	) ;
 	bool HasBones(const aiScene* const scene);
 	void LoadBones(
 		const aiScene* const scene, 
-		const std::shared_ptr<BoneAsset>& boneAsset
-	);
+		BoneAsset* const boneAsset
+	) const;
 	void LoadMeshes(
 		const aiScene* const scene,
-		const std::shared_ptr<AMeshAsset>& meshAsset,
+		AMeshAsset* const meshAsset,
 		MeshAssetWriter& meshAssetWriter,
 		const bool& isGltf
-	);
-	uint32_t GetLODLevelFromMeshName(const std::string&  meshName);
+	) const;
+	uint32_t GetLODLevelFromMeshName(const std::string&  meshName) const;
 
 private:
-	std::unordered_map<EAssetType, std::vector<std::shared_ptr<AAsset>>> LoadAnimations(
+	std::unordered_map<EAssetType, std::vector<AAsset*>> LoadAnimations(
 		const aiScene* const scene,
 		const std::string& fileName
 	);

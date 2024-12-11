@@ -62,7 +62,7 @@ public:
 class IModelMaterialProvider
 {
 public:
-	virtual ModelMaterialAsset* GetModelMaterialAsset(
+	virtual ModelMaterialAsset* const GetModelMaterialAsset(
 		const std::string& assetName
 	) = 0;
 };

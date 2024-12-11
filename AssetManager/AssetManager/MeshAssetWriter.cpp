@@ -5,7 +5,7 @@ using namespace std;
 using namespace DirectX;
 
 void MeshAssetWriter::LoadMeshPartData(
-	shared_ptr<MeshPartsData> meshPartData, 
+	MeshPartsData* meshPartData, 
 	const bool& isGltf,
 	const aiMesh* const mesh, 
 	const XMMATRIX& transformation

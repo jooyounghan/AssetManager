@@ -107,7 +107,7 @@ void AnimationRetargeter::GenerateBoneTargetings()
 		const map<Bone*, string>& sourceBoneToNames = m_sourceBoneAsset->GetBoneToNames();
 		const map<Bone*, string>& destBoneToNames = m_destBoneAsset->GetBoneToNames();
 
-		unordered_map<string, shared_ptr<Bone>> sourceNameToBones;
+		unordered_map<string, Bone*> sourceNameToBones;
 		for (auto& sourceBoneToName : sourceBoneToNames)
 		{
 			sourceNameToBones.emplace(sourceBoneToName.second, sourceBoneToName.first);
@@ -137,11 +137,11 @@ void AnimationRetargeter::ReplaceTargetedSourceBone(Bone* const destBone, Bone* 
 
 bool AnimationRetargeter::IsSameProfile(const BoneAsset* const boneAssetIn, const AnimationAsset* const animationAssetIn)
 {
-	if (boneAssetIn != nullptr)
+	if (boneAssetIn == nullptr)
 	{
 		return false;
 	}
-	if (animationAssetIn != nullptr)
+	if (animationAssetIn == nullptr)
 	{
 		return false;
 	}

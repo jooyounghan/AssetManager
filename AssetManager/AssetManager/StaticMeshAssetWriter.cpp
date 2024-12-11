@@ -7,13 +7,13 @@ using namespace std;
 using namespace DirectX;
 
 void StaticMeshAssetWriter::LoadMeshPartData(
-	shared_ptr<MeshPartsData> meshPartData, 
+	MeshPartsData* meshPartData, 
 	const bool& isGltf, 
 	const aiMesh* const mesh,
 	const XMMATRIX& transformation)
 {
 	MeshAssetWriter::LoadMeshPartData(meshPartData, isGltf, mesh, transformation);
-	shared_ptr<StaticMeshPartData> staticMeshPartData = dynamic_pointer_cast<StaticMeshPartData>(meshPartData);
+	StaticMeshPartData* staticMeshPartData = dynamic_cast<StaticMeshPartData*>(meshPartData);
 	if (staticMeshPartData != nullptr)
 	{
 		if (mesh->HasTangentsAndBitangents())

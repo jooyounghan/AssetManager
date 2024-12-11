@@ -35,7 +35,7 @@ protected:
 
 protected:
 	std::string m_boneAssetName;
-	const BoneAsset* m_boneAsset;
+	const BoneAsset* m_boneAsset = nullptr;
 
 public:
 	void SetBoneAsset(const BoneAsset* const boneAsset);
