@@ -1,5 +1,5 @@
 #pragma once
-#include "DirectXMath/DirectXMath.h"
+#include <DirectXMath.h>
 
 class MathematicalHelper
 {

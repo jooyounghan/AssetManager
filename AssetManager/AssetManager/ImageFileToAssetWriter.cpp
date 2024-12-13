@@ -5,7 +5,7 @@
 #include "BaseTextureAsset.h"
 #include "ScratchTextureAsset.h"
 
-#include "DirectXTex/DirectXTexEXR.h"
+#include "DirectXTexEXR.h"
 
 #include <filesystem>
 

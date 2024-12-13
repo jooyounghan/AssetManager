@@ -9,15 +9,15 @@
 // 여기에 미리 컴파일하려는 헤더 추가
 #include "framework.h"
 
-#include "zlib/zlib.h"
+#include "zlib.h"
 
-#include "DirectXMath/DirectXMath.h"
-#include "DirectXTex/DirectXTex.h"
+#include <DirectXMath.h>
+#include "DirectXTex.h"
 
 #include "assimp/Importer.hpp"
 #include "assimp/postprocess.h"
 #include "assimp/scene.h"
 
-#include "stb/stb_image.h"
-#include "stb/stb_image_write.h"
+#include "stb_image.h"
+#include "stb_image_write.h"
 #endif //PCH_H

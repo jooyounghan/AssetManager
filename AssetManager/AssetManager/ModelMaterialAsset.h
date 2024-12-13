@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseTextureAsset.h"
-#include "DirectXMath/DirectXMath.h"
+#include <DirectXMath.h>
 
 enum class EModelMaterialTexture
 {

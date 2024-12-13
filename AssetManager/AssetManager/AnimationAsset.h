@@ -1,6 +1,6 @@
 #pragma once
 #include "Asset.h"
-#include "DirectXMath/DirectXMath.h"
+#include <DirectXMath.h>
 
 #include <functional>
 #include <unordered_map>
