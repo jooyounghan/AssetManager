@@ -28,7 +28,7 @@ BaseTextureAsset::~BaseTextureAsset()
 
 }
 
-std::vector<UINT> BaseTextureAsset::GetRowPitchArray()
+std::vector<uint32_t> BaseTextureAsset::GetRowPitchArray()
 {
 	return { m_width * 4 };
 }

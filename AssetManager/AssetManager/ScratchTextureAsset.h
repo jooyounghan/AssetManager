@@ -22,7 +22,7 @@ protected:
 	std::vector<UINT> m_rowPitchPerArray;
 
 public:
-	virtual std::vector<UINT> GetRowPitchArray() override;
+	virtual std::vector<uint32_t> GetRowPitchArray() override;
 
 public:
 	virtual void Serialize(FILE* fileIn) const override;

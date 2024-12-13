@@ -31,7 +31,7 @@ public:
 	std::vector<std::vector<uint8_t>> DecompressDataArray();
 
 public:
-	virtual std::vector<UINT> GetRowPitchArray() = 0;
+	virtual std::vector<uint32_t> GetRowPitchArray() = 0;
 
 public:
 	virtual void Serialize(FILE* fileIn) const override;

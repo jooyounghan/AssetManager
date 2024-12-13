@@ -137,6 +137,7 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(ProjectDir)Archive\lib\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc143-mtd.lib;DirectXTex.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
