@@ -18,6 +18,7 @@
 # Compiled Dynamic libraries
 *.so
 *.dylib
+*.dll
 
 # Fortran module files
 *.mod
@@ -27,6 +28,7 @@
 *.lai
 *.la
 *.a
+*.lib
 
 # Executables
 *.exe
@@ -77,6 +79,22 @@ $RECYCLE.BIN/
 
 # Mono auto generated files
 mono_crash.*
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -439,10 +457,3 @@ FodyWeavers.xsd
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,windows,c++
 DirectX12/Zombie.fbx
-AssetManager/AssetManager/x64/Debug/AssetManager.lib.recipe
-AssetManager/AssetManager/x64/Debug/AssetManager.vcxproj.FileListAbsolute.txt
-AssetManager/Tester/x64/Debug/Tester.exe.recipe
-AssetManager/Tester/x64/Debug/Tester.vcxproj.FileListAbsolute.txt
-AssetManager/Tester/x64/Debug/vc143.idb
-AssetManager/x64/Debug/AssetManager.idb
-AssetManager/x64/Debug/AssetManager.lib

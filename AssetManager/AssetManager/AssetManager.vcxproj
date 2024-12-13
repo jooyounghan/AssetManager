@@ -78,7 +78,7 @@
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
-    <VcpkgEnabled>false</VcpkgEnabled>
+    <VcpkgEnabled>true</VcpkgEnabled>
     <VcpkgManifestInstall>true</VcpkgManifestInstall>
     <VcpkgAutoLink>true</VcpkgAutoLink>
     <VcpkgApplocalDeps>true</VcpkgApplocalDeps>
@@ -131,7 +131,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Archive\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -139,7 +140,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(ProjectDir)Archive\lib\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
       <AdditionalDependencies>assimp-vc143-mtd.lib;DirectXTex.lib;zlibd.lib</AdditionalDependencies>
     </Lib>
     <ResourceCompile>
